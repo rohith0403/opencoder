@@ -11,6 +11,42 @@ module.exports = function(app) {
   });
 
   app.get("/api/test/all", controller.allAccess);
+  
+// admin
+  app.get(
+    "/api/test/admin",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.adminBoard
+  );
+
+  app.post(
+    "/api/test/users",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.create);
+  
+  app.get(
+    "/api/test/users",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.findAll);
+  
+  app.get(
+    "/api/test/users/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.findOne);
+  
+  app.put(
+    "/api/test/users/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.update);
+
+  app.delete(
+    "/api/test/users/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.delete);
+  
+
+
+
 
   app.get(
     "/api/test/student", 
@@ -23,9 +59,4 @@ module.exports = function(app) {
     controller.professorBoard
   );
 
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
 };

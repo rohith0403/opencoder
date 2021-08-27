@@ -11,7 +11,9 @@ import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardStudent from "./components/board-student.component";
 import BoardProfessor from "./components/board-professor.components";
-import BoardAdmin from "./components/board-admin.component";
+import AddUser from "./components/add-user.component";
+import User from "./components/user.component";
+import UsersList from "./components/user-list.component";
 
 class App extends Component {
   constructor(props) {
@@ -77,8 +79,16 @@ class App extends Component {
 
             {showAdminBoard && (
               <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
+                <Link to={"/adduser"} className="nav-link">
+                  Add User
+                </Link>
+              </li>
+            )}
+
+            {showAdminBoard && (
+              <li className="nav-item">
+                <Link to={"/users"} className="nav-link">
+                  Users
                 </Link>
               </li>
             )}
@@ -113,11 +123,11 @@ class App extends Component {
                 </Link>
               </li>
 
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to={"/register"} className="nav-link">
                   Sign Up
                 </Link>
-              </li>
+              </li> */}
             </div>
           )}
         </nav>
@@ -130,7 +140,9 @@ class App extends Component {
             <Route exact path="/profile" component={Profile} />
             <Route path="/student" component={BoardStudent} />
             <Route path="/prof" component={BoardProfessor} />
-            <Route path="/admin" component={BoardAdmin} />
+            <Route path="/adduser" component={AddUser} />
+            <Route path="/users" component={UsersList} />
+            <Route path="/users/:id" component={User} />
           </Switch>
         </div>
       </div>
