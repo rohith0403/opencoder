@@ -9,6 +9,7 @@ export default class AddUser extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeRole = this.onChangeRole.bind(this);
         this.saveUser = this.saveUser.bind(this);
         this.newUser = this.newUser.bind(this);
         this.state = {
@@ -16,6 +17,7 @@ export default class AddUser extends Component {
           username: "",
           email:"",
           password:"",
+          roles:"",
           submitted: false
       };
     }
@@ -23,7 +25,6 @@ export default class AddUser extends Component {
     onChangeUsername(e)
     {
         this.setState({username:e.target.value});
-        // console.log(e.target.value);
     }
     onChangeEmail(e)
     {
@@ -33,14 +34,20 @@ export default class AddUser extends Component {
     {
         this.setState({password:e.target.value});
     }
+    onChangeRole(e)
+    {
+        this.setState({roles:e.target.value});
+    }
 
     saveUser()
     {
         var data = {
             username : this.state.username,
             email : this.state.email,
-            password : this.state.password
+            password : this.state.password,
+            roles: this.state.roles,
         };
+        console.log(data);
         UserService.createUser(data)
         .then(response => {
             this.setState({
@@ -48,6 +55,7 @@ export default class AddUser extends Component {
               username: response.data.username,
               email: response.data.email,
               password: response.data.password,
+              roles:response.data.roles,
               submitted: true    
             });
             console.log(response.data);
@@ -56,7 +64,7 @@ export default class AddUser extends Component {
             console.log(e);
           });
     }
-  
+    
     newUser()
     {
         this.state = {
@@ -64,6 +72,7 @@ export default class AddUser extends Component {
             username: "",
             email:"",
             password:"",
+            roles:"",
             submitted: false
           };
     }
@@ -103,6 +112,42 @@ export default class AddUser extends Component {
                     onChange={this.onChangeEmail}
                     name="email"
                   />
+                </div>
+                
+                {/* <div className="dropdown" id="roleDropdown">
+                  <label htmlFor="dropdownMenuButton">Roles</label>
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    value={this.state.roles}
+                    onChange={this.onChangeRole}
+                    name="roles"
+                  >
+                    Roles
+                  </button>
+                  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a className="dropdown-item" href="#">admin</a>
+                    <a className="dropdown-item" href="#">guide</a>
+                    <a className="dropdown-item" href="#">user</a>
+                  </div>
+                </div> */}
+                
+                <div>
+                <select 
+                    id="roles"
+                    required
+                    value={this.state.roles} 
+                    onChange={this.onChangeRole} 
+                    name="roles"
+                >
+                  <option value="admin">Admin</option>
+                  <option value="student">Student</option>
+                  <option value="professor">Professor</option>
+                  </select>
                 </div>
 
                 <div className="form-group">
