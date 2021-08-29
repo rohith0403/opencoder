@@ -14,6 +14,7 @@ import BoardProfessor from "./components/board-professor.components";
 import AddUser from "./components/add-user.component";
 import User from "./components/user.component";
 import UsersList from "./components/user-list.component";
+import Editor from "./components/code-editor.component"
 
 class App extends Component {
   constructor(props) {
@@ -143,6 +144,7 @@ class App extends Component {
             <Route path="/adduser" component={AddUser} />
             <Route path="/users" component={UsersList} />
             <Route path="/users/:id" component={User} />
+            <Route path="/editor" component={Editor} />
           </Switch>
         </div>
       </div>
