@@ -1,6 +1,9 @@
 const db = require("../models");
 const User = db.user;
 
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
+
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.username) {
@@ -11,7 +14,7 @@ exports.create = (req, res) => {
   // Create a User
   const user = new User({
     username: req.body.username,
-    password: req.body.password,
+    password: bcrypt.hashSync(req.body.password, 8),
     email: req.body.email,
     // phone: req.body.phone,
   });
