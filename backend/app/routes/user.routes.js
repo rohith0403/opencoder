@@ -48,10 +48,10 @@ module.exports = function(app) {
 
 
 
-  app.get(
-    "/api/test/student", 
-    [authJwt.verifyToken,authJwt.isStudent], 
-    controller.studentBoard);
+  // app.get(
+  //   "/api/test/student", 
+  //   [authJwt.verifyToken,authJwt.isStudent], 
+  //   controller.studentBoard);
 
   app.get(
     "/api/test/prof",

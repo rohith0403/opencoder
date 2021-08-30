@@ -38,9 +38,9 @@ class UserService {
     return axios.get(API_URL + 'all');
   }
 
-  getStudentBoard() {
-    return axios.get(API_URL + 'student', { headers: authHeader() });
-  }
+  // getStudentBoard() {
+  //   return axios.get(API_URL + 'student', { headers: authHeader() });
+  // }
 
   getProfessorBoard() {
     return axios.get(API_URL + 'prof', { headers: authHeader() });

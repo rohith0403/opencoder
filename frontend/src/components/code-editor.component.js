@@ -55,8 +55,8 @@ export default class Editor extends Component{
     this.state = {
       value: defaultValue,
       fontSize: 14,
-      markers: {},
-      mode: "javascript"
+      markers: {}
+      // mode: "javascript"
     };
     this.onChange = this.onChange.bind(this);
     this.setMode = this.setMode.bind(this);

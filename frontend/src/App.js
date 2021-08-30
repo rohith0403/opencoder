@@ -72,8 +72,8 @@ class App extends Component {
 
             {showStudentBoard && (
               <li className="nav-item">
-                <Link to={"/student"} className="nav-link">
-                  Student Board
+                <Link to={"/editor"} className="nav-link">
+                  Editor
                 </Link>
               </li>
             )}
@@ -96,7 +96,7 @@ class App extends Component {
 
             {/* {currentUser && (
               <li className="nav-item">
-                <Link to={"/student"} className="nav-link">
+                <Link to={"/editor"} className="nav-link">
                   Student
                 </Link>
               </li>
@@ -139,7 +139,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
-            <Route path="/student" component={BoardStudent} />
+            {/* <Route path="/editor" component={BoardStudent} /> */}
             <Route path="/prof" component={BoardProfessor} />
             <Route path="/adduser" component={AddUser} />
             <Route path="/users" component={UsersList} />
