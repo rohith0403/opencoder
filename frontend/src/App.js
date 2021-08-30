@@ -15,7 +15,7 @@ import AddUser from "./components/add-user.component";
 import User from "./components/user.component";
 import UsersList from "./components/user-list.component";
 import Editor from "./components/code-editor.component"
-
+import MonacoEditor from "./components/editor.component";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -140,6 +140,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             {/* <Route path="/editor" component={BoardStudent} /> */}
+            <Route path="/meditor" component={MonacoEditor} />
             <Route path="/prof" component={BoardProfessor} />
             <Route path="/adduser" component={AddUser} />
             <Route path="/users" component={UsersList} />
