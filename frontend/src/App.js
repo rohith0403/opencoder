@@ -1,59 +1,70 @@
-import React, { Component } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Router, Switch, Route, Link } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import AuthService from "./services/auth.service";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import AddUser from "./components/AddUser";
+import User from "./components/User";
+import UsersList from "./components/UsersList";
 
-import Login from "./components/login.component";
-import Register from "./components/register.component";
-import Home from "./components/home.component";
-import Profile from "./components/profile.component";
-import BoardStudent from "./components/board-student.component";
-import BoardProfessor from "./components/board-professor.components";
-import AddUser from "./components/add-user.component";
-import User from "./components/user.component";
-import UsersList from "./components/user-list.component";
-import Editor from "./components/code-editor.component"
-import MonacoEditor from "./components/editor.component";
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.logOut = this.logOut.bind(this);
+import { logout } from "./actions/auth";
+import { clearMessage } from "./actions/message";
 
-    this.state = {
-      showProfessorBoard: false,
-      showAdminBoard: false,
-      showStudentBoard: false,
-      currentUser: undefined,
-    };
-  }
+import { history } from "./helpers/history";
 
-  componentDidMount() {
-    const user = AuthService.getCurrentUser();
+// import AuthVerify from "./common/AuthVerify";
+import EventBus from "./common/EventBus";
 
-    if (user) {
-      this.setState({
-        currentUser: user,
-        showProfessorBoard: user.roles.includes("ROLE_PROFESSOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
-        showStudentBoard: user.roles.includes("ROLE_STUDENT")
-      });
+const App = () => {
+  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [showStudentBoard, setShowStudentBoard] = useState(false);
+
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    history.listen((location) => {
+      dispatch(clearMessage()); // clear message when changing location
+    });
+  }, [dispatch]);
+
+  const logOut = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (currentUser) {
+      setShowStudentBoard(currentUser.roles.includes("ROLE_STUDENT"))
+      setShowModeratorBoard(currentUser.roles.includes("ROLE_PROFESSOR"));
+      setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
+    } else {
+      setShowModeratorBoard(false);
+      setShowAdminBoard(false);
+      setShowStudentBoard(false);
     }
-  }
 
-  logOut() {
-    AuthService.logout();
-  }
+    EventBus.on("logout", () => {
+      logOut();
+    });
 
-  render() {
-    const { currentUser, showProfessorBoard, showAdminBoard, showStudentBoard} = this.state;
+    return () => {
+      EventBus.remove("logout");
+    };
+  }, [currentUser, logOut]);
 
-    return (
+  return (
+    <Router history={history}>
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            Open Coder
+            Opencoder
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -62,18 +73,18 @@ class App extends Component {
               </Link>
             </li>
 
-            {showProfessorBoard && (
+            {showModeratorBoard && (
               <li className="nav-item">
                 <Link to={"/prof"} className="nav-link">
                   Professor Board
                 </Link>
               </li>
             )}
-
+            {/* remove this */}
             {showStudentBoard && (
               <li className="nav-item">
-                <Link to={"/editor"} className="nav-link">
-                  Editor
+                <Link to={"/prof"} className="nav-link">
+                  Professor Board
                 </Link>
               </li>
             )}
@@ -93,14 +104,6 @@ class App extends Component {
                 </Link>
               </li>
             )}
-
-            {/* {currentUser && (
-              <li className="nav-item">
-                <Link to={"/editor"} className="nav-link">
-                  Student
-                </Link>
-              </li>
-            )} */}
           </div>
 
           {currentUser ? (
@@ -111,7 +114,7 @@ class App extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
+                <a href="/login" className="nav-link" onClick={logOut}>
                   LogOut
                 </a>
               </li>
@@ -139,18 +142,16 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
-            {/* <Route path="/editor" component={BoardStudent} /> */}
-            <Route path="/meditor" component={MonacoEditor} />
-            <Route path="/prof" component={BoardProfessor} />
             <Route path="/adduser" component={AddUser} />
-            <Route path="/users" component={UsersList} />
             <Route path="/users/:id" component={User} />
-            <Route path="/editor" component={Editor} />
+            <Route path="/users" component={UsersList} />
           </Switch>
         </div>
+
+        {/* <AuthVerify logOut={logOut}/> */}
       </div>
-    );
-  }
-}
+    </Router>
+  );
+};
 
 export default App;

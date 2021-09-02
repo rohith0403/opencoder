@@ -6,6 +6,7 @@ var bcrypt = require("bcryptjs");
 
 exports.create = (req, res) => {
   // Validate request
+  console.log("req body ",req.body);
   if (!req.body.username) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
@@ -54,7 +55,7 @@ exports.findAll = (req, res) => {
 // Find a single User with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-
+  console.log("ID is ",id);
   User.findById(id)
     .then(data => {
       if (!data){

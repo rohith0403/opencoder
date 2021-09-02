@@ -1,54 +1,57 @@
-import axios from 'axios';
-import authHeader from './auth-header';
+import axios from "axios";
+import authHeader from "./auth-header";
 
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = "http://localhost:8080/api/test/";
 
-class UserService {
-  createUser(data)
-  {
-    return axios.post(API_URL + `users`, data, { headers: authHeader() });
-  }
-  updateUser(id,data)
-  {
-    return axios.put(API_URL + `users/${id}`, data, { headers: authHeader() });
-  }
-  getUser(id)
-  {
-    return axios.get(API_URL+`users/${id}`,{ headers: authHeader() });
-  }
-  getAllusers()
-  {
-    return axios.get(API_URL+'users',{ headers: authHeader() });
-  }
-  deleteAllUsers()
-  {
-    return axios.delete(API_URL + `users`, { headers: authHeader() });
-  }
-  deleteUser(id)
-  {
-    return axios.delete(API_URL + `users/${id}`, { headers: authHeader() });
-  }
-  findByUsername(username)
-  {
-    return axios.get(API_URL + `users?username=${username}`, { headers: authHeader() });
-  }
+const getPublicContent = () => {
+  return axios.get(API_URL + "all");
+};
 
-
-  getPublicContent() {
-    return axios.get(API_URL + 'all');
-  }
-
-  // getStudentBoard() {
-  //   return axios.get(API_URL + 'student', { headers: authHeader() });
-  // }
-
-  getProfessorBoard() {
-    return axios.get(API_URL + 'prof', { headers: authHeader() });
-  }
-
-  getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
-  }
+const createUser = (data) =>{
+  return axios.post(API_URL + `users`, data, { headers: authHeader() });
 }
 
-export default new UserService();
+const updateUser = (id,data) =>{
+  return axios.put(API_URL + `users/${id}`, data, { headers: authHeader() });
+}
+
+const getUser = (id) =>{
+  return axios.get(API_URL+`users/${id}`,{ headers: authHeader() });
+}
+
+const getAllusers = () => {
+  return axios.get(API_URL+'users',{ headers: authHeader() });
+};
+
+const deleteUser = (id) => {
+  return axios.delete(API_URL + `users/${id}`, { headers: authHeader() });
+};
+
+const findByUsername = (username) => {
+  return axios.get(API_URL + `users?username=${username}`, { headers: authHeader() });
+};
+
+
+
+
+const getModeratorBoard = () => {
+  return axios.get(API_URL + "mod", { headers: authHeader() });
+};
+
+const getAdminBoard = () => {
+  return axios.get(API_URL + "admin", { headers: authHeader() });
+};
+
+const UserService = {
+  getPublicContent,
+  createUser,
+  updateUser,
+  getUser,
+  getAllusers,
+  deleteUser,
+  findByUsername,
+  getModeratorBoard,
+  getAdminBoard,
+};
+
+export default UserService;
