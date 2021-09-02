@@ -12,7 +12,7 @@ import Profile from "./components/Profile";
 import AddUser from "./components/AddUser";
 import User from "./components/User";
 import UsersList from "./components/UsersList";
-
+import AddQuestion from "./components/AddQuestion";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -75,16 +75,16 @@ const App = () => {
 
             {showModeratorBoard && (
               <li className="nav-item">
-                <Link to={"/prof"} className="nav-link">
-                  Professor Board
+                <Link to={"/addquestion"} className="nav-link">
+                  Add Questions
                 </Link>
               </li>
             )}
             {/* remove this */}
             {showStudentBoard && (
               <li className="nav-item">
-                <Link to={"/prof"} className="nav-link">
-                  Professor Board
+                <Link to={"/student"} className="nav-link">
+                  Student Board
                 </Link>
               </li>
             )}
@@ -107,7 +107,7 @@ const App = () => {
           </div>
 
           {currentUser ? (
-            <div className="navbar-nav ml-auto">
+            <div className="navbar-nav ms-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
                   {currentUser.username}
@@ -120,18 +120,18 @@ const App = () => {
               </li>
             </div>
           ) : (
-            <div className="navbar-nav ml-auto">
+            <div className="navbar-nav ms-auto">
               <li className="nav-item">
                 <Link to={"/login"} className="nav-link">
                   Login
                 </Link>
               </li>
 
-              {/* <li className="nav-item">
+              <li className="nav-item">
                 <Link to={"/register"} className="nav-link">
                   Sign Up
                 </Link>
-              </li> */}
+              </li>
             </div>
           )}
         </nav>
@@ -142,9 +142,10 @@ const App = () => {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
+            <Route path="/addquestion" component={AddQuestion} />
             <Route path="/adduser" component={AddUser} />
             <Route path="/users/:id" component={User} />
-            <Route path="/users" component={UsersList} />
+            <Route exact path="/users" component={UsersList} />
           </Switch>
         </div>
 

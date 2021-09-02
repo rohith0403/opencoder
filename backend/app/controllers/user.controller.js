@@ -1,37 +1,74 @@
 const db = require("../models");
 const User = db.user;
+const Role = db.role;
 
-var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.create = (req, res) => {
   // Validate request
-  console.log("req body ",req.body);
   if (!req.body.username) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
-
+  
   // Create a User
   const user = new User({
     username: req.body.username,
     password: bcrypt.hashSync(req.body.password, 8),
     email: req.body.email,
-    // phone: req.body.phone,
+    roles: req.body.roles,
   });
-
+  console.log("req body ",req.body);
+  console.log("user body ",user);
   // Save User in the database
-  user
-    .save(user)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the User."
+  user.save((err, user) => {
+    console.log("user 1 body ",user);
+    if (err) {
+      // console.log(err);
+      res.status(500).send({ message: err });
+      return;
+    }
+    if (req.body.roles) {
+      Role.find(
+        {
+          name: { $in: req.body.roles }
+        },
+        (err, roles) => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+
+          user.roles = roles.map(role => role._id);
+          user.save(err => {
+            if (err) {
+              res.status(500).send({ message: err });
+              return;
+            }
+
+            res.send({ message: "User was registered successfully!" });
+          });
+        }
+      );
+    } else {
+      Role.findOne({ name: "student" }, (err, role) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+
+        user.roles = [role._id];
+        user.save(err => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+
+          res.send({ message: "User was registered successfully!" });
+        });
       });
-    });
+    }
+  });
 };
 
 // Retrieve all Users from the database.
@@ -127,18 +164,6 @@ exports.delete = (req, res) => {
 
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
-  };
-  
-  exports.studentBoard = (req, res) => {
-    res.status(200).send("Student Content.");
-  };
-  
-  exports.adminBoard = (req, res) => {
-    res.status(200).send("Admin Content.");
-  };
-  
-  exports.professorBoard = (req, res) => {
-    res.status(200).send("Professor Content.");
   };
 
 

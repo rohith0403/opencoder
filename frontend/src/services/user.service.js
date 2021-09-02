@@ -31,17 +31,6 @@ const findByUsername = (username) => {
   return axios.get(API_URL + `users?username=${username}`, { headers: authHeader() });
 };
 
-
-
-
-const getModeratorBoard = () => {
-  return axios.get(API_URL + "mod", { headers: authHeader() });
-};
-
-const getAdminBoard = () => {
-  return axios.get(API_URL + "admin", { headers: authHeader() });
-};
-
 const UserService = {
   getPublicContent,
   createUser,
@@ -50,8 +39,6 @@ const UserService = {
   getAllusers,
   deleteUser,
   findByUsername,
-  getModeratorBoard,
-  getAdminBoard,
 };
 
 export default UserService;

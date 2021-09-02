@@ -19,17 +19,17 @@ const AddUser = () => {
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    console.log(name, value);
+    // console.log(name, value);
     setUser({ ...user, [name]: value });
   };
 const  changeRole = async (role) => {
     let roles = [role];
     await setUser({ ...user, roles: roles });
-    console.log(user);
+    // console.log(user);
   };
   const saveUser = () => {
     const { username,email,password,roles } = user;
-
+    // console.log(user);
     dispatch(createUser(username,email,password,roles))
       .then(data => {
         setUser({
@@ -69,7 +69,6 @@ const  changeRole = async (role) => {
             <Dropdown.Toggle 
             variant="success" 
             id="roles"
-            value={user.roles}
             value={user.roles}
             onChange={handleInputChange}
             name="roles"

@@ -1,5 +1,6 @@
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
+const question = require("../controllers/question.controller"); 
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -13,12 +14,6 @@ module.exports = function(app) {
   app.get("/api/test/all", controller.allAccess);
   
 // admin
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
-
   app.post(
     "/api/test/users",
     [authJwt.verifyToken, authJwt.isAdmin],
@@ -47,16 +42,31 @@ module.exports = function(app) {
 
 
 
-
-  // app.get(
-  //   "/api/test/student", 
-  //   [authJwt.verifyToken,authJwt.isStudent], 
-  //   controller.studentBoard);
-
-  app.get(
-    "/api/test/prof",
+// professor
+  app.post(
+    "/api/test/questions",
     [authJwt.verifyToken, authJwt.isProfessor],
-    controller.professorBoard
+    question.create
   );
+  
+  app.get(
+    "/api/test/questions",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    question.findAll);
+  
+  app.get(
+    "/api/test/questions/:id",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    question.findOne);
+  
+  app.put(
+    "/api/test/question/:id",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    question.update);
+
+  app.delete(
+    "/api/test/question/:id",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    question.delete);
 
 };
