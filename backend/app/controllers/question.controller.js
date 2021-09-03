@@ -29,9 +29,13 @@ exports.create = (req, res) => {
 
 // Retrieve all questions from the database.
 exports.findAll = (req, res) => {
-  const qname = req.query.qname;
-  var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" } } : {};
-  Question.find(condition)
+  var ObjectID = require('mongodb').ObjectID;
+  const userId = req.query.userId;
+  var condition = userId ? { userId:  new ObjectID(userId) } : {};
+  // const qname = req.query.qname;
+  // var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" } } : {};
+  // { $or: [ {"userId": new ObjectID(req.userId)}, condition ] }
+  Question.find(condition )
     .then(data => {
       // loggerinfo.info("questions retreived.");
       res.send(data);
@@ -48,7 +52,6 @@ exports.findAll = (req, res) => {
 // Find a single question with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-
   Question.findById(id)
     .then(data => {
       if (!data){

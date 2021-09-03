@@ -52,6 +52,19 @@ import {
       console.log(err);
     }
   };
+
+  export const retrieveProfQuestions = (id) => async (dispatch) => {
+    try {
+      const res = await QuestionDataService.getQuestionByProf(id);
+
+      dispatch({
+        type: RETRIEVE_QUESTIONS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   
   export const updateQuestion = (id, data) => async (dispatch) => {
     try {

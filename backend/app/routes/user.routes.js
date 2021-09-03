@@ -60,12 +60,12 @@ module.exports = function(app) {
     question.findOne);
   
   app.put(
-    "/api/test/question/:id",
+    "/api/test/questions/:id",
     [authJwt.verifyToken, authJwt.isProfessor],
     question.update);
 
   app.delete(
-    "/api/test/question/:id",
+    "/api/test/questions/:id",
     [authJwt.verifyToken, authJwt.isProfessor],
     question.delete);
 

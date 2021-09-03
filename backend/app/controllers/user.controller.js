@@ -92,7 +92,6 @@ exports.findAll = (req, res) => {
 // Find a single User with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  console.log("ID is ",id);
   User.findById(id)
     .then(data => {
       if (!data){

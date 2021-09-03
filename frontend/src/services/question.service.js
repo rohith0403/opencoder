@@ -27,6 +27,9 @@ const findByQuestionname = (qname) => {
   return axios.get(API_URL + `questions?qname=${qname}`, { headers: authHeader() });
 };
 
+const getQuestionByProf = (id) => {
+  return axios.get(API_URL + `questions?userId=${id}`, { headers: authHeader() });
+};
 
 
 const QuestionDataService = {
@@ -36,6 +39,7 @@ const QuestionDataService = {
   getAllQuestions,
   deleteQuestion,
   findByQuestionname,
+  getQuestionByProf,
 };
 
 export default QuestionDataService;

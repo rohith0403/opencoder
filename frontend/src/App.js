@@ -13,6 +13,8 @@ import AddUser from "./components/AddUser";
 import User from "./components/User";
 import UsersList from "./components/UsersList";
 import AddQuestion from "./components/AddQuestion";
+import QuestionsList from "./components/QuestionsList";
+import Question from "./components/Question";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -77,6 +79,13 @@ const App = () => {
               <li className="nav-item">
                 <Link to={"/addquestion"} className="nav-link">
                   Add Questions
+                </Link>
+              </li>
+            )}
+            {showModeratorBoard && (
+              <li className="nav-item">
+                <Link to={"/questions"} className="nav-link">
+                  Questions
                 </Link>
               </li>
             )}
@@ -145,7 +154,9 @@ const App = () => {
             <Route path="/addquestion" component={AddQuestion} />
             <Route path="/adduser" component={AddUser} />
             <Route path="/users/:id" component={User} />
-            <Route exact path="/users" component={UsersList} />
+            <Route path="/users" component={UsersList} />
+            <Route path="/questions/:id" component={Question} />
+            <Route path="/questions" component={QuestionsList} />
           </Switch>
         </div>
 

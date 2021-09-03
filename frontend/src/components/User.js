@@ -16,7 +16,7 @@ const User = (props) => {
   const dispatch = useDispatch();
 
   const getUser = id => {
-    if (users.length != 0){
+    if (users.length !== 0){
       console.log(users);
       if(users.filter( x  => x._id=== id)) {
         // TODO: 505 code
@@ -79,6 +79,7 @@ const User = (props) => {
                     id="username"
                     value={currentUser.username}
                     onChange={handleInputChange}
+                    name="username"
                 />
             </div>
             <div className="form-group">
@@ -89,6 +90,7 @@ const User = (props) => {
                   id="email"
                   value={currentUser.email}
                   onChange={handleInputChange}
+                  name="email"
                 />
             </div>
             <div className="form-group">
@@ -99,6 +101,7 @@ const User = (props) => {
                   id="password"
                   value={currentUser.password}
                   onChange={handleInputChange}
+                  name="password"
                 />
             </div>
           </form>
