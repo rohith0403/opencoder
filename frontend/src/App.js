@@ -17,7 +17,7 @@ import QuestionsList from "./components/QuestionsList";
 import Question from "./components/Question";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
-
+import  Editor from "./components/Editor";
 import { history } from "./helpers/history";
 
 // import AuthVerify from "./common/AuthVerify";
@@ -155,6 +155,7 @@ const App = () => {
             <Route path="/adduser" component={AddUser} />
             <Route path="/users/:id" component={User} />
             <Route path="/users" component={UsersList} />
+            <Route path="/editor" component={Editor} />
             <Route path="/questions/:id" component={Question} />
             <Route path="/questions" component={QuestionsList} />
           </Switch>
