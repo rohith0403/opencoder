@@ -30,11 +30,8 @@ exports.create = (req, res) => {
 // Retrieve all questions from the database.
 exports.findAll = (req, res) => {
   var ObjectID = require('mongodb').ObjectID;
-  const userId = req.query.userId;
-  var condition = userId ? { userId:  new ObjectID(userId) } : {};
-  // const qname = req.query.qname;
-  // var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" } } : {};
-  // { $or: [ {"userId": new ObjectID(req.userId)}, condition ] }
+  const qname = req.query.qname;
+  var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" },"userId": new ObjectID(req.userId)}  : {"userId": new ObjectID(req.userId)};
   Question.find(condition )
     .then(data => {
       // loggerinfo.info("questions retreived.");

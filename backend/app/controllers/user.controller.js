@@ -4,25 +4,22 @@ const Role = db.role;
 
 var bcrypt = require("bcryptjs");
 
-exports.create = (req, res) => {
+exports.create = async (req, res) =>  {
   // Validate request
   if (!req.body.username) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
-  
+  const role = await Role.findOne({name:req.body.roles[0]});
   // Create a User
   const user = new User({
     username: req.body.username,
     password: bcrypt.hashSync(req.body.password, 8),
     email: req.body.email,
-    roles: req.body.roles,
+    roles: [role],
   });
-  console.log("req body ",req.body);
-  console.log("user body ",user);
   // Save User in the database
-  user.save((err, user) => {
-    console.log("user 1 body ",user);
+  await user.save((err, user) => {
     if (err) {
       // console.log(err);
       res.status(500).send({ message: err });
