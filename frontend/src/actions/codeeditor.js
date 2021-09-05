@@ -6,7 +6,6 @@ import {
     LANG_CHANGE,
   } from "./types";
   
-import QuestionDataService from "../services/question.service";
 
   export const displayOutput = (id, output) => async(dispatch) => {
     try{

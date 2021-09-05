@@ -7,7 +7,7 @@ import Options from "./Options";
 function CodeArea({ onCodeChangeHandler }) {
   const { code } = useContext(GlobalContext);
 
-  const { lang } = useContext(GlobalContext);
+  // const { lang } = useContext(GlobalContext);
 
   const { handleCodeChange } = useContext(GlobalContext);
 
@@ -33,6 +33,7 @@ function CodeArea({ onCodeChangeHandler }) {
     console.log("Editor Mounted");
   };
 
+
   return (
     <>
       <div className="codearea">
@@ -41,6 +42,7 @@ function CodeArea({ onCodeChangeHandler }) {
           <MonacoEditor
             width="100%"
             height="80vh"
+            // defaultlanguage = "cpp"
             theme="hc-black"
             value={code}
             options={options}

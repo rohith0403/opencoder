@@ -4,7 +4,7 @@ import { code } from "../components/defaultCode";
 
 // Initial State
 const initialState = {
-  code: code.python,
+  code: code.cpp,
   result: "Run and Submit code to see result",
   lang: "python",
   input: "Enter your input"

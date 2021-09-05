@@ -14,7 +14,7 @@ const java = `class test {
 }
 `;
 
-const python = "# your code will come";
+const python = "# your code will com";
 
 const javascript = "// Write your code here ";
 

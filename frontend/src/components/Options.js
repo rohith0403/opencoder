@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 // import secret from "../secret";
 import Dropdown from 'react-dropdown';
-// import 'react-dropdown/style.css';
+import 'react-dropdown/style.css';
 import Select from "react-select";
 import axios from "axios";
 
@@ -27,7 +27,7 @@ function Options() {
   };
 
   console.log(state);
-
+  
   // const options = ["python", "java", "cpp", "c", "javascript"];
   // const defaultOption = options[0];
 
@@ -40,6 +40,8 @@ function Options() {
 
   const onSubmitHandler = e => {
     e.preventDefault();
+    console.log(GlobalContext);
+    // handleLangChange("java");
     alert("Submit Code");
     // axios
     //   .post(`${secret.url}code/submit`, state)
@@ -65,28 +67,30 @@ function Options() {
     //   });
   };
 
+
+
   return (
     <>
-      <div class="options">
-        <div class="optionsbox1">
-          <div class="btncont">
-            <button class="optionsbtn" onClick={onSubmitHandler}>
+      <div className="options">
+        <div className="optionsbox1">
+          <div className="btncont">
+            <button className="optionsbtn" onClick={onSubmitHandler}>
               Run
-              <span class="btnicon">
+              <span className="btnicon">
                 <img src="" />
               </span>
             </button>
 
-            <button class="optionsbtn" onClick={download}>
+            <button className="optionsbtn" onClick={download}>
               Download
-              <span class="btnicon">
+              <span className="btnicon">
                 <img src="" />
               </span>
             </button>
-            <button class="optionsbtn" onClick={storePreviousInput}>
+            <button className="optionsbtn" onClick={storePreviousInput}>
               Store Input
             </button>
-            <button class="optionsbtn" onClick={loadPreviousInput}>
+            <button className="optionsbtn" onClick={loadPreviousInput}>
               Load Input
             </button>
           </div>
@@ -101,9 +105,9 @@ function Options() {
             onChange={option => handleLangChange(option.value)}
           />
         </div>
-        <div class="optionsbox2">
+        <div className="optionsbox2">
           <textarea
-            class="optionswritearea"
+            className="optionswritearea"
             placeholder={input}
             onChange={e => {
               handleInputChange(e.target.value);

@@ -17,6 +17,7 @@ import QuestionsList from "./components/QuestionsList";
 import Question from "./components/Question";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
+import { GlobalProvider } from "./context/GlobalState";
 import  Editor from "./components/Editor";
 import { history } from "./helpers/history";
 
@@ -62,6 +63,7 @@ const App = () => {
   }, [currentUser, logOut]);
 
   return (
+    <GlobalProvider>
     <Router history={history}>
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -164,6 +166,7 @@ const App = () => {
         {/* <AuthVerify logOut={logOut}/> */}
       </div>
     </Router>
+    </GlobalProvider>
   );
 };
 
