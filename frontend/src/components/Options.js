@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 // import "../CSS/Options.css";
 import { GlobalContext } from "../context/GlobalState";
 // import secret from "../secret";
+import Dropdown from 'react-dropdown';
+// import 'react-dropdown/style.css';
 import Select from "react-select";
 import axios from "axios";
 
@@ -39,28 +41,28 @@ function Options() {
   const onSubmitHandler = e => {
     e.preventDefault();
     alert("Submit Code");
-    axios
-      .post(`${secret.url}code/submit`, state)
-      .then(res => {
-        console.log("this is it" + JSON.stringify(res.data));
-        const data = res.data;
+    // axios
+    //   .post(`${secret.url}code/submit`, state)
+    //   .then(res => {
+    //     console.log("this is it" + JSON.stringify(res.data));
+    //     const data = res.data;
 
-        if (data.err) {
-          // Error in user code
-          console.log("options" + state);
-          if (
-            data.output ==
-            "RangeError [ERR_CHILD_PROCESS_STDIO_MAXBUFFER]: stdout maxBuffer length exceeded"
-          ) {
-            alert("Possible infinite loop or recurssion call");
-          }
-          displayOutput(data.error);
-        }
-        displayOutput(data.output);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    //     if (data.err) {
+    //       // Error in user code
+    //       console.log("options" + state);
+    //       if (
+    //         data.output ==
+    //         "RangeError [ERR_CHILD_PROCESS_STDIO_MAXBUFFER]: stdout maxBuffer length exceeded"
+    //       ) {
+    //         alert("Possible infinite loop or recurssion call");
+    //       }
+    //       displayOutput(data.error);
+    //     }
+    //     displayOutput(data.output);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   };
 
   return (
@@ -91,7 +93,7 @@ function Options() {
           {/* <Dropdown
             className="dropdwn"
             options={options}
-            onChange={(option) => handleLangChange(option.value)}
+            onChange={option => handleLangChange(option.value)}
           /> */}
           <Select
             className="select"
