@@ -94,8 +94,8 @@ const App = () => {
             {/* remove this */}
             {showStudentBoard && (
               <li className="nav-item">
-                <Link to={"/student"} className="nav-link">
-                  Student Board
+                <Link to={"/editor"} className="nav-link">
+                  Editor
                 </Link>
               </li>
             )}
