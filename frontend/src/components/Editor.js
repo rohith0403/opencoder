@@ -7,7 +7,7 @@ import Options from "./Options";
 function CodeArea({ onCodeChangeHandler }) {
   const { code } = useContext(GlobalContext);
 
-  // const { lang } = useContext(GlobalContext);
+  const { lang } = useContext(GlobalContext);
 
   const { handleCodeChange } = useContext(GlobalContext);
 
