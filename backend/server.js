@@ -27,6 +27,10 @@ app.get("/", (req, res) => {
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
+// files
+const code = require("./app/routes/code.routes");
+app.use("/api/code", code);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

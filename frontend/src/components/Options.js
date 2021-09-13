@@ -43,28 +43,28 @@ function Options() {
     console.log(GlobalContext);
     // handleLangChange("java");
     alert("Submit Code");
-    // axios
-    //   .post(`${secret.url}code/submit`, state)
-    //   .then(res => {
-    //     console.log("this is it" + JSON.stringify(res.data));
-    //     const data = res.data;
+    axios
+      .post(`http://localhost:8080/api/code/submit`, state)
+      .then(res => {
+        console.log("this is it" + JSON.stringify(res.data));
+        const data = res.data;
 
-    //     if (data.err) {
-    //       // Error in user code
-    //       console.log("options" + state);
-    //       if (
-    //         data.output ==
-    //         "RangeError [ERR_CHILD_PROCESS_STDIO_MAXBUFFER]: stdout maxBuffer length exceeded"
-    //       ) {
-    //         alert("Possible infinite loop or recurssion call");
-    //       }
-    //       displayOutput(data.error);
-    //     }
-    //     displayOutput(data.output);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+        if (data.err) {
+          // Error in user code
+          console.log("options" + state);
+          if (
+            data.output ==
+            "RangeError [ERR_CHILD_PROCESS_STDIO_MAXBUFFER]: stdout maxBuffer length exceeded"
+          ) {
+            alert("Possible infinite loop or recurssion call");
+          }
+          displayOutput(data.error);
+        }
+        displayOutput(data.output);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
 
