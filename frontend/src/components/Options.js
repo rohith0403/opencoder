@@ -87,12 +87,12 @@ function Options() {
                 <img src="" />
               </span>
             </button>
-            {/* <button className="optionsbtn" onClick={storePreviousInput}>
+            <button className="optionsbtn" onClick={storePreviousInput}>
               Store Input
             </button>
             <button className="optionsbtn" onClick={loadPreviousInput}>
               Load Input
-            </button> */}
+            </button>
           </div>
           {/* <Dropdown
             className="dropdwn"

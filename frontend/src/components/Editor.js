@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { GlobalContext } from "../context/GlobalState";
 import Options from "./Options";
+import Output from "./Output";
 // import "../CSS/CodeArea.css";
 
 function CodeArea({ onCodeChangeHandler }) {
@@ -50,6 +51,7 @@ function CodeArea({ onCodeChangeHandler }) {
             editorDidMount={editorDidMount}
           />
         </div>
+        <Output/>
       </div>
     </>
   );
