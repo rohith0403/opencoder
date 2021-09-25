@@ -2,15 +2,15 @@ const cors = require("cors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const dbConfig = require("./app/config/db.config");
-
+const path = require('path');
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://192.168.1.8:8080"
 };
 
 app.use(cors(corsOptions));
-
+app.use(express.static(path.resolve(__dirname, './build')));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
-app.get("/", (req, res) => {
+app.get("/check", (req, res) => {
   res.json({ message: "Welcome to Open Coder." });
 });
 
@@ -91,3 +91,7 @@ function initial() {
     }
   });
 }
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './build', 'index.html'));
+});

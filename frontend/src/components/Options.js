@@ -44,7 +44,7 @@ function Options() {
     // handleLangChange("java");
     alert("Submit Code");
     axios
-      .post(`http://localhost:8080/api/code/submit`, state)
+      .post(`http://192.168.1.8:8080/api/code/submit`, state)
       .then(res => {
         console.log("this is it" + JSON.stringify(res.data));
         const data = res.data;
