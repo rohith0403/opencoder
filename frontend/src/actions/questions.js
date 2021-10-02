@@ -30,9 +30,7 @@ import {
   };
   export const getQuestion = (id) => async (dispatch) => {
     try {
-      console.log("GETTUNF");
       const res = await QuestionDataService.getQuestion(id);
-      console.log("RES ", res);
       dispatch({
         type: GET_QUESTION,
         payload: res.data,

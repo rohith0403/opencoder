@@ -159,7 +159,7 @@ exports.delete = (req, res) => {
 
 
 exports.allAccess = (req, res) => {
-    res.status(200).send("Public Content.");
+    res.status(200).send("Welcome to OpenCoder");
   };
 
 

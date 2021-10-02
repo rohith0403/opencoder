@@ -12,9 +12,12 @@ import Profile from "./components/Profile";
 import AddUser from "./components/AddUser";
 import User from "./components/User";
 import UsersList from "./components/UsersList";
+import Question from "./components/Question";
 import AddQuestion from "./components/AddQuestion";
 import QuestionsList from "./components/QuestionsList";
-import Question from "./components/Question";
+import AddExam from "./components/AddExam";
+import ExamsList from "./components/ExamsList";
+import Exam from "./components/Exam";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { GlobalProvider } from "./context/GlobalState";
@@ -92,6 +95,20 @@ const App = () => {
                 </Link>
               </li>
             )}
+            {showModeratorBoard && (
+              <li className="nav-item">
+                <Link to={"/addexam"} className="nav-link">
+                  Add Exam
+                </Link>
+              </li>
+            )}
+            {showModeratorBoard && (
+              <li className="nav-item">
+                <Link to={"/exams"} className="nav-link">
+                  Exams
+                </Link>
+              </li>
+            )}
             {/* remove this */}
             {showStudentBoard && (
               <li className="nav-item">
@@ -154,13 +171,16 @@ const App = () => {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
+            <Route path="/addexam" component={AddExam} />
+            <Route path="/exams/:id" component={Exam} />
+            <Route path="/exams" component={ExamsList} />
             <Route path="/addquestion" component={AddQuestion} />
+            <Route path="/questions/:id" component={Question} />
+            <Route path="/questions" component={QuestionsList} />
             <Route path="/adduser" component={AddUser} />
             <Route path="/users/:id" component={User} />
             <Route path="/users" component={UsersList} />
             <Route path="/editor" component={Editor} />
-            <Route path="/questions/:id" component={Question} />
-            <Route path="/questions" component={QuestionsList} />
           </Switch>
         </div>
 

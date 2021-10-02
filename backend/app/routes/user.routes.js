@@ -1,6 +1,7 @@
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 const question = require("../controllers/question.controller"); 
+const exam = require("../controllers/exam.controller");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -46,8 +47,7 @@ module.exports = function(app) {
   app.post(
     "/api/test/questions",
     [authJwt.verifyToken, authJwt.isProfessor],
-    question.create
-  );
+    question.create);
   
   app.get(
     "/api/test/questions",
@@ -68,5 +68,31 @@ module.exports = function(app) {
     "/api/test/questions/:id",
     [authJwt.verifyToken, authJwt.isProfessor],
     question.delete);
+
+
+  app.post(
+    "/api/test/exams",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    exam.create);
+  
+  app.get(
+    "/api/test/exams",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    exam.findAll);
+  
+  app.get(
+    "/api/test/exams/:id",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    exam.findOne);
+  
+  app.put(
+    "/api/test/exams/:id",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    exam.update);
+
+  app.delete(
+    "/api/test/exams/:id",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    exam.delete);
 
 };

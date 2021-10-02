@@ -24,3 +24,9 @@ export const CODE_CHANGE  = "CODE_CHANGE";
 export const PREVIOUS_INPUT = "PREVIOUS_INPUT";
 export const INPUT_CHANGE = "INPUT_CHANGE";
 export const LANG_CHANGE = "LANG_CHANGE";
+
+export const CREATE_EXAM = "CREATE_EXAM";
+export const GET_EXAM = "GET_EXAM";
+export const RETRIEVE_EXAMS = "RETRIEVE_EXAMS";
+export const UPDATE_EXAM = "UPDATE_EXAM";
+export const DELETE_EXAM = "DELETE_EXAM";
