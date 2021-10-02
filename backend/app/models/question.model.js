@@ -8,6 +8,7 @@ const Question = mongoose.model(
         ref: 'User',
         required: true
       },
+    examId: String,
     qname: String,
     description: String
   })

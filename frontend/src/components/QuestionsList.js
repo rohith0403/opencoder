@@ -87,7 +87,13 @@ const QuestionsList = () => {
             <h4>Question</h4>
             <div>
               <label>
-                <strong>Qusetion Name:</strong>
+                <strong>Exam:</strong>
+              </label>{" "}
+              {currentQuestion.examId}
+            </div>
+            <div>
+              <label>
+                <strong>Question Name:</strong>
               </label>{" "}
               {currentQuestion.qname}
             </div>

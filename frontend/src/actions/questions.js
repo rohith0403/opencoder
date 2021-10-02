@@ -8,10 +8,11 @@ import {
   
   import QuestionDataService from "../services/question.service";
   
-  export const createQuestion = (userId,qname,description) => async (dispatch) => {
+  export const createQuestion = (userId,examId,qname,description) => async (dispatch) => {
     try {
       const data = {
         userId:userId,
+        examId:examId,
         qname:qname,
         description:description,
       }

@@ -3,7 +3,7 @@ const Question = db.question;
 
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.qname) {
+  if (!req.body.qname || !req.body.description) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }

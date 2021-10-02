@@ -6,6 +6,7 @@ const AddQuestion = () => {
   const initialQuestionState = {
     id: null,
     userId: userDetails.id,
+    examId:"",
     qname:"",
     description:"",
     submitted: false
@@ -21,11 +22,12 @@ const AddQuestion = () => {
     setQuestion({ ...question, [name]: value });
   };
   const saveQuestion = () => {
-    const { userId,qname,description} = question;
-    dispatch(createQuestion(userId,qname,description))
+    const { userId,examId,qname,description} = question;
+    dispatch(createQuestion(userId,examId,qname,description))
       .then(data => {
         setQuestion({
           userId:userDetails.id,
+          examId : data.examId,
           qname : data.qname,
           description : data.description,
         });
@@ -54,6 +56,19 @@ const AddQuestion = () => {
         </div>
       ) : (
         <div>
+
+          <div className="form-group">
+            <label htmlFor="examId">Exam</label>
+            <input
+              type="text"
+              className="form-control"
+              id="examId"
+              required
+              value={question.examId}
+              onChange={handleInputChange}
+              name="examId"
+            />
+          </div>
 
           <div className="form-group">
             <label htmlFor="qname">Question Name</label>

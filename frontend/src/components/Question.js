@@ -6,6 +6,7 @@ import QuestionDataService from "../services/question.service";
 const Question = (props) => {
   const initialQuestionState = {
     id: null,
+    examId:"",
     qname:"",
     description:"",
     submitted: false
@@ -71,6 +72,18 @@ const Question = (props) => {
         <div className="edit-form">
           <h4>Question</h4>
           <form>
+          <div className="form-group">
+                <label htmlFor="examId">Exam</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="examId"
+                    value={currentQuestion.examId}
+                    onChange={handleInputChange}
+                    name="examId"
+                />
+            </div>
+
             <div className="form-group">
                 <label htmlFor="qname">Question Name</label>
                 <input
