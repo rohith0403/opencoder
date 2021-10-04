@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
-// import "../CSS/OutputArea.css";
+import "./CSS/Output.css";
 
 function OutputArea() {
   const { result } = useContext(GlobalContext);

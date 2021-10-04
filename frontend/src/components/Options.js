@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
-// import "../CSS/Options.css";
 import { GlobalContext } from "../context/GlobalState";
 // import secret from "../secret";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import Select from "react-select";
 import axios from "axios";
-
+import "./CSS/Options.css"
 function Options() {
   const { code } = useContext(GlobalContext);
   const { lang } = useContext(GlobalContext);
@@ -44,7 +43,7 @@ function Options() {
     // handleLangChange("java");
     alert("Submit Code");
     axios
-      .post(`http://192.168.1.8:8080/api/code/submit`, state)
+      .post(`http://192.168.29.32:8080/api/code/submit`, state)
       .then(res => {
         console.log("this is it" + JSON.stringify(res.data));
         const data = res.data;
@@ -73,6 +72,11 @@ function Options() {
     <>
       <div className="options">
         <div className="optionsbox1">
+            <Select
+            options={options}
+            onChange={option => handleLangChange(option.value)}
+          />
+
           <div className="btncont">
             <button className="optionsbtn" onClick={onSubmitHandler}>
               Run
@@ -87,23 +91,18 @@ function Options() {
                 <img src="" />
               </span>
             </button>
-            <button className="optionsbtn" onClick={storePreviousInput}>
+            {/* <button className="optionsbtn" onClick={storePreviousInput}>
               Store Input
             </button>
             <button className="optionsbtn" onClick={loadPreviousInput}>
               Load Input
-            </button>
+            </button> */}
           </div>
-          {/* <Dropdown
-            className="dropdwn"
+            {/* className="select"
+            <Select
             options={options}
             onChange={option => handleLangChange(option.value)}
           /> */}
-          <Select
-            className="select"
-            options={options}
-            onChange={option => handleLangChange(option.value)}
-          />
         </div>
         <div className="optionsbox2">
           <textarea
