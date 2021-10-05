@@ -85,12 +85,12 @@ function Options() {
               </span>
             </button>
 
-            <button className="optionsbtn" onClick={download}>
+            {/* <button className="optionsbtn" onClick={download}>
               Download
               <span className="btnicon">
                 <img src="" />
               </span>
-            </button>
+            </button> */}
             {/* <button className="optionsbtn" onClick={storePreviousInput}>
               Store Input
             </button>

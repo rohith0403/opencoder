@@ -1,6 +1,6 @@
 .outputarea {
   height: 40%;
-  background-color: #12202f;
+  background-color: #3d3d3d;
   /* position: sticky; */
   display: flex;
   justify-content: center;
@@ -10,7 +10,7 @@
   bottom: 1px;
   width: 50%;
   border: 3px solid white;
-  left: 50%;
+  /* right: 50%; */
 }
 
 .outputtext {

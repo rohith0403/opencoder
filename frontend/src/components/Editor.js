@@ -41,8 +41,9 @@ function CodeArea({ onCodeChangeHandler }) {
         <Options/>
         <div className="codewritearea">
           <MonacoEditor
-            width="100%"
+            width="50%"
             height="80vh"
+            left= "50%"
             // defaultlanguage = "cpp"
             theme="hc-black"
             value={code}
