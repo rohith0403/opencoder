@@ -1,5 +1,5 @@
 module.exports = {
-    HOST: "192.168.1.8",
+    HOST: "127.0.0.1",
     PORT: 27017,
     DB: "open_coder"
   };

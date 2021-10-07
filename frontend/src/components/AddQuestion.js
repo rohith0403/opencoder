@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
 import { createQuestion } from "../actions/questions";
+import { useDispatch, useSelector } from "react-redux";
+import { retrieveProfExams,} from "../actions/exam";
+import { Dropdown, } from 'react-bootstrap';
+
 let userDetails = JSON.parse(localStorage.getItem("user"));
 const AddQuestion = () => {
   const initialQuestionState = {
@@ -13,14 +16,17 @@ const AddQuestion = () => {
   };
   const [question, setQuestion] = useState(initialQuestionState);
   const [submitted, setSubmitted] = useState(false);
-
   const dispatch = useDispatch();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    // console.log(name, value);
     setQuestion({ ...question, [name]: value });
   };
+  useEffect(() => {
+    dispatch(retrieveProfExams(userDetails.id));
+  }, []);
+  const exams = useSelector(state => state.exams);
+  console.log(exams);
   const saveQuestion = () => {
     const { userId,examId,qname,description} = question;
     dispatch(createQuestion(userId,examId,qname,description))
@@ -57,17 +63,24 @@ const AddQuestion = () => {
       ) : (
         <div>
 
-          <div className="form-group">
-            <label htmlFor="examId">Exam</label>
-            <input
-              type="text"
-              className="form-control"
-              id="examId"
-              required
-              value={question.examId}
-              onChange={handleInputChange}
-              name="examId"
-            />
+          <div className="dropdown" id="roleDropdown">
+          <Dropdown>
+            <Dropdown.Toggle 
+            variant="success" 
+            id="examId"
+            value={question.examId}
+            onChange={handleInputChange}
+            name="examId"
+            >
+              Exam
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+     {exams.map(exam => (
+       <Dropdown.Item>{exam.ename}</Dropdown.Item>
+     ))}
+   </Dropdown.Menu>
+          </Dropdown>
           </div>
 
           <div className="form-group">

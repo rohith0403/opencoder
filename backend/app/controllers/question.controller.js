@@ -12,7 +12,7 @@ exports.create = (req, res) => {
   const question = new Question(
     req.body
     );
-
+    console.log(question);
   // Save question in the database
   question
     .save(question)
