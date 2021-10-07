@@ -35,7 +35,7 @@ const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   require('dotenv').config();
-  console.log(process.env.REACT_APP_API_KEY)
+  // console.log(process.env.REACT_APP_API_KEY)
   useEffect(() => {
     history.listen((location) => {
       dispatch(clearMessage()); // clear message when changing location

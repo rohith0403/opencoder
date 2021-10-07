@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 // import secret from "../secret";
-import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import Select from "react-select";
 import axios from "axios";
@@ -14,9 +13,6 @@ function Options() {
   const { handleInputChange } = useContext(GlobalContext);
   const { input } = useContext(GlobalContext);
   const { displayOutput } = useContext(GlobalContext);
-  const { download } = useContext(GlobalContext);
-  const { loadPreviousInput } = useContext(GlobalContext);
-  const { storePreviousInput } = useContext(GlobalContext);
 
   const state = {
     code: code,
@@ -52,7 +48,7 @@ function Options() {
           // Error in user code
           console.log("options" + state);
           if (
-            data.output ==
+            data.output ===
             "RangeError [ERR_CHILD_PROCESS_STDIO_MAXBUFFER]: stdout maxBuffer length exceeded"
           ) {
             alert("Possible infinite loop or recurssion call");

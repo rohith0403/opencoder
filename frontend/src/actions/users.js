@@ -30,9 +30,7 @@ import {
   };
   export const getUser = (id) => async (dispatch) => {
     try {
-      console.log("GETTUNF");
       const res = await UserDataService.getUser(id);
-      console.log("RES ", res);
       dispatch({
         type: GET_USER,
         payload: res.data,

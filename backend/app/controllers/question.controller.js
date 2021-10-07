@@ -1,19 +1,22 @@
 const db = require("../models");
 const Question = db.question;
+const Exam = db.exam;
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   // Validate request
   if (!req.body.qname || !req.body.description) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
-
+  const examid = await Exam.findOne({ename:req.body.ename});
   // Create a question
-  const question = new Question(
-    req.body
-    );
-    console.log(question);
-  // Save question in the database
+  const question = new Question({
+    userId:req.body.userId,
+    examId:examid,
+    ename:req.body.ename,
+    qname:req.body.qname,
+    description:req.body.description
+  });
   question
     .save(question)
     .then(data => {
@@ -22,7 +25,7 @@ exports.create = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the question."
+        err.message || "Some error occurred while creating the question."
       });
     });
 };

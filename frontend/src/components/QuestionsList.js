@@ -89,7 +89,7 @@ const QuestionsList = () => {
               <label>
                 <strong>Exam:</strong>
               </label>{" "}
-              {currentQuestion.examId}
+              {currentQuestion.ename}
             </div>
             <div>
               <label>

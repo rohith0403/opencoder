@@ -9,42 +9,52 @@ const AddQuestion = () => {
   const initialQuestionState = {
     id: null,
     userId: userDetails.id,
-    examId:"",
+    ename:"",
     qname:"",
     description:"",
     submitted: false
   };
   const [question, setQuestion] = useState(initialQuestionState);
   const [submitted, setSubmitted] = useState(false);
+
+  
+
   const dispatch = useDispatch();
+
 
   const handleInputChange = event => {
     const { name, value } = event.target;
     setQuestion({ ...question, [name]: value });
   };
+
+
   useEffect(() => {
     dispatch(retrieveProfExams(userDetails.id));
   }, []);
+  
   const exams = useSelector(state => state.exams);
-  console.log(exams);
+
   const saveQuestion = () => {
-    const { userId,examId,qname,description} = question;
-    dispatch(createQuestion(userId,examId,qname,description))
+    const { userId,ename,qname,description} = question;
+    dispatch(createQuestion(userId,ename,qname,description))
       .then(data => {
         setQuestion({
           userId:userDetails.id,
-          examId : data.examId,
+          ename : data.ename,
           qname : data.qname,
           description : data.description,
         });
         setSubmitted(true);
-
-        console.log(data);
       })
       .catch(e => {
         console.log(e);
       });
   };
+
+  const  changeExamName = async (eName) => {
+    console.log("asdasdas   ",eName);
+      await setQuestion({ ...question, ename: eName });
+    };
 
   const newQuestion = () => {
     setQuestion(initialQuestionState);
@@ -67,17 +77,17 @@ const AddQuestion = () => {
           <Dropdown>
             <Dropdown.Toggle 
             variant="success" 
-            id="examId"
-            value={question.examId}
+            id="ename"
+            value={question.ename}
             onChange={handleInputChange}
-            name="examId"
+            name="ename"
             >
               Exam
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
      {exams.map(exam => (
-       <Dropdown.Item>{exam.ename}</Dropdown.Item>
+       <Dropdown.Item href="#" onClick={()=>{changeExamName(exam.ename)}}>{exam.ename}</Dropdown.Item>
      ))}
    </Dropdown.Menu>
           </Dropdown>

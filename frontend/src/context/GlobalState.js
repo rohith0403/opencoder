@@ -49,7 +49,7 @@ export const GlobalProvider = ({ children }) => {
 
   function loadPreviousInput() {
     var lastInput =
-      localStorage.getItem("lastInput") != ""
+      localStorage.getItem("lastInput") !== ""
         ? localStorage.getItem("lastInput")
         : "";
 

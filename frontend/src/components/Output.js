@@ -6,7 +6,7 @@ function OutputArea() {
   const { result } = useContext(GlobalContext);
   return (
     <div className="outputarea">
-      {console.log("outputarea " + result)}
+      {console.log("output area " + result)}
       <textarea className="textarea" value={result}></textarea>
     </div>
   );

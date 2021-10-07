@@ -8,7 +8,12 @@ const Question = mongoose.model(
         ref: 'User',
         required: true
       },
-    examId: String,
+    examId:
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Exam',
+      },
+    ename: String,
     qname: String,
     description: String
   })

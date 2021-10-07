@@ -18,6 +18,8 @@ exports.create = async (req, res) =>  {
     email: req.body.email,
     roles: [role],
   });
+  console.log(req.body.roles[0]);
+  console.log(req.body.role);
   // Save User in the database
   await user.save((err, user) => {
     if (err) {

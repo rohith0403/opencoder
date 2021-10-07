@@ -19,17 +19,14 @@ const AddUser = () => {
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    // console.log(name, value);
     setUser({ ...user, [name]: value });
   };
 const  changeRole = async (role) => {
     let roles = [role];
     await setUser({ ...user, roles: roles });
-    // console.log(user);
   };
   const saveUser = () => {
     const { username,email,password,roles } = user;
-    // console.log(user);
     dispatch(createUser(username,email,password,roles))
       .then(data => {
         setUser({
@@ -39,8 +36,6 @@ const  changeRole = async (role) => {
           roles: data.roles,
         });
         setSubmitted(true);
-
-        console.log(data);
       })
       .catch(e => {
         console.log(e);

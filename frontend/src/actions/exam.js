@@ -14,7 +14,6 @@ import {
         userId:userId,
         ename:ename,
       }
-      console.log(data);
       const res = await ExamDataService.createExam(data);
       dispatch({
         type: CREATE_EXAM,

@@ -8,15 +8,7 @@ import Output from "./Output";
 function CodeArea({ onCodeChangeHandler }) {
   const { code } = useContext(GlobalContext);
 
-  const { lang } = useContext(GlobalContext);
-
   const { handleCodeChange } = useContext(GlobalContext);
-
-  const inputChangeHandler = e => {
-    return {
-      input: e.target.value
-    };
-  };
 
   const options = {
     selectOnLineNumbers: true,

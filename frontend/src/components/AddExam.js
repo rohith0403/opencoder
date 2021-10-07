@@ -16,7 +16,6 @@ const AddExam = () => {
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    // console.log(name, value);
     setExam({ ...exam, [name]: value });
   };
   const saveExam = () => {
