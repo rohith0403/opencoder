@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  findExamsByEname,
-  retrieveExams,
+  findExamsByEnameByStudents,
+  retrieveExamsByStudents,
 } from "../actions/exam";
 import { Link } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
-// let userDetails = JSON.parse(localStorage.getItem("user"));
 const Homepage = () => {
   const [currentExam, setcurrentExam] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchEname, setsearchEname] = useState("");
-
   const exams = useSelector(state => state.exams);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(retrieveExams());
+    dispatch(retrieveExamsByStudents());
   }, []);
 
   const onChangesearchEName = e => {
@@ -36,7 +34,7 @@ const Homepage = () => {
 
   const findByEName = () => {
     refreshData();
-    dispatch(findExamsByEname(searchEname));
+    dispatch(findExamsByEnameByStudents(searchEname));
   };
 
   return (
@@ -92,8 +90,8 @@ const Homepage = () => {
             </div>
             <Link
               to={{
-                pathname: "/editor",
-                  state : currentIndex
+                pathname: "/enamequestions",
+                  state : currentExam
                 }}
               className="badge badge-warning"
             >

@@ -35,9 +35,26 @@ exports.findAll = (req, res) => {
   var ObjectID = require('mongodb').ObjectID;
   const qname = req.query.qname;
 
-  // var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" },"userId": new ObjectID(req.userId)}  : {"userId": new ObjectID(req.userId)};
-  // changed to this line to get all questions without userId
-  var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" }}  : {};
+  var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" },"userId": new ObjectID(req.userId)}  : {"userId": new ObjectID(req.userId)};
+
+  Question.find(condition )
+    .then(data => {
+      // loggerinfo.info("questions retreived.");
+      res.send(data);
+    })
+    .catch(err => {
+      // logger.error(err.message || "Some error occurred while retrieving questions.");
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving questions."
+      });
+    });
+};
+
+exports.findAllByEname = (req, res) => {
+  var ObjectID = require('mongodb').ObjectID;
+  const ename = req.query.ename;
+  var condition = ename ? { ename: { $regex: new RegExp(ename), $options: "i" }}  : {};
 
   Question.find(condition )
     .then(data => {

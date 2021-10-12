@@ -2,6 +2,7 @@ const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 const question = require("../controllers/question.controller"); 
 const exam = require("../controllers/exam.controller");
+const { verifySignUp } = require("../middlewares");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -17,7 +18,9 @@ module.exports = function(app) {
 // admin
   app.post(
     "/api/test/users",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin,
+      verifySignUp.checkDuplicateUsernameOrEmail
+    ],
     controller.create);
   
   app.get(
@@ -49,12 +52,21 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isProfessor],
     question.create);
   
-    // changes made here -- removed authJwt.isProfessor
   app.get(
     "/api/test/questions",
-    [authJwt.verifyToken],
+    [authJwt.verifyToken, authJwt.isProfessor],
     question.findAll);
+
+  app.get(
+    "/api/test/enamequestions",
+    [authJwt.verifyToken, authJwt.isStudent],
+    question.findAllByEname);
   
+  app.get(
+    "/api/test/questions/:id",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    question.findOne);
+
   app.get(
     "/api/test/questions/:id",
     [authJwt.verifyToken, authJwt.isProfessor],
@@ -76,10 +88,9 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isProfessor],
     exam.create);
 
-  // changes made here -- removed authJwt.isProfessor
   app.get(
     "/api/test/exams",
-    [authJwt.verifyToken],
+    [authJwt.verifyToken, authJwt.isProfessor],
     exam.findAll);
   
   app.get(
@@ -96,5 +107,10 @@ module.exports = function(app) {
     "/api/test/exams/:id",
     [authJwt.verifyToken, authJwt.isProfessor],
     exam.delete);
+
+  app.get(
+    "/api/test/allexams",
+    [authJwt.verifyToken, authJwt.isStudent ],
+    exam.findAllForStudents);
 
 };

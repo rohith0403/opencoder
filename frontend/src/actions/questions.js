@@ -41,7 +41,7 @@ import {
   export const retrieveQuestions = () => async (dispatch) => {
     try {
       const res = await QuestionDataService.getAllQuestions();
-
+      
       dispatch({
         type: RETRIEVE_QUESTIONS,
         payload: res.data,
@@ -64,6 +64,19 @@ import {
     }
   };
   
+  export const retrieveQuestionsByEname = (ename) => async (dispatch) => {
+    try {
+      const res = await QuestionDataService.retrieveQuestionsByEname(ename);
+
+      dispatch({
+        type: RETRIEVE_QUESTIONS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   export const updateQuestion = (id, data) => async (dispatch) => {
     try {
       const res = await QuestionDataService.updateQuestion(id, data);

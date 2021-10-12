@@ -19,7 +19,6 @@ const Question = (props) => {
   const getQuestion = id => {
     if (questions.length !== 0){
       if(questions.filter( x  => x._id=== id)) {
-        // TODO: 505 code
       }
       setcurrentQuestion(questions.filter( x  => x._id=== id)[0]);
     }

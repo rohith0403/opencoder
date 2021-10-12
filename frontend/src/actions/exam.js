@@ -62,6 +62,19 @@ import {
     }
   };
   
+  export const retrieveExamsByStudents = () => async (dispatch) => {
+    try {
+      const res = await ExamDataService.getAllExamsByStudents();
+
+      dispatch({
+        type: RETRIEVE_EXAMS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   export const updateExam = (id, data) => async (dispatch) => {
     try {
       const res = await ExamDataService.updateExam(id, data);
@@ -93,6 +106,19 @@ import {
   export const findExamsByEname = (ename) => async (dispatch) => {
     try {
       const res = await ExamDataService.findByExamname(ename);
+  
+      dispatch({
+        type: RETRIEVE_EXAMS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  export const findExamsByEnameByStudents = (ename) => async (dispatch) => {
+    try {
+      const res = await ExamDataService.findByExamnameByStudents(ename);
   
       dispatch({
         type: RETRIEVE_EXAMS,

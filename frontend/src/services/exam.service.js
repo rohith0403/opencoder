@@ -31,6 +31,16 @@ const getExamByProf = (id) => {
   return axios.get(API_URL + `exams?userId=${id}`, { headers: authHeader() });
 };
 
+const getAllExamsByStudents = () => {
+  return axios.get(API_URL+'allexams',{ headers: authHeader() });
+};
+
+const findByExamnameByStudents = (ename) => {
+  return axios.get(API_URL + `allexams?ename=${ename}`, { headers: authHeader() });
+};
+
+
+
 
 const ExamDataService = {
   createExam,
@@ -40,6 +50,8 @@ const ExamDataService = {
   deleteExam,
   findByExamname,
   getExamByProf,
+  getAllExamsByStudents,
+  findByExamnameByStudents,
 };
 
 export default ExamDataService;

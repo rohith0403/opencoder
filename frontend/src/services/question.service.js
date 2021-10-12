@@ -31,6 +31,13 @@ const getQuestionByProf = (id) => {
   return axios.get(API_URL + `questions?userId=${id}`, { headers: authHeader() });
 };
 
+const retrieveQuestionsByEname = (ename) => {
+  return axios.get(API_URL+`enamequestions?ename=${ename}`,{ headers: authHeader() });
+};
+
+const getQuestionForStudents = (id) =>{
+  return axios.get(API_URL+`viewquestion/${id}`,{ headers: authHeader() });
+}
 
 const QuestionDataService = {
   createQuestion,
@@ -40,6 +47,8 @@ const QuestionDataService = {
   deleteQuestion,
   findByQuestionname,
   getQuestionByProf,
+  retrieveQuestionsByEname,
+  getQuestionForStudents,
 };
 
 export default QuestionDataService;
