@@ -6,7 +6,7 @@ import { code } from "../components/defaultCode";
 const initialState = {
   code: code.cpp,
   result: "Run code to see result",
-  lang: "python",
+  lang: "cpp",
   input: "Enter input"
 };
 

@@ -23,6 +23,9 @@ import { clearMessage } from "./actions/message";
 import { GlobalProvider } from "./context/GlobalState";
 import  Editor from "./components/Editor";
 import { history } from "./helpers/history";
+import Homepage from "./components/HomePage";
+import Exampage from "./components/ExamPage";
+
 
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "./common/EventBus";
@@ -117,7 +120,20 @@ const App = () => {
                 </Link>
               </li>
             )}
-
+            {showStudentBoard && (
+              <li className="nav-item">
+                <Link to={"/exam"} className="nav-link">
+                  Exam
+                </Link>
+              </li>
+            )}
+            {showStudentBoard && (
+              <li className="nav-item">
+                <Link to={"/exampage"} className="nav-link">
+                  ExamPage
+                </Link>
+              </li>
+            )}
             {showAdminBoard && (
               <li className="nav-item">
                 <Link to={"/adduser"} className="nav-link">
@@ -181,6 +197,10 @@ const App = () => {
             <Route path="/users/:id" component={User} />
             <Route path="/users" component={UsersList} />
             <Route path="/editor" component={Editor} />
+            <Route path="/exam" component={Homepage} />
+            <Route path="/exampage" component={Exampage} />
+
+
           </Switch>
         </div>
 

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import MonacoEditor from "@monaco-editor/react";
+// import MonacoEditor from "@monaco-editor/react";
+import MonacoEditor from 'react-monaco-editor';
 import { GlobalContext } from "../context/GlobalState";
 import Options from "./Options";
 import Output from "./Output";
-// import "../CSS/CodeArea.css";
 
 function CodeArea({ onCodeChangeHandler }) {
   const { code } = useContext(GlobalContext);
@@ -26,22 +26,31 @@ function CodeArea({ onCodeChangeHandler }) {
     console.log("Editor Mounted");
   };
 
-
+  const handleCopy = (e) => {
+    e.preventDefault();
+    console.log("No copy")
+    e.nativeEvent.stopImmediatePropagation();
+    alert('Don\'t copy it!');
+  };
   return (
     <>
       <div className="codearea">
         <Options/>
         <div className="codewritearea">
           <MonacoEditor
+            // onCut={handleChange}
+            onCopy={handleCopy}
+            onPaste={handleCopy}          
             width="50%"
             height="80vh"
             left= "50%"
             // defaultlanguage = "cpp"
-            theme="hc-black"
+            theme="vs-dark"
             value={code}
             options={options}
             onChange={newCode => handleCodeChange(newCode)}
             editorDidMount={editorDidMount}
+            onpaste="return false"
           />
         </div>
         <Output/>

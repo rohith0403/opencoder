@@ -29,9 +29,14 @@ exports.create = (req, res) => {
 
 // Retrieve all exams from the database.
 exports.findAll = (req, res) => {
+  console.log("question");
   var ObjectID = require('mongodb').ObjectID;
   const ename = req.query.ename;
-  var condition = ename ? { ename: { $regex: new RegExp(ename), $options: "i" },"userId": new ObjectID(req.userId)}  : {"userId": new ObjectID(req.userId)};
+
+  // var condition = ename ? { ename: { $regex: new RegExp(ename), $options: "i" },"userId": new ObjectID(req.userId)}  : {"userId": new ObjectID(req.userId)};
+  // changed to this line to get all questions without userId
+  var condition = ename ? { ename: { $regex: new RegExp(ename), $options: "i" }}  : {};
+
   Exam.find(condition )
     .then(data => {
       // loggerinfo.info("exams retreived.");

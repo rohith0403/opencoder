@@ -49,9 +49,10 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isProfessor],
     question.create);
   
+    // changes made here -- removed authJwt.isProfessor
   app.get(
     "/api/test/questions",
-    [authJwt.verifyToken, authJwt.isProfessor],
+    [authJwt.verifyToken],
     question.findAll);
   
   app.get(
@@ -74,10 +75,11 @@ module.exports = function(app) {
     "/api/test/exams",
     [authJwt.verifyToken, authJwt.isProfessor],
     exam.create);
-  
+
+  // changes made here -- removed authJwt.isProfessor
   app.get(
     "/api/test/exams",
-    [authJwt.verifyToken, authJwt.isProfessor],
+    [authJwt.verifyToken],
     exam.findAll);
   
   app.get(

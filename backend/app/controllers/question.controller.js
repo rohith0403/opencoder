@@ -34,7 +34,11 @@ exports.create = async (req, res) => {
 exports.findAll = (req, res) => {
   var ObjectID = require('mongodb').ObjectID;
   const qname = req.query.qname;
-  var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" },"userId": new ObjectID(req.userId)}  : {"userId": new ObjectID(req.userId)};
+
+  // var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" },"userId": new ObjectID(req.userId)}  : {"userId": new ObjectID(req.userId)};
+  // changed to this line to get all questions without userId
+  var condition = qname ? { qname: { $regex: new RegExp(qname), $options: "i" }}  : {};
+
   Question.find(condition )
     .then(data => {
       // loggerinfo.info("questions retreived.");
