@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateExam, deleteExam } from "../actions/exam";
 import ExamDataService from "../services/exam.service";
@@ -15,10 +15,9 @@ const Exam = (props) => {
   const exams = useSelector(state => state.exams);
   const dispatch = useDispatch();
 
-  const getExam = id => {
+  const getExam = useCallback((id) => {
     if (exams.length !== 0){
       if(exams.filter( x  => x._id=== id)) {
-        // TODO: 505 code
       }
       setcurrentExam(exams.filter( x  => x._id=== id)[0]);
     }
@@ -32,10 +31,10 @@ const Exam = (props) => {
         console.log(e);
       });
     }
-  };
+  },[exams]);
   useEffect(() => {
     getExam(props.match.params.id);
-  }, [props.match.params.id]);
+  }, [props.match.params.id,getExam]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;

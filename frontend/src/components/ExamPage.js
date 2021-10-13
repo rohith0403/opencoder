@@ -13,7 +13,7 @@ const ExamPage = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(retrieveQuestionsByEname(props.location.state.ename));
-  }, []);
+  }, [props.location.state.ename, dispatch]);
 
 
   const setActiveUser = (question, index) => {

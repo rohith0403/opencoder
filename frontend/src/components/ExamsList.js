@@ -18,7 +18,7 @@ const ExamsList = () => {
 
   useEffect(() => {
     dispatch(retrieveProfExams(userDetails.id));
-  }, []);
+  }, [dispatch]);
 
   const onChangesearchEName = e => {
     const searchEname = e.target.value;

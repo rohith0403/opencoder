@@ -17,7 +17,7 @@ const UsersList = () => {
 
   useEffect(() => {
     dispatch(retrieveUsers());
-  }, []);
+  }, [dispatch]);
 
   const onChangesearchUsername = e => {
     const searchUsername = e.target.value;

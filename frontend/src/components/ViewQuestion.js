@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import QuestionDataService from "../services/question.service";
 import Editor from "./Editor"
@@ -15,7 +15,7 @@ const ViewQuestion = (props) => {
   const [currentQuestion, setcurrentQuestion] = useState(initialQuestionState);
   const questions = useSelector(state => state.questions);
 
-  const getQuestion = id => {
+  const getQuestion = useCallback((id) => {
     if (questions.length !== 0){
       if(questions.filter( x  => x._id=== id)) {
       }
@@ -25,16 +25,15 @@ const ViewQuestion = (props) => {
     QuestionDataService.getQuestionForStudents(id)
       .then(response => {
         setcurrentQuestion(response.data);
-        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
       });
     }
-  };
+  },[questions]);
   useEffect(() => {
     getQuestion(props.match.params.id);
-  }, [props.match.params.id]);
+  }, [props.match.params.id,getQuestion]);
 
 
 

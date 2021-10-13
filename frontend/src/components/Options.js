@@ -21,25 +21,19 @@ function Options() {
     input: input
   };
 
-  console.log(state);
-  
-  // const options = ["python", "java", "cpp", "c", "javascript"];
-  // const defaultOption = options[0];
-
   const options = [
-    { value: "python", label: "python" },
-    { value: "java", label: "java" },
     { value: "cpp", label: "cpp" },
-    { value: "c", label: "c" }
+    { value: "c", label: "c" },
+    { value: "python", label: "python" },
+    { value: "java", label: "java" }
   ];
 
   const onSubmitHandler = e => {
     e.preventDefault();
     console.log(GlobalContext);
-    // handleLangChange("java");
     alert("Submit Code");
     axios
-      .post(`http://192.168.29.32:8080/api/code/submit`, state)
+      .post(`http://127.0.0.1:8080/api/code/submit`, state)
       .then(res => {
         console.log("this is it" + JSON.stringify(res.data));
         const data = res.data;
@@ -77,7 +71,7 @@ function Options() {
             <button className="optionsbtn" onClick={onSubmitHandler}>
               Run
               <span className="btnicon">
-                <img src="" />
+                {/* <img src="" /> */}
               </span>
             </button>
 

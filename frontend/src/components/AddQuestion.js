@@ -30,7 +30,7 @@ const AddQuestion = () => {
 
   useEffect(() => {
     dispatch(retrieveProfExams(userDetails.id));
-  }, []);
+  }, [dispatch]);
   
   const exams = useSelector(state => state.exams);
 

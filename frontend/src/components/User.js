@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser, deleteUser } from "../actions/users";
 import UserDataService from "../services/user.service";
@@ -15,11 +15,10 @@ const User = (props) => {
   const users = useSelector(state => state.users);
   const dispatch = useDispatch();
 
-  const getUser = id => {
+  const getUser = useCallback((id) => {
     if (users.length !== 0){
       console.log(users);
       if(users.filter( x  => x._id=== id)) {
-        // TODO: 505 code
       }
       setcurrentUser(users.filter( x  => x._id=== id)[0]);
     }
@@ -33,10 +32,10 @@ const User = (props) => {
         console.log(e);
       });
     }
-  };
+  },[users]);
   useEffect(() => {
     getUser(props.match.params.id);
-  }, [props.match.params.id]);
+  }, [props.match.params.id,getUser]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;

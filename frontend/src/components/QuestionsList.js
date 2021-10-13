@@ -18,7 +18,7 @@ const QuestionsList = () => {
 
   useEffect(() => {
     dispatch(retrieveProfQuestions(userDetails.id));
-  }, []);
+  }, [dispatch]);
 
   const onChangesearchQName = e => {
     const searchQname = e.target.value;

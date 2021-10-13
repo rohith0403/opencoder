@@ -15,7 +15,7 @@ const Homepage = () => {
 
   useEffect(() => {
     dispatch(retrieveExamsByStudents());
-  }, []);
+  }, [dispatch]);
 
   const onChangesearchEName = e => {
     const searchEname = e.target.value;

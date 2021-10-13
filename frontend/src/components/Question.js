@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateQuestion, deleteQuestion } from "../actions/questions";
 import QuestionDataService from "../services/question.service";
@@ -16,7 +16,7 @@ const Question = (props) => {
   const questions = useSelector(state => state.questions);
   const dispatch = useDispatch();
 
-  const getQuestion = id => {
+  const getQuestion = useCallback((id) => {
     if (questions.length !== 0){
       if(questions.filter( x  => x._id=== id)) {
       }
@@ -32,10 +32,10 @@ const Question = (props) => {
         console.log(e);
       });
     }
-  };
+  },[questions]);
   useEffect(() => {
     getQuestion(props.match.params.id);
-  }, [props.match.params.id]);
+  }, [props.match.params.id,getQuestion]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
