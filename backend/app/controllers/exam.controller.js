@@ -33,8 +33,6 @@ exports.findAll = (req, res) => {
   const ename = req.query.ename;
 
   var condition = ename ? { ename: { $regex: new RegExp(ename), $options: "i" },"userId": new ObjectID(req.userId)}  : {"userId": new ObjectID(req.userId)};
-  // changed to this line to get all questions without userId
-  // var condition = ename ? { ename: { $regex: new RegExp(ename), $options: "i" }}  : {};
 
   Exam.find(condition )
     .then(data => {

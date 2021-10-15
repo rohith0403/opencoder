@@ -10,9 +10,10 @@ const Homepage = () => {
   const [currentExam, setcurrentExam] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchEname, setsearchEname] = useState("");
+  const [startexam, setstartExam] = useState(true);
   const exams = useSelector(state => state.exams);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(retrieveExamsByStudents());
   }, [dispatch]);
@@ -30,6 +31,21 @@ const Homepage = () => {
   const setActiveExam = (exam, index) => {
     setcurrentExam(exam);
     setCurrentIndex(index);
+    var currentDateWithFormat = new Date();
+    var day = currentDateWithFormat.getDate();
+    var month = currentDateWithFormat.getMonth()+1;
+    var year = currentDateWithFormat.getFullYear();
+    var hours = currentDateWithFormat.getHours();
+    var minutes = currentDateWithFormat.getMinutes();
+    var time = hours+':'+minutes;
+    console.log(time);
+    const startDate = day+'-'+month+'-'+year;
+      if (exam.start_date <= startDate && exam.start_time <= time && exam.end_time >= time) {
+        setstartExam(true);
+        console.log("hello");
+      } else {
+        setstartExam(false);
+      }
   };
 
   const findByEName = () => {
@@ -88,6 +104,31 @@ const Homepage = () => {
               </label>{" "}
               {currentExam.ename}
             </div>
+            <div>
+              <label>
+                <strong>Start Date:</strong>
+              </label>{" "}
+              {currentExam.start_date}
+            </div>
+            <div>
+              <label>
+                <strong>Start Time:</strong>
+              </label>{" "}
+              {currentExam.start_time}
+            </div>
+            <div>
+              <label>
+                <strong>End Time:</strong>
+              </label>{" "}
+              {currentExam.end_time}
+            </div>
+            <div>
+              <label>
+                <strong>Exam Time in minutes:</strong>
+              </label>{" "}
+              {currentExam.exam_time}
+            </div>
+           {startexam? <div v-if="startexam">
             <Link
               to={{
                 pathname: "/enamequestions",
@@ -99,6 +140,7 @@ const Homepage = () => {
               Start
             </Badge>{' '}
             </Link>
+          </div> : ''}
 
           </div>
         ) : (

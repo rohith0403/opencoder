@@ -52,7 +52,8 @@ const ExamPage = (props) => {
               {currentQuestion.description}
             </div>
             <Link
-              to={"/viewquestion/" + currentQuestion._id}
+              to={{pathname: "/viewquestion/" + currentQuestion._id, 
+              state:props.location.state}}
               className="badge badge-warning"
               >
             <Badge bg="warning" text="dark">

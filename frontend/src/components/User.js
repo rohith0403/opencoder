@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser, deleteUser } from "../actions/users";
 import UserDataService from "../services/user.service";
+import { Button } from 'react-bootstrap'
 
 const User = (props) => {
   const initialUserState = {
@@ -105,17 +106,9 @@ const User = (props) => {
             </div>
           </form>
 
-          <button className="badge badge-danger mr-2" onClick={removeUser}>
-            Delete
-          </button>
+          <Button variant="danger" onClick={removeUser} >Delete</Button> {' '}
+          <Button variant="warning" onClick={updateContent}>Update</Button>{' '}
 
-          <button
-            type="submit"
-            className="badge badge-success"
-            onClick={updateContent}
-          >
-            Update
-          </button>
           <p>{message}</p>
         </div>
       ) : (

@@ -9,6 +9,10 @@ const Exam = mongoose.model(
         required: true
       },
     ename: String,
+    start_date: String,
+    start_time: String,
+    end_time: String,
+    exam_time: Number,
   })
 );
 

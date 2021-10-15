@@ -113,14 +113,6 @@ const App = () => {
                 </Link>
               </li>
             )}
-            {/* remove this */}
-            {/* {showStudentBoard && (
-              <li className="nav-item">
-                <Link to={"/editor"} className="nav-link">
-                  Editor
-                </Link>
-              </li>
-            )} */}
             {showStudentBoard && (
               <li className="nav-item">
                 <Link to={"/allexams"} className="nav-link">

@@ -91,6 +91,30 @@ const ExamsList = () => {
               </label>{" "}
               {currentExam.ename}
             </div>
+            <div>
+              <label>
+                <strong>Exam Date:</strong>
+              </label>{" "}
+              {currentExam.start_date}
+            </div>
+            <div>
+              <label>
+                <strong>Start Time:</strong>
+              </label>{" "}
+              {currentExam.start_time}
+            </div>
+            <div>
+              <label>
+                <strong>End Time:</strong>
+              </label>{" "}
+              {currentExam.end_time}
+            </div>
+            <div>
+              <label>
+                <strong>Exam Time in minutes:</strong>
+              </label>{" "}
+              {currentExam.exam_time}
+            </div>
             <Link
               to={"/exams/" + currentExam._id}
               className="badge badge-warning"
@@ -104,7 +128,7 @@ const ExamsList = () => {
         ) : (
           <div>
             <br />
-            <p>Please click on a User...</p>
+            <p>Please click on a Exam...</p>
           </div>
         )}
       </div>

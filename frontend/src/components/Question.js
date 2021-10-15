@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateQuestion, deleteQuestion } from "../actions/questions";
 import QuestionDataService from "../services/question.service";
+import { Button } from 'react-bootstrap'
 
 const Question = (props) => {
   const initialQuestionState = {
@@ -107,18 +108,10 @@ const Question = (props) => {
             </div>
           </form>
 
-          <button className="badge badge-danger mr-2" onClick={removeQuestion}>
-            Delete
-          </button>
-
-          <button
-            type="submit"
-            className="badge badge-success"
-            onClick={updateContent}
-          >
-            Update
-          </button>
+          <Button variant="danger" onClick={removeQuestion} >Delete</Button> {' '}
+          <Button variant="warning" onClick={updateContent}>Update</Button>{' '}
           <p>{message}</p>
+
         </div>
       ) : (
         <div>

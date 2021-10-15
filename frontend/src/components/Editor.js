@@ -3,6 +3,7 @@ import MonacoEditor from 'react-monaco-editor';
 import { GlobalContext } from "../context/GlobalState";
 import Options from "./Options";
 import Output from "./Output";
+import "./CSS/Editor.css"
 
 function CodeArea({ onCodeChangeHandler }) {
   const { code } = useContext(GlobalContext);
