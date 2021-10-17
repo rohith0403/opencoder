@@ -23,7 +23,6 @@ exports.create = async (req, res) =>  {
   // Save User in the database
   await user.save((err, user) => {
     if (err) {
-      // console.log(err);
       res.status(500).send({ message: err });
       return;
     }
@@ -76,11 +75,9 @@ exports.findAll = (req, res) => {
   var condition = username ? { username: { $regex: new RegExp(username), $options: "i" } } : {};
   User.find(condition)
     .then(data => {
-      // loggerinfo.info("Users retreived.");
       res.send(data);
     })
     .catch(err => {
-      // logger.error(err.message || "Some error occurred while retrieving users.");
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving users."
@@ -88,19 +85,16 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single User with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
   User.findById(id)
     .then(data => {
       if (!data){
-      // logger.error("Not found User with id " + id);
       res.status(404).send({ message: "Not found User with id " + id });
       }
       else res.send(data);
     })
     .catch(err => {
-      // logger.error("Error retrieving User with id=" + id);
       res
         .status(500)
         .send({ message: "Error retrieving User with id=" + id });
@@ -109,7 +103,6 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
   if (!req.body) {
-    // logger.error("Data to update cannot be empty!");
     return res.status(400).send({
       message: "Data to update can not be empty!"
     });
@@ -120,14 +113,12 @@ exports.update = (req, res) => {
   User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then(data => {
       if (!data) {
-        // logger.error(`Cannot update User with id=${id}. Maybe User was not found!`);
         res.status(404).send({
           message: `Cannot update User with id=${id}. Maybe User was not found!`
         });
       } else res.send({ message: "User was updated successfully." });
     })
     .catch(err => {
-      // logger.error("Error updating User with id=" + id);
       res.status(500).send({
         message: "Error updating User with id=" + id
       });
@@ -140,19 +131,16 @@ exports.delete = (req, res) => {
   User.findByIdAndRemove(id, { useFindAndModify: false })
     .then(data => {
       if (!data) {
-        // logger.error(`Cannot delete User with id=${id}. Maybe User was not found!`);
         res.status(404).send({
           message: `Cannot delete User with id=${id}. Maybe User was not found!`
         });
       } else {
-        // loggerinfo.info("User was deleted successfully!");
         res.send({
           message: "User was deleted successfully!"
         });
       }
     })
     .catch(err => {
-      // logger.error("Could not delete User with id=" + id);
       res.status(500).send({
         message: "Could not delete User with id=" + id
       });

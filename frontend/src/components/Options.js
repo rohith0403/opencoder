@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
-// import secret from "../secret";
 import 'react-dropdown/style.css';
 import Select from "react-select";
 import axios from "axios";
 import "./CSS/Options.css"
+
 function Options() {
   const { code } = useContext(GlobalContext);
   const { lang } = useContext(GlobalContext);
@@ -13,6 +13,7 @@ function Options() {
   const { handleInputChange } = useContext(GlobalContext);
   const { input } = useContext(GlobalContext);
   const { displayOutput } = useContext(GlobalContext);
+  const { download } = useContext(GlobalContext);
 
   const state = {
     code: code,
@@ -39,7 +40,6 @@ function Options() {
         const data = res.data;
 
         if (data.err) {
-          // Error in user code
           console.log("options" + state);
           if (
             data.output ===
@@ -70,17 +70,11 @@ function Options() {
           <div className="btncont">
             <button className="optionsbtn" onClick={onSubmitHandler}>
               Run
-              <span className="btnicon">
-                {/* <img src="" /> */}
-              </span>
             </button>
 
-            {/* <button className="optionsbtn" onClick={download}>
+            <button className="optionsbtn" onClick={download}>
               Download
-              <span className="btnicon">
-                <img src="" />
-              </span>
-            </button> */}
+            </button>
             {/* <button className="optionsbtn" onClick={storePreviousInput}>
               Store Input
             </button>
@@ -88,11 +82,6 @@ function Options() {
               Load Input
             </button> */}
           </div>
-            {/* className="select"
-            <Select
-            options={options}
-            onChange={option => handleLangChange(option.value)}
-          /> */}
         </div>
         <div className="optionsbox2">
           <textarea

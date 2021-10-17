@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  retrieveUsers,
-  findUsersByUsername,
-} from "../actions/users";
+import { retrieveUsers,findUsersByUsername } from "../actions/users";
 import { Link } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
 

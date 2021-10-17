@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { retrieveQuestionsByEname } from "../actions/questions";
 import { Link } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 
 
 const ExamPage = (props) => {
@@ -15,7 +16,13 @@ const ExamPage = (props) => {
     dispatch(retrieveQuestionsByEname(props.location.state.ename));
   }, [props.location.state.ename, dispatch]);
 
+  var time = props.location.state.exam_time*60*1000;
+  const history = useHistory()
 
+  setTimeout(() => {
+    history.push('/allexams')
+  }, time)
+  
   const setActiveUser = (question, index) => {
     setcurrentQuestion(question);
     setCurrentIndex(index);
@@ -49,7 +56,7 @@ const ExamPage = (props) => {
             <div>
             <h4>Question</h4>
             <div>
-              {currentQuestion.description}
+              <div style={{whiteSpace: "pre-wrap"}}>{currentQuestion.description}</div>
             </div>
             <Link
               to={{pathname: "/viewquestion/" + currentQuestion._id, 

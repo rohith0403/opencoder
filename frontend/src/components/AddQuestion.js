@@ -3,6 +3,7 @@ import { createQuestion } from "../actions/questions";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveProfExams,} from "../actions/exam";
 import { Dropdown, } from 'react-bootstrap';
+import "./CSS/General.css"
 
 let userDetails = JSON.parse(localStorage.getItem("user"));
 const AddQuestion = () => {
@@ -52,7 +53,6 @@ const AddQuestion = () => {
   };
 
   const  changeExamName = async (eName) => {
-    console.log("asdasdas   ",eName);
       await setQuestion({ ...question, ename: eName });
     };
 
@@ -106,11 +106,11 @@ const AddQuestion = () => {
             />
           </div>
 
-          <div className="form-group">
-                <label htmlFor="description">Question</label>
-                <input
+          <div className="form_group">
+              <label htmlFor="description">Question</label>
+              <textarea
                 type="text"
-                className="form-control"
+                className="input_width"
                 id="description"
                 required
                 value={question.description}

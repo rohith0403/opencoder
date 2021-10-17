@@ -15,7 +15,10 @@ const Question = mongoose.model(
       },
     ename: String,
     qname: String,
-    description: String
+    description: String,
+    testcases:[{
+      type: String
+    }]
   })
 );
 

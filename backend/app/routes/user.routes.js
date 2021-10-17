@@ -15,7 +15,6 @@ module.exports = function(app) {
 
   app.get("/api/test/all", controller.allAccess);
   
-// admin
   app.post(
     "/api/test/users",
     [authJwt.verifyToken, authJwt.isAdmin,
@@ -30,23 +29,19 @@ module.exports = function(app) {
   
   app.get(
     "/api/test/users/:id",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.findOne);
   
   app.put(
     "/api/test/users/:id",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.update);
 
   app.delete(
     "/api/test/users/:id",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.delete);
-  
 
-
-
-// professor
   app.post(
     "/api/test/questions",
     [authJwt.verifyToken, authJwt.isProfessor],

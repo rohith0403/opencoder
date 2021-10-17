@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  findExamsByEname,
-  retrieveProfExams,
-} from "../actions/exam";
+import { findExamsByEname, retrieveProfExams } from "../actions/exam";
 import { Link } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
 let userDetails = JSON.parse(localStorage.getItem("user"));

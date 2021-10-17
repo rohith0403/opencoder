@@ -36,11 +36,9 @@ exports.findAll = (req, res) => {
 
   Exam.find(condition )
     .then(data => {
-      // loggerinfo.info("exams retreived.");
       res.send(data);
     })
     .catch(err => {
-      // logger.error(err.message || "Some error occurred while retrieving exams.");
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving exams."
@@ -55,11 +53,9 @@ exports.findAllForStudents = (req, res) => {
 
   Exam.find(condition )
     .then(data => {
-      // loggerinfo.info("exams retreived.");
       res.send(data);
     })
     .catch(err => {
-      // logger.error(err.message || "Some error occurred while retrieving exams.");
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving exams."
@@ -73,13 +69,11 @@ exports.findOne = (req, res) => {
   Exam.findById(id)
     .then(data => {
       if (!data){
-      // logger.error("Not found exam with id " + id);
       res.status(404).send({ message: "Not found exam with id " + id });
       }
       else res.send(data);
     })
     .catch(err => {
-      // logger.error("Error retrieving exam with id=" + id);
       res
         .status(500)
         .send({ message: "Error retrieving exam with id=" + id });
@@ -88,7 +82,6 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
   if (!req.body) {
-    // logger.error("Data to update cannot be empty!");
     return res.status(400).send({
       message: "Data to update can not be empty!"
     });
@@ -98,14 +91,12 @@ exports.update = (req, res) => {
   Exam.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then(data => {
       if (!data) {
-        // logger.error(`Cannot update exam with id=${id}. Maybe exam was not found!`);
         res.status(404).send({
           message: `Cannot update exam with id=${id}. Maybe exam was not found!`
         });
       } else res.send({ message: "exam was updated successfully." });
     })
     .catch(err => {
-      // logger.error("Error updating exam with id=" + id);
       res.status(500).send({
         message: "Error updating exam with id=" + id
       });
@@ -118,19 +109,16 @@ exports.delete = (req, res) => {
   Exam.findByIdAndRemove(id, { useFindAndModify: false })
     .then(data => {
       if (!data) {
-        // logger.error(`Cannot delete exam with id=${id}. Maybe exam was not found!`);
         res.status(404).send({
           message: `Cannot delete exam with id=${id}. Maybe exam was not found!`
         });
       } else {
-        // loggerinfo.info("exam was deleted successfully!");
         res.send({
           message: "exam was deleted successfully!"
         });
       }
     })
     .catch(err => {
-      // logger.error("Could not delete exam with id=" + id);
       res.status(500).send({
         message: "Could not delete exam with id=" + id
       });

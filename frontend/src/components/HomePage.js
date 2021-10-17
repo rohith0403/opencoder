@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  findExamsByEnameByStudents,
-  retrieveExamsByStudents,
-} from "../actions/exam";
+import { findExamsByEnameByStudents,retrieveExamsByStudents } from "../actions/exam";
 import { Link } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
 const Homepage = () => {
@@ -38,11 +35,9 @@ const Homepage = () => {
     var hours = currentDateWithFormat.getHours();
     var minutes = currentDateWithFormat.getMinutes();
     var time = hours+':'+minutes;
-    console.log(time);
     const startDate = day+'-'+month+'-'+year;
-      if (exam.start_date <= startDate && exam.start_time <= time && exam.end_time >= time) {
+      if (exam.start_date === startDate && exam.start_time <= time && exam.end_time >= time) {
         setstartExam(true);
-        console.log("hello");
       } else {
         setstartExam(false);
       }

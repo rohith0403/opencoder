@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  findQuestionsByQname,
-  retrieveProfQuestions,
-} from "../actions/questions";
+import { findQuestionsByQname, retrieveProfQuestions } from "../actions/questions";
 import { Link } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
 let userDetails = JSON.parse(localStorage.getItem("user"));
@@ -101,7 +98,7 @@ const QuestionsList = () => {
               <label>
                 <strong>Question:</strong>
               </label>{" "}
-              {currentQuestion.description}
+              <div style={{whiteSpace: "pre-wrap"}}>{currentQuestion.description}</div>
             </div>
             <Link
               to={"/questions/" + currentQuestion._id}

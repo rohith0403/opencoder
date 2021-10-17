@@ -41,7 +41,7 @@ function CodeArea({ onCodeChangeHandler }) {
             onCut={handleCopy}
             onCopy={handleCopy}
             onPaste={handleCopy}
-            width="50%"
+            width="700"
             height="80vh"
             left= "50%"
             theme="vs-dark"

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateQuestion, deleteQuestion } from "../actions/questions";
 import QuestionDataService from "../services/question.service";
 import { Button } from 'react-bootstrap'
+import "./CSS/General.css"
 
 const Question = (props) => {
   const initialQuestionState = {
@@ -97,9 +98,9 @@ const Question = (props) => {
             </div>
             <div className="form-group">
                 <label htmlFor="description">Question</label>
-                <input
+                <textarea
+                  className="input_width"
                   type="text"
-                  className="form-control"
                   id="description"
                   value={currentQuestion.description}
                   onChange={handleInputChange}

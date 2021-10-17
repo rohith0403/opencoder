@@ -21,14 +21,11 @@ import Exam from "./components/Exam";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { GlobalProvider } from "./context/GlobalState";
-// import  Editor from "./components/Editor";
 import { history } from "./helpers/history";
 import Homepage from "./components/HomePage";
 import Exampage from "./components/ExamPage";
 import ViewQuestion from "./components/ViewQuestion";
-
-
-// import AuthVerify from "./common/AuthVerify";
+import ProfileEdit from "./components/ProfileEdit";
 import EventBus from "./common/EventBus";
 
 const App = () => {
@@ -182,10 +179,10 @@ const App = () => {
             <Route path="/adduser" component={AddUser} />
             <Route path="/users/:id" component={User} />
             <Route path="/users" component={UsersList} />
-            {/* <Route path="/editor" component={Editor} /> */}
             <Route path="/allexams" component={Homepage} />
             <Route path="/enamequestions" component={Exampage} />
             <Route path="/viewquestion/:id" component={ViewQuestion} />
+            <Route path="/profileedit/:id" component={ProfileEdit} />
 
           </Switch>
         </div>

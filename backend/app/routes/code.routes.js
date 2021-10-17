@@ -12,7 +12,6 @@ const deleteFile = (filename) => {
     if (err) {
       console.log("SORRY NOT DELETED");
     }
-    // if no error, file has been deleted successfully
     console.log("File deleted!");
   });
 };
@@ -110,7 +109,7 @@ router.post("/submit", (req, res) => {
           deleteFile(path.join(__dirname, "../../test.js"));
           // deleteFile(path.join(__dirname, "../../a.exe"));
         });
-  } // switch
+  } 
 });
 
 module.exports = router;
