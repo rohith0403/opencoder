@@ -16,7 +16,11 @@ exports.create = async (req, res) => {
     ename:req.body.ename,
     qname:req.body.qname,
     description:req.body.description,
-    testcases: req.body.testcases
+    testcase1: req.body.testcase1,
+    testcase2: req.body.testcase2,
+    testcase3: req.body.testcase3,
+    testcase4: req.body.testcase4,
+    testcase5: req.body.testcase5
   });
   // console.log(req.body.testcases);
   question

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const fs = require("fs");
-const execute = require("../compiler");
+const execute = require("../controllers/compiler.controller");
 const path = require("path");
 
 router.get("/test", (req, res) => {
@@ -17,97 +17,87 @@ const deleteFile = (filename) => {
 };
 
 router.post("/submit", (req, res) => {
-  console.log("body" + req.body);
   const code = req.body.code;
   const input = req.body.input;
   const lang = req.body.lang;
-  console.log("reached /submit");
+  const directory = "/home/sanjay/"+req.body.examid+"/"+req.body.userid+"/";
+  if (!fs.existsSync(directory)){
+    fs.mkdirSync(directory, { recursive: true });
+  }
+  const filename = directory+req.body.questionid;
   switch (lang) {
     case "cpp":
       return execute
-        .cPlusPlusExecute(code, input)
+        .cPlusPlusExecute(code,input,filename)
         .then((data) => {
-          console.log("SUCCESSFULL PROMISE " + data);
           console.log("SENDING " + JSON.stringify(data));
           res.json(data);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.cpp"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".cpp");
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.cpp"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".cpp");
         });
     case "c":
       return execute
-        .cExecute(code, input)
+        .cExecute(code,input,filename)
         .then((data) => {
-          console.log("SUCCESSFULL PROMISE " + data);
-          console.log("SENDING " + data);
           res.json(data);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.c"));
-          deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".c");
+          deleteFile("/"+filename);
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.c"));
-          deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".c");
+          deleteFile("/"+filename);
         });
 
     case "java":
       return execute
-        .javaExecute(code, input)
+        .javaExecute(code,input,filename)
         .then((data) => {
-          console.log("SUCCESSFULL PROMISE " + data);
-          console.log("SENDING " + data);
           res.json(data);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.java"));
-          deleteFile(path.join(__dirname, "../../test.class"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".java");
+          deleteFile(filename+".class");
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.java"));
-          deleteFile(path.join(__dirname, "../../test.class"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".java");
+          deleteFile(filename+".class");
         });
 
     case "python":
       return execute
-        .pythonExecute(code, input)
+        .pythonExecute(code,input,filename)
         .then((data) => {
-          console.log("SUCCESSFULL PROMISE " + data);
-          console.log("SENDING " + data);
           res.json(data);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.py"));
-          deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".py");
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.py"));
-          deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".py");
         });
 
     case "javascript":
       return execute
-        .javascriptExecute(code, input)
+        .javascriptExecute(code,input,filename)
         .then((data) => {
-          console.log("SUCCESSFULL PROMISE " + data);
-          console.log("SENDING " + data);
           res.json(data);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.js"));
-          // deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".js");
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
-          deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteFile(path.join(__dirname, "../../test.js"));
-          // deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteFile(filename+".txt");
+          // deleteFile(filename+".js");
         });
   } 
 });

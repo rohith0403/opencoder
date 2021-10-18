@@ -1,11 +1,8 @@
 const fs = require("fs");
 const { exec } = require("child_process");
-const path = require("path");
 
 const saveFile = (name, data) => {
   return new Promise((resolve, reject) => {
-    // Saving File
-    console.log("SAVING FILES");
     fs.writeFile(name, data, function (err) {
       if (err) {
         console.log(err);
@@ -19,26 +16,22 @@ const saveFile = (name, data) => {
 };
 
 // Function for executing C codes
-const cExecute = (data, input) => {
+const cExecute = (data, input,directory) => {
   return new Promise((resolve, reject) => {
-    const fileName = "test.c";
+    const fileName = directory+".c";
+    const inputfile = directory+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file
-        fs.writeFile("input.txt", input, function (err) {
+        fs.writeFile(inputfile, input, function (err) {
           if (err) {
             console.log(err);
             reject();
           }
         });
 
-        // FILE SAVED SUCCESSFULLY
-        // Generate the output file for it
-        const filePath = path.join(__dirname, "../test.c");
-        console.log("FILE PATH >> " + filePath);
-
-        // COMPILE THE C CODES
-        exec("gcc " + filePath, (err, stdout, stderr) => {
+        // COMPILE THE CODE
+        exec("gcc " + fileName+" -o "+directory, (err, stdout, stderr) => {
           if (err) {
             // IF COMPILATION ERROR
             console.error(`exec error: ${err}`);
@@ -49,9 +42,7 @@ const cExecute = (data, input) => {
             });
           }
 
-          // SUCCESSFULL COMPILATION EXECUTING
-          console.log("SUCCESSFULLY COMPILED");
-          exec("./a.out < " + "input.txt", (err, stdout, stderr) => {
+          exec("/"+directory+" < " + inputfile, (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
               resolve({
@@ -61,7 +52,6 @@ const cExecute = (data, input) => {
               });
             }
 
-            console.log("OUTPUT ", stdout);
             resolve({
               err: false,
               output: stdout,
@@ -70,7 +60,6 @@ const cExecute = (data, input) => {
         });
       })
       .catch(() => {
-        console.log("ERROR SAVE FILE" + saveFileRes);
         const err = {
           err: true,
           output: "Internal Server Error!",
@@ -81,31 +70,26 @@ const cExecute = (data, input) => {
 };
 
 // Function for executing C++ codes
-
-const cPlusPlusExecute = (data, input) => {
+const cPlusPlusExecute = (data, input,directory) => {
   const res = {
     err: false,
     msg: "",
   };
   return new Promise((resolve, reject) => {
-    const fileName = "test.cpp";
+    const fileName = directory+".cpp";
+    const inputfile = directory+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file
-        fs.writeFile("input.txt", input, function (err) {
+        fs.writeFile(inputfile, input, function (err) {
           if (err) {
             console.log(err);
             reject();
           }
         });
 
-        // FILE SAVED SUCCESSFULLY
-        // Generate the output file for it
-        const filePath = path.join(__dirname, "../test.cpp");
-        console.log("FILE PATH >> " + filePath);
-
-        // COMPILE THE C++ CODES
-        exec("g++ " + filePath, (err, stdout, stderr) => {
+        // COMPILE THE CODE
+        exec("g++ " + fileName, (err, stdout, stderr) => {
           if (err) {
             // IF COMPILATION ERROR
             console.error(`exec error: ${err}`);
@@ -117,8 +101,7 @@ const cPlusPlusExecute = (data, input) => {
           }
 
           // SUCCESSFULL COMPILATION EXECUTING
-          console.log("SUCCESSFULLY COMPILED");
-          exec("./a.out < " + "input.txt", (err, stdout, stderr) => {
+          exec("./a.out < " + inputfile, (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
               resolve({
@@ -128,7 +111,6 @@ const cPlusPlusExecute = (data, input) => {
               });
             }
 
-            console.log("OUTPUT ", stdout);
             resolve({
               err: false,
               output: stdout,
@@ -137,7 +119,6 @@ const cPlusPlusExecute = (data, input) => {
         });
       })
       .catch(() => {
-        console.log("ERROR SAVE FILE" + saveFileRes);
         const err = {
           err: true,
           output: "Internal Server Error!",
@@ -148,30 +129,26 @@ const cPlusPlusExecute = (data, input) => {
 };
 
 // Function for executing Java codes
-const javaExecute = (data, input) => {
+const javaExecute = (data, input,directory) => {
   const res = {
     err: false,
     msg: "",
   };
   return new Promise((resolve, reject) => {
-    const fileName = "test.java";
+    const fileName = directory+".java";
+    const inputfile = directory+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file
-        fs.writeFile("input.txt", input, function (err) {
+        fs.writeFile(inputfile, input, function (err) {
           if (err) {
             console.log(err);
             reject();
           }
         });
 
-        // FILE SAVED SUCCESSFULLY
-        // Generate the output file for it
-        const filePath = path.join(__dirname, "../test.java");
-        console.log("FILE PATH >> " + filePath);
-
-        // COMPILE THE C++ CODES
-        exec("javac " + filePath, (err, stdout, stderr) => {
+        // COMPILE THE CODE
+        exec("javac " + fileName, (err, stdout, stderr) => {
           if (err) {
             // IF COMPILATION ERROR
             console.error(`exec error: ${err}`);
@@ -183,8 +160,7 @@ const javaExecute = (data, input) => {
           }
 
           // SUCCESSFULL COMPILATION EXECUTING
-          console.log("SUCCESSFULLY COMPILED");
-          exec("java test < " + "input.txt", (err, stdout, stderr) => {
+          exec("java test < " + inputfile, (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
               resolve({
@@ -194,7 +170,6 @@ const javaExecute = (data, input) => {
               });
             }
 
-            console.log("OUTPUT ", stdout);
             resolve({
               err: false,
               output: stdout,
@@ -214,31 +189,27 @@ const javaExecute = (data, input) => {
 };
 
 // Function for execuing python code
-const pythonExecute = (data, input) => {
+const pythonExecute = (data, input,directory) => {
   const res = {
     err: false,
     msg: "",
   };
   return new Promise((resolve, reject) => {
-    const fileName = "test.py";
+    const fileName = directory+".py";
+    const inputfile = directory+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file
-        fs.writeFile("input.txt", input, function (err) {
+        fs.writeFile(inputfile, input, function (err) {
           if (err) {
             console.log(err);
             reject();
           }
         });
 
-        // FILE SAVED SUCCESSFULLY
-        // Generate the output file for it
-        const filePath = path.join(__dirname, "../test.py");
-        console.log("FILE PATH >> " + filePath);
-        const inputPath = path.join(__dirname, "../input.txt");
-        // COMPILE THE C++ CODES
+        // COMPILE THE CODE
         exec(
-          "python " + filePath + " < " + inputPath,
+          "python3 " + fileName + " < " + inputfile,
           (err, stdout, stderr) => {
             if (err) {
               // IF COMPILATION ERROR
@@ -268,30 +239,27 @@ const pythonExecute = (data, input) => {
 };
 
 // Function for executing JavaScript code
-const javascriptExecute = (data, input) => {
+const javascriptExecute = (data, input,directory) => {
   const res = {
     err: false,
     msg: "",
   };
   return new Promise((resolve, reject) => {
-    const fileName = "test.js";
+    const fileName = directory+".js";
+    const inputfile = directory+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file
-        fs.writeFile("input.txt", input, function (err) {
+        fs.writeFile(inputfile, input, function (err) {
           if (err) {
             console.log(err);
             reject();
           }
         });
 
-        // FILE SAVED SUCCESSFULLY
-        // Generate the output file for it
-        const filePath = path.join(__dirname, "../test.js");
-        console.log("FILE PATH >> " + filePath);
 
-        // COMPILE THE C++ CODES
-        exec("node " + filePath, (err, stdout, stderr) => {
+        // COMPILE THE CODE
+        exec("node " + fileName, (err, stdout, stderr) => {
           if (err) {
             // IF COMPILATION ERROR
             console.error(`exec error: ${err}`);
@@ -303,8 +271,7 @@ const javascriptExecute = (data, input) => {
           }
 
           // SUCCESSFULL COMPILATION EXECUTING
-          console.log("SUCCESSFULLY COMPILED");
-          exec("node test < " + "input.txt", (err, stdout, stderr) => {
+          exec("node test < " + inputfile , (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
               resolve({

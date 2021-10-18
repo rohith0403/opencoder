@@ -13,6 +13,11 @@ const AddQuestion = () => {
     ename:"",
     qname:"",
     description:"",
+    t1:"",
+    t2:"",
+    t3:"",
+    t4:"",
+    t5:"",
     submitted: false
   };
   const [question, setQuestion] = useState(initialQuestionState);
@@ -36,14 +41,19 @@ const AddQuestion = () => {
   const exams = useSelector(state => state.exams);
 
   const saveQuestion = () => {
-    const { userId,ename,qname,description} = question;
-    dispatch(createQuestion(userId,ename,qname,description))
+    const { userId,ename,qname,description,t1,t2,t3,t4,t5} = question;
+    dispatch(createQuestion(userId,ename,qname,description,t1,t2,t3,t4,t5))
       .then(data => {
         setQuestion({
           userId:userDetails.id,
           ename : data.ename,
           qname : data.qname,
           description : data.description,
+          t1: data.t1,
+          t2: data.t2,
+          t3: data.t3,
+          t4: data.t4,
+          t5: data.t5,
         });
         setSubmitted(true);
       })
@@ -86,10 +96,10 @@ const AddQuestion = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-     {exams.map(exam => (
-       <Dropdown.Item href="#" onClick={()=>{changeExamName(exam.ename)}}>{exam.ename}</Dropdown.Item>
-     ))}
-   </Dropdown.Menu>
+              {exams.map(exam => (
+              <Dropdown.Item href="#" onClick={()=>{changeExamName(exam.ename)}}>{exam.ename}</Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
           </Dropdown>
           </div>
 
@@ -104,6 +114,67 @@ const AddQuestion = () => {
               onChange={handleInputChange}
               name="qname"
             />
+          </div>
+
+          <div className="form_group">
+              <label htmlFor="t1">Test Case 1</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="t1"
+                required
+                value={question.t1}
+                onChange={handleInputChange}
+                name="t1"
+              />
+          </div>
+          <div className="form_group">
+              <label htmlFor="t2">Test Case 2</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="t2"
+                required
+                value={question.t2}
+                onChange={handleInputChange}
+                name="t2"
+              />
+          </div>
+          <div className="form_group">
+              <label htmlFor="t3">Test Case 3</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="t3"
+                required
+                value={question.t3}
+                onChange={handleInputChange}
+                name="t3"
+              />
+          </div>
+          <div className="form_group">
+              <label htmlFor="t4">Test Case 4</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="t4"
+                required
+                value={question.t4}
+                onChange={handleInputChange}
+                name="t4"
+              />
+          </div>
+          <div className="form_group">
+              <label htmlFor="t5">Test Case 5</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="t5"
+                required
+                value={question.t5}
+                onChange={handleInputChange}
+                name="t5"
+              />
           </div>
 
           <div className="form_group">

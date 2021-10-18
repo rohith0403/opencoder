@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import MonacoEditor from 'react-monaco-editor';
 import { GlobalContext } from "../context/GlobalState";
-import Options from "./Options";
-import Output from "./Output";
 import "./CSS/Editor.css"
 
 function CodeArea({ onCodeChangeHandler }) {
@@ -35,7 +33,6 @@ function CodeArea({ onCodeChangeHandler }) {
   return (
     <>
       <div className="codearea">
-        <Options/>
         <div className="codewritearea">
           <MonacoEditor       
             onCut={handleCopy}
@@ -51,7 +48,6 @@ function CodeArea({ onCodeChangeHandler }) {
             editorDidMount={editorDidMount}
           />
         </div>
-        <Output/>
       </div>
     </>
   );

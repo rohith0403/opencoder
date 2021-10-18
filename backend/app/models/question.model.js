@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Question = mongoose.model(
   "Question",
   new mongoose.Schema({
@@ -16,9 +15,11 @@ const Question = mongoose.model(
     ename: String,
     qname: String,
     description: String,
-    testcases:[{
-      type: String
-    }]
+    testcase1: [String],
+    testcase2: [String],
+    testcase3: [String],
+    testcase4: [String],
+    testcase5: [String]
   })
 );
 
