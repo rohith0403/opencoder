@@ -8,7 +8,7 @@ import {
   
   import QuestionDataService from "../services/question.service";
   
-  export const createQuestion = (userId,ename,qname,description,t1,t2,t3,t4,t5) => async (dispatch) => {
+  export const createQuestion = (userId,ename,qname,description,t1,t2,t3,t4,t5,o1,o2,o3,o4,o5) => async (dispatch) => {
     try {
       const data = {
         userId:userId,
@@ -20,6 +20,11 @@ import {
         testcase3:t3,
         testcase4:t4,
         testcase5:t5,
+        output1:o1,
+        output2:o2,
+        output3:o3,
+        output4:o4,
+        output5:o5
       }
       const res = await QuestionDataService.createQuestion(data);
       dispatch({

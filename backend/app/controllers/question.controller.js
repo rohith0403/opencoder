@@ -20,7 +20,12 @@ exports.create = async (req, res) => {
     testcase2: req.body.testcase2,
     testcase3: req.body.testcase3,
     testcase4: req.body.testcase4,
-    testcase5: req.body.testcase5
+    testcase5: req.body.testcase5,
+    output1: req.body.output1,
+    output2: req.body.output2,
+    output3: req.body.output3,
+    output4: req.body.output4,
+    output5: req.body.output5,
   });
   // console.log(req.body.testcases);
   question

@@ -33,11 +33,13 @@ router.post("/submit", (req, res) => {
           console.log("SENDING " + JSON.stringify(data));
           res.json(data);
           deleteFile(filename+".txt");
+          deleteFile("/"+filename);
           // deleteFile(filename+".cpp");
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
           deleteFile(filename+".txt");
+          deleteFile("/"+filename);
           // deleteFile(filename+".cpp");
         });
     case "c":
@@ -46,14 +48,14 @@ router.post("/submit", (req, res) => {
         .then((data) => {
           res.json(data);
           deleteFile(filename+".txt");
-          // deleteFile(filename+".c");
           deleteFile("/"+filename);
+          // deleteFile(filename+".c");
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
           deleteFile(filename+".txt");
-          // deleteFile(filename+".c");
           deleteFile("/"+filename);
+          // deleteFile(filename+".c");
         });
 
     case "java":

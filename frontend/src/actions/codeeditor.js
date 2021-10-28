@@ -9,10 +9,18 @@ import {
 
   export const displayOutput = (id, output) => async(dispatch) => {
     try{
-        dispatch({
-            type: DISPLAY_OUTPUT,
-            payload: output
-          });
+
+          return new Promise( (resolve, reject) => {
+            dispatch({
+                type: DISPLAY_OUTPUT,
+                payload: output
+              });
+            if ( successful ) {
+                resolve(); // we're done so call resolve.
+            } else {
+                reject(); // failed.
+            }
+        });
     }
     catch(err){
         return Promise.reject(err);

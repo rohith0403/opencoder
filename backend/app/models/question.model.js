@@ -19,7 +19,12 @@ const Question = mongoose.model(
     testcase2: [String],
     testcase3: [String],
     testcase4: [String],
-    testcase5: [String]
+    testcase5: [String],
+    output1: String,
+    output2: String,
+    output3: String,
+    output4: String,
+    output5: String
   })
 );
 

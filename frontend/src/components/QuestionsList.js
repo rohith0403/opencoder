@@ -94,12 +94,6 @@ const QuestionsList = () => {
               </label>{" "}
               {currentQuestion.qname}
             </div>
-            <div>
-              <label>
-                <strong>Question:</strong>
-              </label>{" "}
-              <div style={{whiteSpace: "pre-wrap"}}>{currentQuestion.description}</div>
-            </div>
             <Link
               to={"/questions/" + currentQuestion._id}
               className="badge badge-warning"

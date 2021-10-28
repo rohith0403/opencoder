@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveQuestionsByEname } from "../actions/questions";
 import { Link } from "react-router-dom";
-import { Badge } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
+// import { Badge } from 'react-bootstrap';
 
 
 const ExamPage = (props) => {
@@ -19,9 +19,9 @@ const ExamPage = (props) => {
   var time = props.location.state.exam_time*60*1000;
   const history = useHistory()
 
-  // setTimeout(() => {
-  //   history.push('/allexams')
-  // }, time)
+  setTimeout(() => {
+    history.push('/allexams')
+  }, time)
   
   const setActiveUser = (question, index) => {
     setcurrentQuestion(question);
@@ -54,18 +54,13 @@ const ExamPage = (props) => {
       <div className="col-md-6">
         {currentQuestion ? (
             <div>
-            <h4>Question</h4>
-            <div>
-              <div style={{whiteSpace: "pre-wrap"}}>{currentQuestion.description}</div>
-            </div>
+            <h3>Ready to code?</h3>
             <Link
               to={{pathname: "/viewquestion/" + currentQuestion._id, 
               state:props.location.state}}
               className="badge badge-warning"
               >
-            <Badge bg="warning" text="dark">
-              Code
-            </Badge>{' '}
+            <button type="button" className="btn btn-secondary">Code</button>
             </Link>
 
           </div>

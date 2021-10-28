@@ -16,6 +16,11 @@ const Question = (props) => {
     testcase3:"",
     testcase4:"",
     testcase5:"",
+    output1:"",
+    output2:"",
+    output3:"",
+    output4:"",
+    output5:"",
     submitted: false
   };
   const [currentQuestion, setcurrentQuestion] = useState(initialQuestionState);
@@ -33,7 +38,6 @@ const Question = (props) => {
     QuestionDataService.getQuestion(id)
       .then(response => {
         setcurrentQuestion(response.data);
-        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
@@ -53,7 +57,6 @@ const Question = (props) => {
     dispatch(updateQuestion(currentQuestion._id, currentQuestion))
       .then(response => {
         console.log(response);
-
         setMessage("The question was updated successfully!");
       })
       .catch(e => {
@@ -159,6 +162,66 @@ const Question = (props) => {
                 value={currentQuestion.testcase5}
                 onChange={handleInputChange}
                 name="testcase5"
+              />
+          </div>
+          <div className="form_group">
+              <label htmlFor="output1">Output 1</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="output1"
+                required
+                value={currentQuestion.output1}
+                onChange={handleInputChange}
+                name="output1"
+              />
+          </div>
+          <div className="form_group">
+              <label htmlFor="output2">Output 2</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="output2"
+                required
+                value={currentQuestion.output2}
+                onChange={handleInputChange}
+                name="output2"
+              />
+          </div>
+          <div className="form_group">
+              <label htmlFor="output3">Output 3</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="output3"
+                required
+                value={currentQuestion.output3}
+                onChange={handleInputChange}
+                name="output3"
+              />
+          </div>
+          <div className="form_group">
+              <label htmlFor="output4">Output 4</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="output4"
+                required
+                value={currentQuestion.output4}
+                onChange={handleInputChange}
+                name="output4"
+              />
+          </div>
+          <div className="form_group">
+              <label htmlFor="output5">Output 5</label>
+              <textarea
+                type="text"
+                className="input_width_testcase"
+                id="output5"
+                required
+                value={currentQuestion.output5}
+                onChange={handleInputChange}
+                name="output5"
               />
           </div>
             <div className="form-group">

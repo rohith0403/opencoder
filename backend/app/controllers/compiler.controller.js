@@ -15,6 +15,15 @@ const saveFile = (name, data) => {
   });
 };
 
+const deleteFile = (filename) => {
+  fs.unlink(filename, function (err) {
+    if (err) {
+      console.log("SORRY NOT DELETED");
+    }
+    console.log("File deleted!");
+  });
+};
+
 // Function for executing C codes
 const cExecute = (data, input,directory) => {
   return new Promise((resolve, reject) => {
@@ -87,9 +96,8 @@ const cPlusPlusExecute = (data, input,directory) => {
             reject();
           }
         });
-
         // COMPILE THE CODE
-        exec("g++ " + fileName, (err, stdout, stderr) => {
+        exec("g++ " + fileName+" -o "+directory, (err, stdout, stderr) => {
           if (err) {
             // IF COMPILATION ERROR
             console.error(`exec error: ${err}`);
@@ -101,7 +109,7 @@ const cPlusPlusExecute = (data, input,directory) => {
           }
 
           // SUCCESSFULL COMPILATION EXECUTING
-          exec("./a.out < " + inputfile, (err, stdout, stderr) => {
+          exec("/"+directory+" < " + inputfile, (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
               resolve({
@@ -110,7 +118,9 @@ const cPlusPlusExecute = (data, input,directory) => {
                 error: stderr,
               });
             }
-
+          //   deleteFile(inputfile+".txt");
+          // deleteFile("/"+directory);
+          // deleteFile(fileName+".cpp");
             resolve({
               err: false,
               output: stdout,
