@@ -9,3 +9,9 @@
     height: 70px;
     right: auto;
   }
+
+.exampage {
+  display: flex;
+  flex-flow: row nowrap; /* Align on the same line */
+  justify-content: space-between; /* Equal margin between the child elements */
+}

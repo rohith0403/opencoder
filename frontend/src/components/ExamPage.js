@@ -217,9 +217,8 @@ const ExamPage = (props) => {
   }, [props.location.state.ename, dispatch]);
 
   return (
-    <div>
-    <div className="">
-      <div className="col-md-6">
+    <div className="exampage" >
+      <div className="left">
         <h4>Questions List</h4>
 
         <ul className="list-group">
@@ -238,7 +237,7 @@ const ExamPage = (props) => {
         </ul>
 
       </div>
-      <div className="col-md-6">
+      <div className="right">
         {currentQuestion ? (
             <div className="container">
             <div className="question">
@@ -336,7 +335,6 @@ const ExamPage = (props) => {
           </div>
         )}
       </div>
-    </div>
     </div>
   );
 };
