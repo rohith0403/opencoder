@@ -36,11 +36,11 @@ const Homepage = () => {
     var minutes = currentDateWithFormat.getMinutes();
     var time = hours+':'+minutes;
     const startDate = day+'-'+month+'-'+year;
-      if (exam.start_date === startDate && exam.start_time <= time && exam.end_time >= time) {
-        setstartExam(true);
-      } else {
-        setstartExam(false);
-      }
+      // if (exam.start_date === startDate && exam.start_time <= time && exam.end_time >= time) {
+      //   setstartExam(true);
+      // } else {
+      //   setstartExam(false);
+      // }
   };
 
   const findByEName = () => {

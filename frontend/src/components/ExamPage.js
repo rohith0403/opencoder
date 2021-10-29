@@ -19,9 +19,9 @@ const ExamPage = (props) => {
   var time = props.location.state.exam_time*60*1000;
   const history = useHistory()
 
-  setTimeout(() => {
-    history.push('/allexams')
-  }, time)
+  // setTimeout(() => {
+  //   history.push('/allexams')
+  // }, time)
   
   const setActiveUser = (question, index) => {
     setcurrentQuestion(question);

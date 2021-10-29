@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import QuestionDataService from "../services/question.service";
-import Editor from "./Editor"
+import $ from 'jquery';
+import Editor from "./Editor";
 import Select from "react-select";
 import axios from "axios";
 import "./CSS/Editor.css"
@@ -111,6 +112,7 @@ const ViewQuestion = (props) => {
   };
 
   const questions = useSelector(state => state.questions);
+  
   const getQuestion = useCallback((id) => {
     if (questions.length !== 0){
       if(questions.filter( x  => x._id=== id)) {
@@ -226,8 +228,30 @@ const ViewQuestion = (props) => {
     getQuestion(props.match.params.id);
   }, [props.match.params.id,getQuestion]);
 
+  $(document).ready(function() {
+    const bclick = document.getElementById('container');
+    bclick.addEventListener('keydown', function(event) {
+      var ctrlDown = event.ctrlKey||event.metaKey
+      if (ctrlDown && (event.key === 'r' || event.key === 'R')) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        alert("Don't Refresh!")
+      }
+      else if (ctrlDown && (event.key === 't' || event.key === 'T')) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        alert("Don't open new tabs!")
+      }
+      else if (ctrlDown && (event.key === 'n' || event.key === 'N')) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        alert("Don't open new tabs!")
+      }
+    });
+  });
+
   return (
-    <div>
+    <div id="container">
     <div className="container">
       <div className="question">
         {currentQuestion ? (

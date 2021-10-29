@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import MonacoEditor from 'react-monaco-editor';
 import { GlobalContext } from "../context/GlobalState";
+import $ from 'jquery';
 import "./CSS/Editor.css"
 
-function CodeArea({ onCodeChangeHandler }) {
+function CodeArea({ }) {
   const { code } = useContext(GlobalContext);
 
   const { handleCodeChange } = useContext(GlobalContext);
@@ -30,10 +31,33 @@ function CodeArea({ onCodeChangeHandler }) {
     e.nativeEvent.stopImmediatePropagation();
     alert('Don\'t copy it!');
   };
+
+  $(document).ready(function() {
+    const bclick = document.getElementById('editor');
+    bclick.addEventListener('keydown', function(event) {
+      var ctrlDown = event.ctrlKey||event.metaKey
+      if (ctrlDown && (event.key === 'c' || event.key === 'C')) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        alert("No copy!")
+      }
+      else if (ctrlDown && (event.key === 'v' || event.key === 'V')) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        alert("No Paste!")
+      }
+      else if (ctrlDown && (event.key === 'x' || event.key === 'X')) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        alert("No cut!")
+      }
+    },false);
+  });
+  
   return (
     <>
       <div className="codearea">
-        <div className="codewritearea">
+        <div className="codewritearea" id="editor">
           <MonacoEditor       
             onCut={handleCopy}
             onCopy={handleCopy}
