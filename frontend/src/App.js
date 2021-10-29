@@ -24,7 +24,6 @@ import { GlobalProvider } from "./context/GlobalState";
 import { history } from "./helpers/history";
 import Homepage from "./components/HomePage";
 import Exampage from "./components/ExamPage";
-import ViewQuestion from "./components/ViewQuestion";
 import ProfileEdit from "./components/ProfileEdit";
 import EventBus from "./common/EventBus";
 
@@ -181,7 +180,6 @@ const App = () => {
             <Route path="/users" component={UsersList} />
             <Route path="/allexams" component={Homepage} />
             <Route path="/enamequestions" component={Exampage} />
-            <Route path="/viewquestion/:id" component={ViewQuestion} />
             <Route path="/profileedit/:id" component={ProfileEdit} />
 
           </Switch>
