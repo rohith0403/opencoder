@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import MonacoEditor from 'react-monaco-editor';
 import { GlobalContext } from "../context/GlobalState";
 import $ from 'jquery';
 import "./CSS/Editor.css"
 
-function CodeArea({ }) {
+function CodeArea({onCodeChangeHandler}) {
   const { code } = useContext(GlobalContext);
 
   const { handleCodeChange } = useContext(GlobalContext);

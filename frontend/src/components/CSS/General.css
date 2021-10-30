@@ -9,7 +9,12 @@
     height: 70px;
     right: auto;
   }
-
+.timer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 12em;
+    font-weight: bolder;
+}
 .exampage {
   display: flex;
   flex-flow: row nowrap; /* Align on the same line */

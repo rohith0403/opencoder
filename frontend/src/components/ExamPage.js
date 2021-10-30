@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveQuestionsByEname } from "../actions/questions";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 // import { Badge } from 'react-bootstrap';
 import Select from "react-select";
@@ -14,13 +13,12 @@ import axios from "axios";
 let userDetails = JSON.parse(localStorage.getItem("user"));
 
 const ExamPage = (props) => {
-  var passedCases = 0;
   const [currentQuestion, setcurrentQuestion] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [outputStatus, setoutputStatus ] = useState(false);
   const [showResults, setshowResults] = useState(false);
+  const [passedCases, setpassedCases] = useState(0);
   const questions = useSelector(state => state.questions);
-  const dispatch = useDispatch();
   const { code } = useContext(GlobalContext);
   const { lang } = useContext(GlobalContext);
   const { result } = useContext(GlobalContext);
@@ -29,8 +27,14 @@ const ExamPage = (props) => {
   const { input } = useContext(GlobalContext);
   const { displayOutput } = useContext(GlobalContext);
   const { download } = useContext(GlobalContext);
+  const nMinuteSeconds = 60;
+  const nSecondInMiliseconds = 1000;
+  const dispatch = useDispatch();
+  const convertMinutesToMiliseconds = (minute) => minute * nMinuteSeconds * nSecondInMiliseconds;
+  const convertMilisecondsToHour = (miliseconds) => new Date(miliseconds).toISOString().slice(11, -5);
 
-
+  let [timerCount, setTimerCount] = useState(convertMinutesToMiliseconds(props.location.state.exam_time));
+  let interval;
   var time = props.location.state.exam_time*60*1000;
   const history = useHistory()
 
@@ -126,6 +130,7 @@ const ExamPage = (props) => {
     {
       console.log("testcase succeeded");
       setoutputStatus(true);
+      console.log(outputStatus);
     }
     else 
     {
@@ -140,9 +145,9 @@ const ExamPage = (props) => {
       onSubmitHandler(currentQuestion.testcase1).then(
         res => {
         resolve(setoutputStatus(checkresults(res,currentQuestion.output1)));
-        if(outputStatus) passedCases=+1;
+        if(outputStatus) setpassedCases(passedCases+1);
+        console.log(passedCases);
         // console.log(outputStatus);
-        // console.log(passedCases);
       })
     })
   }
@@ -152,7 +157,7 @@ const ExamPage = (props) => {
       onSubmitHandler(currentQuestion.testcase2).then(
         res => {
         resolve(setoutputStatus(checkresults(res,currentQuestion.output2)));
-        if(outputStatus) passedCases=+1;
+        if(outputStatus) setpassedCases(passedCases+1);
       })
     })
   }
@@ -162,7 +167,7 @@ const ExamPage = (props) => {
       onSubmitHandler(currentQuestion.testcase3).then(
         res => {
         resolve(setoutputStatus(checkresults(res,currentQuestion.output3)));
-        if(outputStatus) passedCases=+1;
+        if(outputStatus) setpassedCases(passedCases+1);
       })
     })
   }
@@ -172,7 +177,7 @@ const ExamPage = (props) => {
       onSubmitHandler(currentQuestion.testcase4).then(
         res => {
         resolve(setoutputStatus(checkresults(res,currentQuestion.output4)));
-        if(outputStatus) passedCases=+1;
+        if(outputStatus) setpassedCases(passedCases+1);
       })
     })
   }
@@ -182,41 +187,36 @@ const ExamPage = (props) => {
       onSubmitHandler(currentQuestion.testcase5).then(
         res => {
         resolve(setoutputStatus(checkresults(res,currentQuestion.output5)));
-        if(outputStatus) passedCases=+1;
+        if(outputStatus) setpassedCases(passedCases+1);
       })
     })
   }
 
-
   const submitall = async () => {
-    passedCases=0;
+    setpassedCases(0);
     setshowResults(false);
-    // console.log(showResults);
     temp_submit1().then(temp_submit2).then(temp_submit3).then(temp_submit4)
     .then(temp_submit5).then(setshowResults(true));
-    // console.log(showResults);
-    // new Promise((resolve,reject)=>
-    // {
-    //   resolve(
-    //     onSubmitHandler(currentQuestion.testcase1).then(
-    //       res => {
-    //       setoutputStatus(checkresults(res,currentQuestion.output1));
-    //       if(outputStatus) passedCases+=1;
-    //     })
-    //   )
-    // }).then(
-    //   onSubmitHandler(currentQuestion.testcase2).then(res => {
-    //     setoutputStatus(checkresults(res,currentQuestion.output2));
-    //      if(outputStatus) passedCases+=1;
-    //     })
-    // )    
   }
 
   useEffect(() => {
     dispatch(retrieveQuestionsByEname(props.location.state.ename));
+    if (interval) {
+      clearInterval(interval);
+    }
+
+    interval = setInterval(() => {
+      if (timerCount === 0 && interval) {
+        clearInterval(interval);
+      }
+
+      setTimerCount((timerCount -= nSecondInMiliseconds));
+    }, nSecondInMiliseconds);
   }, [props.location.state.ename, dispatch]);
 
   return (
+    <div>
+    <div className="timer">TimeLeft : {convertMilisecondsToHour(timerCount)}</div>
     <div className="exampage" >
       <div className="left">
         <h4>Questions List</h4>
@@ -335,6 +335,7 @@ const ExamPage = (props) => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };
