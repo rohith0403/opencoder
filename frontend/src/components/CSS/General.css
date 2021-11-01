@@ -1,22 +1,33 @@
 .input_width{
-    width: 600px;
-    height: 450px;
-    right: auto;
+  width: 600px;
+  height: 450px;
+  right: auto;
+}
+
+.input_width_testcase{
+  width: 300px;
+  height: 70px;
+  right: auto;
   }
 
-  .input_width_testcase{
-    width: 300px;
-    height: 70px;
-    right: auto;
-  }
 .timer {
-    margin-left: auto;
-    margin-right: auto;
-    width: 12em;
-    font-weight: bolder;
+  margin-left: auto;
+  margin-right: auto;
+  width: 12em;
+  font-weight: bolder;
 }
+
 .exampage {
   display: flex;
-  flex-flow: row nowrap; /* Align on the same line */
-  justify-content: space-between; /* Equal margin between the child elements */
+  flex-flow: row nowrap; 
+  justify-content: space-between;
+}
+
+.cases {
+  margin-left: auto;
+  margin-right: auto;
+  width: 20em;
+  font-weight: bolder;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }

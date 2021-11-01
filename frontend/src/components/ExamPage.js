@@ -2,21 +2,19 @@ import React, { useContext, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveQuestionsByEname } from "../actions/questions";
 import { useHistory } from "react-router-dom";
-// import { Badge } from 'react-bootstrap';
 import Select from "react-select";
 import { GlobalContext } from "../context/GlobalState";
 import Editor from "./Editor";
-import "./CSS/Editor.css"
-import "./CSS/Options.css"
+import "./CSS/Editor.css";
+import "./CSS/Options.css";
 import "./CSS/Output.css";
 import axios from "axios";
 let userDetails = JSON.parse(localStorage.getItem("user"));
 
 const ExamPage = (props) => {
+  var outputStatus = false;
   const [currentQuestion, setcurrentQuestion] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const [outputStatus, setoutputStatus ] = useState(false);
-  const [showResults, setshowResults] = useState(false);
   const [passedCases, setpassedCases] = useState(0);
   const questions = useSelector(state => state.questions);
   const { code } = useContext(GlobalContext);
@@ -41,7 +39,6 @@ const ExamPage = (props) => {
   // setTimeout(() => {
   //   history.push('/allexams')
   // }, time)
-  
   const options = [
     { value: "cpp", label: "cpp" },
     { value: "c", label: "c" },
@@ -122,81 +119,98 @@ const ExamPage = (props) => {
     });
   };
 
-  const checkresults = async (data,output) => {
+  const checkresults = (data,output) => {
     const result = data;
-    // console.log(result);
-    // console.log(output);
-    if(result.trim()===output.trim()) 
-    {
-      console.log("testcase succeeded");
-      setoutputStatus(true);
-      console.log(outputStatus);
-    }
-    else 
-    {
-      console.log("testcase failed");
-      setoutputStatus(false);
-    }
+    if(result.trim()===output.trim()) outputStatus=true;
+    else outputStatus=false;
     return outputStatus;
   }
 
-  const temp_submit1 = async () =>{
+  const temp_submit1 = () =>{
     return new Promise((resolve) => {
       onSubmitHandler(currentQuestion.testcase1).then(
         res => {
-        resolve(setoutputStatus(checkresults(res,currentQuestion.output1)));
-        if(outputStatus) setpassedCases(passedCases+1);
-        console.log(passedCases);
-        // console.log(outputStatus);
+        outputStatus = (checkresults(res,currentQuestion.output1));
+        resolve(outputStatus);
+        })
       })
-    })
   }
 
-  const temp_submit2 = async () =>{
+  const temp_submit2 = () =>{
     return new Promise((resolve) => {
       onSubmitHandler(currentQuestion.testcase2).then(
         res => {
-        resolve(setoutputStatus(checkresults(res,currentQuestion.output2)));
-        if(outputStatus) setpassedCases(passedCases+1);
+          outputStatus = (checkresults(res,currentQuestion.output2));
+          resolve(outputStatus);
       })
     })
   }
 
-  const temp_submit3 = async () =>{
+  const temp_submit3 = () =>{
     return new Promise((resolve) => {
       onSubmitHandler(currentQuestion.testcase3).then(
         res => {
-        resolve(setoutputStatus(checkresults(res,currentQuestion.output3)));
-        if(outputStatus) setpassedCases(passedCases+1);
+          outputStatus = (checkresults(res,currentQuestion.output3));
+          resolve(outputStatus);
       })
     })
   }
 
-  const temp_submit4 = async () =>{
+  const temp_submit4 = () =>{
     return new Promise((resolve) => {
       onSubmitHandler(currentQuestion.testcase4).then(
         res => {
-        resolve(setoutputStatus(checkresults(res,currentQuestion.output4)));
-        if(outputStatus) setpassedCases(passedCases+1);
+          outputStatus = (checkresults(res,currentQuestion.output4));
+          resolve(outputStatus);
       })
     })
   }
 
-  const temp_submit5 = async () =>{
+  const temp_submit5 = () =>{
     return new Promise((resolve) => {
       onSubmitHandler(currentQuestion.testcase5).then(
         res => {
-        resolve(setoutputStatus(checkresults(res,currentQuestion.output5)));
-        if(outputStatus) setpassedCases(passedCases+1);
+          outputStatus = (checkresults(res,currentQuestion.output5));
+          resolve(outputStatus);
       })
     })
   }
 
-  const submitall = async () => {
-    setpassedCases(0);
-    setshowResults(false);
-    temp_submit1().then(temp_submit2).then(temp_submit3).then(temp_submit4)
-    .then(temp_submit5).then(setshowResults(true));
+  const submitall = () => {
+    let localPassedCases=0;
+    temp_submit1().then( data => {
+      if(data){
+        localPassedCases+=1;
+        setpassedCases(localPassedCases);
+      } 
+      temp_submit2().then(data => {
+      if(data) {
+        localPassedCases+=1;
+        setpassedCases(localPassedCases);
+      }
+        temp_submit3().then(data => {
+          if(data){
+            localPassedCases+=1;
+            setpassedCases(localPassedCases);
+          }
+            temp_submit4().then(data=>{
+              if(data){
+                localPassedCases+=1;
+                setpassedCases(localPassedCases);
+              }
+                temp_submit5().then(data=>{
+                    if(data){
+                      localPassedCases+=1;
+                      setpassedCases(localPassedCases);
+                    }
+                  }
+                )
+              }
+            )
+          }
+        )
+      }) 
+    })
   }
 
   useEffect(() => {
@@ -300,16 +314,9 @@ const ExamPage = (props) => {
                 ></textarea>
               </div>
               <div className="btncont">
-              {/* type="button" class="btn btn-secondary" */}
-                {/* <button className="optionsbtn" onClick={async function(){onSubmitHandler().then(res => {
-                    checkresults(res);
-                })}}>
-                  Run
-                </button> */}
                 <button className="optionsbtn" onClick={onSubmitSingleTestCase} >
                     Run
                 </button>
-      
                 <button className="optionsbtn" onClick={download}>
                   Download
                 </button>
@@ -321,14 +328,8 @@ const ExamPage = (props) => {
             <div className="outputarea" >
               <textarea className="textarea"  readOnly = {true} value={result} onChange={checkresults}></textarea>
             </div>
-              {showResults? <div v-if="showResults">
-                  <div>
-                    <label>
-                      <strong>Passed:</strong>
-                    </label>
-                    <div>{passedCases}</div>
-                  </div>
-                </div> : ' ' }
+            <div className="cases">Passed Cases : {passedCases} out of 5</div>
+            <div className="cases"> <br /></div>
           </div>
         ) : (
             <div>
