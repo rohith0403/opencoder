@@ -49,6 +49,11 @@ const Homepage = () => {
   };
 
   return (
+    <div>
+      <div style={{ 
+      backgroundImage: `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSySC6u-UsTKekPEFZVzsO73wQhieW8xHHpg&usqp=CAU")` 
+      }}>
+      </div>
     <div className="list row">
       <div className="col-md-8">
         <div className="input-group mb-3">
@@ -127,10 +132,10 @@ const Homepage = () => {
             <Link
               to={{
                 pathname: "/enamequestions",
-                  state : currentExam
-                }}
+                state : currentExam
+              }}
               className="badge badge-warning"
-            >
+              >
             <Badge bg="success" text="dark">
               Start
             </Badge>{' '}
@@ -145,6 +150,7 @@ const Homepage = () => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };
