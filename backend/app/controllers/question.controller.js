@@ -27,7 +27,6 @@ exports.create = async (req, res) => {
     output4: req.body.output4,
     output5: req.body.output5,
   });
-  // console.log(req.body.testcases);
   question
     .save(question)
     .then(data => {

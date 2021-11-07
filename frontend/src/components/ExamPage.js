@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveQuestionsByEname } from "../actions/questions";
+import { createMarks,getMarksCustom } from "../actions/marks";
 import { useHistory } from "react-router-dom";
 import Select from "react-select";
 import { GlobalContext } from "../context/GlobalState";
@@ -13,10 +14,12 @@ let userDetails = JSON.parse(localStorage.getItem("user"));
 
 const ExamPage = (props) => {
   var outputStatus = false;
+  const [runStatus,setrunStatus] = useState("Submit to see passed cases");
   const [currentQuestion, setcurrentQuestion] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [passedCases, setpassedCases] = useState(0);
   const questions = useSelector(state => state.questions);
+  var marks = useSelector(state => state.marks);
   const { code } = useContext(GlobalContext);
   const { lang } = useContext(GlobalContext);
   const { result } = useContext(GlobalContext);
@@ -36,9 +39,11 @@ const ExamPage = (props) => {
   var time = props.location.state.exam_time*60*1000;
   const history = useHistory()
 
-  // setTimeout(() => {
-  //   history.push('/allexams')
-  // }, time)
+  setTimeout(() => {
+    history.push({
+      pathname:'/allexams',
+    state:{examId:props.location.state._id}})
+  }, time)
   const options = [
     { value: "cpp", label: "cpp" },
     { value: "c", label: "c" },
@@ -52,7 +57,7 @@ const ExamPage = (props) => {
     lang: lang,
     input: input,
     examid: props.location.state._id,
-    questionid:props.match.params.id,
+    questionid: props.match.params.id,
     userid: userDetails.id
   };
 
@@ -65,6 +70,7 @@ const ExamPage = (props) => {
     e.preventDefault();
     alert("Submit Code");
     return new Promise((resolve, reject)=>{
+      codestate.questionid = currentQuestion._id;
       axios
       .post(`http://127.0.0.1:8080/api/code/submit`, codestate)
       .then(res => {
@@ -94,6 +100,7 @@ const ExamPage = (props) => {
   const onSubmitHandler = async (inp)=>  {
     return new Promise((resolve, reject)=>{
       codestate.input = inp;
+      codestate.questionid = currentQuestion._id;
       axios
       .post(`http://127.0.0.1:8080/api/code/submit`, codestate)
       .then(res => {
@@ -176,41 +183,52 @@ const ExamPage = (props) => {
     })
   }
 
+  const getMarks = () => {
+      dispatch(getMarksCustom(userDetails.id,props.location.state._id,currentQuestion._id))
+  }
+
   const submitall = () => {
+    setrunStatus("Running");
     let localPassedCases=0;
-    temp_submit1().then( data => {
-      if(data){
-        localPassedCases+=1;
-        setpassedCases(localPassedCases);
-      } 
-      temp_submit2().then(data => {
-      if(data) {
-        localPassedCases+=1;
-        setpassedCases(localPassedCases);
-      }
-        temp_submit3().then(data => {
-          if(data){
-            localPassedCases+=1;
-            setpassedCases(localPassedCases);
-          }
-            temp_submit4().then(data=>{
-              if(data){
-                localPassedCases+=1;
-                setpassedCases(localPassedCases);
-              }
-                temp_submit5().then(data=>{
-                    if(data){
-                      localPassedCases+=1;
-                      setpassedCases(localPassedCases);
-                    }
-                  }
-                )
-              }
-            )
-          }
-        )
-      }) 
-    })
+    setpassedCases(localPassedCases);
+      temp_submit1().then( data => {
+        console.log(currentQuestion._id);
+        getMarks()
+        console.log(marks);
+        if(data){
+          localPassedCases+=1;
+          setpassedCases(localPassedCases);
+        } 
+        temp_submit2().then(data => {
+        if(data) {
+          localPassedCases+=1;
+          setpassedCases(localPassedCases);
+        }
+          temp_submit3().then(data => {
+            if(data){
+              localPassedCases+=1;
+              setpassedCases(localPassedCases);
+            }
+              temp_submit4().then(data=>{
+                if(data){
+                  localPassedCases+=1;
+                  setpassedCases(localPassedCases);
+                }
+                  temp_submit5().then(data=>{
+                      if(data){
+                        localPassedCases+=1;
+                        setpassedCases(localPassedCases);
+                      }
+                      console.log(marks);
+                      console.log("post   "+currentQuestion._id)
+                      if(marks.length==0) dispatch(createMarks(userDetails.id,props.location.state._id,currentQuestion._id,localPassedCases));
+                      else console.log(marks[0].marks);
+                      setrunStatus("Done");
+                    })
+                })
+            })
+        }) 
+      })    
   }
 
   useEffect(() => {
@@ -231,6 +249,7 @@ const ExamPage = (props) => {
   return (
     <div>
     <div className="timer">TimeLeft : {convertMilisecondsToHour(timerCount)}</div>
+    <button className="timer" onClick={submitall}>Submit</button>
     <div className="exampage" >
       <div className="left">
         <h4>Questions List</h4>
@@ -328,6 +347,7 @@ const ExamPage = (props) => {
             <div className="outputarea" >
               <textarea className="textarea"  readOnly = {true} value={result} onChange={checkresults}></textarea>
             </div>
+            <div className="cases">Status : {runStatus}</div>
             <div className="cases">Passed Cases : {passedCases} out of 5</div>
             <div className="cases"> <br /></div>
           </div>

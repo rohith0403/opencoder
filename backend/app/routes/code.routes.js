@@ -10,9 +10,9 @@ router.get("/test", (req, res) => {
 const deleteFile = (filename) => {
   fs.unlink(filename, function (err) {
     if (err) {
-      console.log("SORRY NOT DELETED");
+      // console.log("SORRY NOT DELETED");
     }
-    console.log("File deleted!");
+    // console.log("File deleted!");
   });
 };
 
@@ -30,7 +30,7 @@ router.post("/submit", (req, res) => {
       return execute
         .cPlusPlusExecute(code,input,filename)
         .then((data) => {
-          console.log("SENDING " + JSON.stringify(data));
+          // console.log("SENDING " + JSON.stringify(data));
           res.json(data);
           deleteFile(filename+".txt");
           deleteFile("/"+filename);

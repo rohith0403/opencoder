@@ -2,6 +2,7 @@ const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 const question = require("../controllers/question.controller"); 
 const exam = require("../controllers/exam.controller");
+const marks = require("../controllers/marks.controller");
 const { verifySignUp } = require("../middlewares");
 
 module.exports = function(app) {
@@ -107,5 +108,30 @@ module.exports = function(app) {
     "/api/test/allexams",
     [authJwt.verifyToken, authJwt.isStudent ],
     exam.findAllForStudents);
+
+  app.post(
+    "/api/test/marks",
+    [authJwt.verifyToken],
+    marks.create);
+
+  app.get(
+    "/api/test/marks",
+    [authJwt.verifyToken],
+    marks.findAll);
+  
+  app.get(
+    "/api/test/marks/:id",
+    [authJwt.verifyToken],
+    marks.findOne);
+  
+  app.put(
+    "/api/test/marks/:id",
+    [authJwt.verifyToken],
+    marks.update);
+
+  app.delete(
+    "/api/test/marks/:id",
+    [authJwt.verifyToken],
+    marks.delete);
 
 };

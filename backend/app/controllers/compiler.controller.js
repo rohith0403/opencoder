@@ -8,21 +8,13 @@ const saveFile = (name, data) => {
         console.log(err);
         reject();
       } else {
-        console.log("The file was saved!");
+        // console.log("The file was saved!");
         resolve();
       }
     });
   });
 };
 
-const deleteFile = (filename) => {
-  fs.unlink(filename, function (err) {
-    if (err) {
-      console.log("SORRY NOT DELETED");
-    }
-    console.log("File deleted!");
-  });
-};
 
 // Function for executing C codes
 const cExecute = (data, input,directory) => {
@@ -118,9 +110,6 @@ const cPlusPlusExecute = (data, input,directory) => {
                 error: stderr,
               });
             }
-          //   deleteFile(inputfile+".txt");
-          // deleteFile("/"+directory);
-          // deleteFile(fileName+".cpp");
             resolve({
               err: false,
               output: stdout,
