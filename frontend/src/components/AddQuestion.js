@@ -125,7 +125,7 @@ const AddQuestion = () => {
               name="qname"
             />
           </div>
-
+          <div className="right">
           <div className="form_group">
               <label htmlFor="t1">Test Case 1</label>
               <textarea
@@ -246,7 +246,8 @@ const AddQuestion = () => {
                 name="o5"
               />
           </div>
-
+          </div>
+          <div className="left">
           <div className="form_group">
               <label htmlFor="description">Question</label>
               <textarea
@@ -257,7 +258,8 @@ const AddQuestion = () => {
                 value={question.description}
                 onChange={handleInputChange}
                 name="description"
-              />
+                />
+          </div>
           </div>
 
           <button onClick={saveQuestion} className="btn btn-success">
