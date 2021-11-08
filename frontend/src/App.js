@@ -18,6 +18,7 @@ import QuestionsList from "./components/QuestionsList";
 import AddExam from "./components/AddExam";
 import ExamsList from "./components/ExamsList";
 import Exam from "./components/Exam";
+import Marks from "./components/Marks";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { GlobalProvider } from "./context/GlobalState";
@@ -181,6 +182,7 @@ const App = () => {
             <Route path="/allexams" component={Homepage} />
             <Route path="/enamequestions" component={Exampage} />
             <Route path="/profileedit/:id" component={ProfileEdit} />
+            <Route path="/marks" component={Marks} />
 
           </Switch>
         </div>

@@ -8,12 +8,15 @@ import {
   
   import MarksDataService from "../services/marks.service";
   
-  export const createMarks = (userId,examId,questionId,marks) => async (dispatch) => {
+  export const createMarks = (userId,examId,questionId,uname,ename,qname,marks) => async (dispatch) => {
     try {
       const data = {
         userId:userId,
         examId:examId,
         questionId:questionId,
+        username:uname,
+        examname:ename,
+        questionname:qname,
         marks:marks
       }
       const res = await MarksDataService.createMarks(data);
@@ -39,11 +42,9 @@ import {
     }
   };
   
-  export const getMarksCustom = (uid,eid,qid) => async (dispatch) => {
+  export const getMarksCustom = (uid,eid) => async (dispatch) => {
     try {
-      console.log("sfkds  "+qid);
-      const res = await MarksDataService.retrieveMarksCustom(uid,eid,qid);
-      console.log(res.data);
+      const res = await MarksDataService.retrieveMarksCustom(uid,eid);
       dispatch({
         type: GET_MARKS,
         payload: res.data,
@@ -66,12 +67,15 @@ import {
     }
   };
 
-  export const updateMarks = (id,userId,examId,questionId,marks) => async (dispatch) => {
+  export const updateMarks = (id,userId,examId,questionId,uname,ename,qname,marks) => async (dispatch) => {
     try {
       const data = {
         userId:userId,
         examId:examId,
         questionId:questionId,
+        username:uname,
+        examname:ename,
+        questionname:qname,
         marks:marks
       }
       const res = await MarksDataService.updateMarks(id, data);

@@ -26,15 +26,11 @@ exports.findAll = (req, res) => {
   var ObjectID = require('mongodb').ObjectID;
   const examId = req.query.examId;
   const userId = req.query.userId;
-  const questionId = req.query.questionId;
   var condition1 = examId ? { "examId": new ObjectID(examId)}  : {};
   var condition2 = userId ? { "userId": new ObjectID(userId)}  : {};
-  var condition3 = questionId ? { "questionId": new ObjectID(questionId)}  : {};
-  // console.log(questionId);
-  Marks.find(condition1 && condition2 && condition3)
+  Marks.find(condition1 && condition2)
     .then(data => {
       res.send(data);
-      // console.log(data);
     })
     .catch(err => {
       console.log("here");

@@ -1,15 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveQuestionsByEname } from "../actions/questions";
-import { createMarks,getMarksCustom } from "../actions/marks";
+import { createMarks,getMarksCustom,updateMarks } from "../actions/marks";
 import { useHistory } from "react-router-dom";
 import Select from "react-select";
 import { GlobalContext } from "../context/GlobalState";
+import axios from "axios";
 import Editor from "./Editor";
 import "./CSS/Editor.css";
 import "./CSS/Options.css";
 import "./CSS/Output.css";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import { Badge } from 'react-bootstrap';
 let userDetails = JSON.parse(localStorage.getItem("user"));
 
 const ExamPage = (props) => {
@@ -41,9 +43,10 @@ const ExamPage = (props) => {
 
   setTimeout(() => {
     history.push({
-      pathname:'/allexams',
-    state:{examId:props.location.state._id}})
+      pathname:'/marks',
+      state:{exam:props.location.state}})
   }, time)
+
   const options = [
     { value: "cpp", label: "cpp" },
     { value: "c", label: "c" },
@@ -184,17 +187,15 @@ const ExamPage = (props) => {
   }
 
   const getMarks = () => {
-      dispatch(getMarksCustom(userDetails.id,props.location.state._id,currentQuestion._id))
+      dispatch(getMarksCustom(userDetails.id,props.location.state._id))
   }
 
   const submitall = () => {
-    setrunStatus("Running");
+    getMarks()
     let localPassedCases=0;
+    setrunStatus("Running");
     setpassedCases(localPassedCases);
       temp_submit1().then( data => {
-        console.log(currentQuestion._id);
-        getMarks()
-        console.log(marks);
         if(data){
           localPassedCases+=1;
           setpassedCases(localPassedCases);
@@ -219,10 +220,18 @@ const ExamPage = (props) => {
                         localPassedCases+=1;
                         setpassedCases(localPassedCases);
                       }
-                      console.log(marks);
-                      console.log("post   "+currentQuestion._id)
-                      if(marks.length==0) dispatch(createMarks(userDetails.id,props.location.state._id,currentQuestion._id,localPassedCases));
-                      else console.log(marks[0].marks);
+                      let temp_id=true;
+                      for(let i=0;i<marks.length;i++)
+                      {
+                        if(marks[i].questionId===currentQuestion._id)
+                        {
+                          dispatch(updateMarks(marks[i]._id,userDetails.id,props.location.state._id,
+                          currentQuestion._id,userDetails.username,props.location.state.ename,currentQuestion.qname,Math.max(localPassedCases,marks[i].marks)));
+                          temp_id=false;
+                          break;
+                        } 
+                      }
+                      if(temp_id) dispatch(createMarks(userDetails.id,props.location.state._id,currentQuestion._id,userDetails.username,props.location.state.ename,currentQuestion.qname,localPassedCases))
                       setrunStatus("Done");
                     })
                 })
@@ -249,7 +258,20 @@ const ExamPage = (props) => {
   return (
     <div>
     <div className="timer">TimeLeft : {convertMilisecondsToHour(timerCount)}</div>
-    <button className="timer" onClick={submitall}>Submit</button>
+    {/* <button className="timer" onClick={}>Submit</button> */}
+    <div className="timer">
+    <Link
+              to={{
+                pathname: "/marks",
+                state : {exam:props.location.state}
+              }}
+              className="badge badge-warning"
+            >
+            <Badge bg="success" text="dark">
+              Submit
+            </Badge>{' '}
+            </Link>
+      </div> 
     <div className="exampage" >
       <div className="left">
         <h4>Questions List</h4>

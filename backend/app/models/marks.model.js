@@ -7,16 +7,19 @@ const Mark = mongoose.model(
         ref: 'User',
         required: true
       },
+    username:String,
     examId:
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Exam',
       },
+    examname:String,
     questionId:
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Question',
       },
+    questionname: String,
     marks: Number,
   })
 );

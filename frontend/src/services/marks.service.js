@@ -19,8 +19,8 @@ const getAllMarks = () => {
   return axios.get(API_URL+'marks',{ headers: authHeader() });
 };
 
-const retrieveMarksCustom = (uid,eid,qid) => {
-  return axios.get(API_URL+`marks?userId=${uid}`+`&examId=${eid}`+`&questionId=${qid}`,{ headers: authHeader() });
+const retrieveMarksCustom = (uid,eid) => {
+  return axios.get(API_URL+`marks?userId=${uid}`+`&examId=${eid}`,{ headers: authHeader() });
 };
 
 const deleteMarks = (id) => {
