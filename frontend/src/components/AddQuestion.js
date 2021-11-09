@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createQuestion } from "../actions/questions";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveProfExams,} from "../actions/exam";
-import { Dropdown, } from 'react-bootstrap';
+import { Dropdown,Row, Col } from 'react-bootstrap';
 import "./CSS/General.css"
 
 let userDetails = JSON.parse(localStorage.getItem("user"));
@@ -82,7 +82,7 @@ const AddQuestion = () => {
   };
 
   return (
-    <div className="submit-form">
+    <div style={{margin: "auto"}}>
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
@@ -125,7 +125,9 @@ const AddQuestion = () => {
               name="qname"
             />
           </div>
-          <div className="right">
+          <div>
+            <Row className="mx-auto">
+          <Col >
           <div className="form_group">
               <label htmlFor="t1">Test Case 1</label>
               <textarea
@@ -184,8 +186,10 @@ const AddQuestion = () => {
                 value={question.t5}
                 onChange={handleInputChange}
                 name="t5"
-              />
+                />
           </div>
+          </Col>
+          <Col>
           <div className="form_group">
               <label htmlFor="o1">Output 1</label>
               <textarea
@@ -246,13 +250,16 @@ const AddQuestion = () => {
                 name="o5"
               />
           </div>
+          </Col>
+          </Row>
           </div>
-          <div className="left">
+          <div>
           <div className="form_group">
               <label htmlFor="description">Question</label>
               <textarea
                 type="text"
-                className="input_width"
+                className=""
+                style={{width:"100%", height:"300px" }}
                 id="description"
                 required
                 value={question.description}
