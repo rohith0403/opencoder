@@ -81,7 +81,7 @@ const ExamsList = () => {
       <div className="col-md-6">
         {currentExam ? (
           <div>
-            <h4>Exam</h4>
+            <h4 className = "text-white">Exam</h4>
             <div>
               <label>
                 <strong>Exam Name:</strong>
@@ -125,7 +125,7 @@ const ExamsList = () => {
         ) : (
           <div>
             <br />
-            <p>Please click on a Exam...</p>
+            <p className = "text-white">Please click on a Exam...</p>
           </div>
         )}
       </div>

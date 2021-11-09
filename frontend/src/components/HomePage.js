@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { findExamsByEnameByStudents,retrieveExamsByStudents } from "../actions/exam";
 import { Link } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
+import "./CSS/General.css";
 const Homepage = () => {
   const [currentExam, setcurrentExam] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -49,17 +50,29 @@ const Homepage = () => {
   };
 
   return (
-    <div>
-      <div style={{ 
-      backgroundImage: `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSySC6u-UsTKekPEFZVzsO73wQhieW8xHHpg&usqp=CAU")` 
+    <div style={{
+      marginTop:"-16px"
+    }}>
+      <div className="filter" style={{ 
+      zIndex:-99999,
+      backgroundImage: `url("/background.jpg")`,
+      width : "100%",
+      marginLeft:"-120px",
+      height : "95%",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      position:"absolute",
+      // -webkit-filter: blur(10px);
+      // filter: blur(10px);
       }}>
       </div>
     <div className="list row">
       <div className="col-md-8">
-        <div className="input-group mb-3">
+        <div className="input-group mb-3 text-white">
           <input
             type="text"
-            className="form-control"
+            className="form-control text-white"
             placeholder="Search by exam name"
             value={searchEname}
             onChange={onChangesearchEName}
@@ -94,7 +107,7 @@ const Homepage = () => {
         </ul>
 
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 text-white">
         {currentExam ? (
           <div>
             <h4>Exam</h4>
@@ -146,7 +159,7 @@ const Homepage = () => {
         ) : (
           <div>
             <br />
-            <p>Please select your exam...</p>
+            <p className = "text-white">Please select your exam...</p>
           </div>
         )}
       </div>
