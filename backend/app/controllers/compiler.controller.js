@@ -8,19 +8,17 @@ const saveFile = (name, data) => {
         console.log(err);
         reject();
       } else {
-        // console.log("The file was saved!");
         resolve();
       }
     });
   });
 };
 
-
 // Function for executing C codes
-const cExecute = (data, input,directory) => {
+const cExecute = (data, input,file) => {
   return new Promise((resolve, reject) => {
-    const fileName = directory+".c";
-    const inputfile = directory+".txt";
+    const fileName = file+".c";
+    const inputfile = file+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file
@@ -32,7 +30,7 @@ const cExecute = (data, input,directory) => {
         });
 
         // COMPILE THE CODE
-        exec("gcc " + fileName+" -o "+directory, (err, stdout, stderr) => {
+        exec("gcc " + fileName+" -o "+file, (err, stdout, stderr) => {
           if (err) {
             // IF COMPILATION ERROR
             console.error(`exec error: ${err}`);
@@ -43,7 +41,7 @@ const cExecute = (data, input,directory) => {
             });
           }
 
-          exec("/"+directory+" < " + inputfile, (err, stdout, stderr) => {
+          exec("/"+file+" < " + inputfile, (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
               resolve({
@@ -71,14 +69,14 @@ const cExecute = (data, input,directory) => {
 };
 
 // Function for executing C++ codes
-const cPlusPlusExecute = (data, input,directory) => {
+const cPlusPlusExecute = (data, input,file) => {
   const res = {
     err: false,
     msg: "",
   };
   return new Promise((resolve, reject) => {
-    const fileName = directory+".cpp";
-    const inputfile = directory+".txt";
+    const fileName = file+".cpp";
+    const inputfile = file+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file
@@ -89,7 +87,7 @@ const cPlusPlusExecute = (data, input,directory) => {
           }
         });
         // COMPILE THE CODE
-        exec("g++ " + fileName+" -o "+directory, (err, stdout, stderr) => {
+        exec("g++ " + fileName+" -o "+file, (err, stdout, stderr) => {
           if (err) {
             // IF COMPILATION ERROR
             console.error(`exec error: ${err}`);
@@ -101,7 +99,7 @@ const cPlusPlusExecute = (data, input,directory) => {
           }
 
           // SUCCESSFULL COMPILATION EXECUTING
-          exec("/"+directory+" < " + inputfile, (err, stdout, stderr) => {
+          exec("/"+file+" < " + inputfile, (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
               resolve({
@@ -128,14 +126,14 @@ const cPlusPlusExecute = (data, input,directory) => {
 };
 
 // Function for executing Java codes
-const javaExecute = (data, input,directory) => {
+const javaExecute = (data,input,file,directory) => {
   const res = {
     err: false,
     msg: "",
   };
   return new Promise((resolve, reject) => {
-    const fileName = directory+".java";
-    const inputfile = directory+".txt";
+    const fileName = file+".java";
+    const inputfile = file+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file
@@ -147,7 +145,7 @@ const javaExecute = (data, input,directory) => {
         });
 
         // COMPILE THE CODE
-        exec("javac " + fileName, (err, stdout, stderr) => {
+        exec("javac " + fileName, (err,stderr) => {
           if (err) {
             // IF COMPILATION ERROR
             console.error(`exec error: ${err}`);
@@ -159,7 +157,7 @@ const javaExecute = (data, input,directory) => {
           }
 
           // SUCCESSFULL COMPILATION EXECUTING
-          exec("java test < " + inputfile, (err, stdout, stderr) => {
+          exec("java -cp "+directory+" test < " + inputfile, (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
               resolve({
@@ -188,14 +186,14 @@ const javaExecute = (data, input,directory) => {
 };
 
 // Function for execuing python code
-const pythonExecute = (data, input,directory) => {
+const pythonExecute = (data, input,file) => {
   const res = {
     err: false,
     msg: "",
   };
   return new Promise((resolve, reject) => {
-    const fileName = directory+".py";
-    const inputfile = directory+".txt";
+    const fileName = file+".py";
+    const inputfile = file+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file
@@ -238,14 +236,14 @@ const pythonExecute = (data, input,directory) => {
 };
 
 // Function for executing JavaScript code
-const javascriptExecute = (data, input,directory) => {
+const javascriptExecute = (data, input,file) => {
   const res = {
     err: false,
     msg: "",
   };
   return new Promise((resolve, reject) => {
-    const fileName = directory+".js";
-    const inputfile = directory+".txt";
+    const fileName = file+".js";
+    const inputfile = file+".txt";
     saveFile(fileName, data)
       .then(() => {
         // Create Input file

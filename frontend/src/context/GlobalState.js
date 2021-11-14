@@ -43,7 +43,6 @@ export const GlobalProvider = ({ children }) => {
   }
 
   function storePreviousInput() {
-    console.log(toStore, "this is stored");
     localStorage.setItem("lastInput", toStore ? toStore : "");
   }
 
@@ -68,7 +67,6 @@ export const GlobalProvider = ({ children }) => {
 
   function download() {
     var element = document.createElement("a");
-    console.log(state.code);
     element.setAttribute(
       "href",
       "data:text/plain;charset=utf-8," + encodeURIComponent(state.code)

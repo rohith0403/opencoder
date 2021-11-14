@@ -59,9 +59,9 @@ const ExamPage = (props) => {
     result: result,
     lang: lang,
     input: input,
-    examid: props.location.state._id,
-    questionid: props.match.params.id,
-    userid: userDetails.id
+    examname: props.location.state.ename,
+    questionname: props.match.params.qname,
+    username: userDetails.username
   };
 
   const setActiveUser = (question, index) => {
@@ -73,7 +73,7 @@ const ExamPage = (props) => {
     e.preventDefault();
     alert("Submit Code");
     return new Promise((resolve, reject)=>{
-      codestate.questionid = currentQuestion._id;
+      codestate.questionname = currentQuestion.qname;
       axios
       .post(`http://127.0.0.1:8080/api/code/submit`, codestate)
       .then(res => {
@@ -103,7 +103,7 @@ const ExamPage = (props) => {
   const onSubmitHandler = async (inp)=>  {
     return new Promise((resolve, reject)=>{
       codestate.input = inp;
-      codestate.questionid = currentQuestion._id;
+      codestate.questionname = currentQuestion.qname;
       axios
       .post(`http://127.0.0.1:8080/api/code/submit`, codestate)
       .then(res => {
