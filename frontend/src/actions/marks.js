@@ -54,6 +54,42 @@ import {
     }
   };
 
+  export const getDistinctStudents = (eid) => async (dispatch) => {
+    try {
+      const res = await MarksDataService.distinctstudents(eid);
+      dispatch({
+        type: GET_MARKS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  export const getDistinctByUsername = (username,eid) => async (dispatch) => {
+    try {
+      const res = await MarksDataService.distinctbyusername(username,eid);
+      dispatch({
+        type: GET_MARKS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  export const getIndividualMarks = (username,eid) => async (dispatch) => {
+    try {
+      const res = await MarksDataService.indivmarks(username,eid);
+      dispatch({
+        type: GET_MARKS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   export const retrieveMarks = () => async (dispatch) => {
     try {
       const res = await MarksDataService.getAllMarks();

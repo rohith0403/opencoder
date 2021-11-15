@@ -27,6 +27,18 @@ const deleteMarks = (id) => {
   return axios.delete(API_URL + `marks/${id}`, { headers: authHeader() });
 };
 
+const distinctstudents = (eid) => {
+  return axios.get(API_URL+`profmarks?examId=${eid}`,{ headers: authHeader() });
+}
+// for search option
+const distinctbyusername = (username,eid) => {
+  return axios.get(API_URL+`profmarks?username=${username}`+`&examId=${eid}`,{ headers: authHeader() });
+}
+
+const indivmarks = (username,eid) => {
+  return axios.get(API_URL+`indivmarks?username=${username}`+`&examId=${eid}`,{ headers: authHeader() });
+}
+
 
 const MarksDataService = {
   createMarks,
@@ -35,6 +47,9 @@ const MarksDataService = {
   getAllMarks,
   deleteMarks,
   retrieveMarksCustom,
+  distinctstudents,
+  distinctbyusername,
+  indivmarks,
 };
 
 export default MarksDataService;

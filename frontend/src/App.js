@@ -19,6 +19,9 @@ import AddExam from "./components/AddExam";
 import ExamsList from "./components/ExamsList";
 import Exam from "./components/Exam";
 import Marks from "./components/Marks";
+import ProfMarksExams from "./components/ProfMarksExams";
+import ProfMarksStudents from "./components/ProfMarksStudents";
+import IndividualMarks from "./components/IndividualMarks";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { GlobalProvider } from "./context/GlobalState";
@@ -110,6 +113,13 @@ const App = () => {
                 </Link>
               </li>
             )}
+            {showModeratorBoard && (
+              <li className="nav-item">
+                <Link to={"/profmarks"} className="nav-link">
+                  Marks
+                </Link>
+              </li>
+            )}
             {showStudentBoard && (
               <li className="nav-item">
                 <Link to={"/allexams"} className="nav-link">
@@ -183,6 +193,9 @@ const App = () => {
             <Route path="/enamequestions" component={Exampage} />
             <Route path="/profileedit/:id" component={ProfileEdit} />
             <Route path="/marks" component={Marks} />
+            <Route path="/profmarks" component={ProfMarksExams} />
+            <Route path="/profmarksstudents" component={ProfMarksStudents} />
+            <Route path="/indivmarks" component={IndividualMarks} />
 
           </Switch>
         </div>

@@ -120,6 +120,16 @@ module.exports = function(app) {
     marks.findAll);
   
   app.get(
+    "/api/test/profmarks",
+    [authJwt.verifyToken],
+    marks.findAllDistinctStudents);
+  
+  app.get(
+    "/api/test/indivmarks",
+    [authJwt.verifyToken],
+    marks.findAllByusername);
+
+  app.get(
     "/api/test/marks/:id",
     [authJwt.verifyToken],
     marks.findOne);
