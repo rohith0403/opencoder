@@ -94,7 +94,23 @@ const Register = () => {
   };
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12" style={{
+      marginTop:"-64px"
+    }}>
+      <div className="filter" style={{ 
+      zIndex:-99999,
+      backgroundImage: `url("/background.jpg")`,
+      width : "100%",
+      marginLeft:"-120px",
+      height : "95%",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      position:"absolute",
+      // -webkit-filter: blur(10px);
+      // filter: blur(10px);
+      }}>
+      </div>
       <div className="card card-container">
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"

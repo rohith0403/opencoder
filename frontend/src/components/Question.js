@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateQuestion, deleteQuestion } from "../actions/questions";
 import QuestionDataService from "../services/question.service";
-import { Button } from 'react-bootstrap'
+import { Button,Row, Col } from 'react-bootstrap'
 import "./CSS/General.css"
 
 const Question = (props) => {
@@ -78,9 +78,9 @@ const Question = (props) => {
   return (
     <div>
       {currentQuestion ? (
-        <div className="edit-form">
+        <div>
           <h4>Question</h4>
-          <form>
+          {/* <form> */}
           <div className="form-group">
                 <label htmlFor="examId">Exam</label>
                 <input
@@ -104,6 +104,9 @@ const Question = (props) => {
                     name="qname"
                 />
             </div>
+            <div>
+            <Row className="mx-auto">
+          <Col >
             <div className="form_group">
               <label htmlFor="testcase1">Test Case 1</label>
               <textarea
@@ -164,6 +167,8 @@ const Question = (props) => {
                 name="testcase5"
               />
           </div>
+          </Col>
+          <Col>
           <div className="form_group">
               <label htmlFor="output1">Output 1</label>
               <textarea
@@ -224,18 +229,24 @@ const Question = (props) => {
                 name="output5"
               />
           </div>
+          </Col>
+          </Row>
+          </div>
+          <div>
             <div className="form-group">
                 <label htmlFor="description">Question</label>
                 <textarea
                   className="input_width"
                   type="text"
+                  style={{width:"100%", height:"300px" }}
                   id="description"
                   value={currentQuestion.description}
                   onChange={handleInputChange}
                   name="description"
                 />
             </div>
-          </form>
+            </div>
+          {/* </form> */}
 
           <Button variant="danger" onClick={removeQuestion} >Delete</Button> {' '}
           <Button variant="warning" onClick={updateContent}>Update</Button>{' '}
