@@ -4,29 +4,47 @@ import {
     RETRIEVE_USERS,
     UPDATE_USER,
     DELETE_USER,
+    SET_MESSAGE,
   } from "./types";
   
   import UserDataService from "../services/user.service";
   
   export const createUser = (username,email,password,roles) => async (dispatch) => {
-    try {
       const data = {
         username:username,
         email:email,
         password:password,
         roles:roles
       }
-      const res = await UserDataService.createUser(data);
-  
-      dispatch({
-        type: CREATE_USER,
-        payload: res.data,
-      });
-  
-      return Promise.resolve(res.data);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+      return UserDataService.createUser(data).then(
+        (response) => {
+          dispatch({
+            type: CREATE_USER,
+          });
+    
+          dispatch({
+            type: SET_MESSAGE,
+            payload: response.data.message,
+          });
+    
+          return Promise.resolve();
+        },
+        (error) => {
+          const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+      
+          dispatch({
+            type: SET_MESSAGE,
+            payload: message,
+          });
+    
+          return Promise.reject();
+        }
+      )
   };
   export const getUser = (id) => async (dispatch) => {
     try {

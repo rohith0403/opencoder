@@ -4,6 +4,7 @@ import {
     RETRIEVE_EXAMS,
     UPDATE_EXAM,
     DELETE_EXAM,
+    SET_MESSAGE
   } from "./types";
   
   import ExamDataService from "../services/exam.service";
@@ -22,13 +23,24 @@ import {
       dispatch({
         type: CREATE_EXAM,
         payload: res.data,
-      });
-  
+      });  
       return Promise.resolve(res.data);
-    } catch (err) {
-      return Promise.reject(err);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+        dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+      return Promise.reject();
     }
   };
+
   export const getExam = (id) => async (dispatch) => {
     try {
       const res = await ExamDataService.getExam(id);
@@ -40,6 +52,7 @@ import {
       console.log(err);
     }
   };
+
   export const retrieveExams = () => async (dispatch) => {
     try {
       const res = await ExamDataService.getAllExams();

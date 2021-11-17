@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { createExam } from "../actions/exam";
 import DatePicker from "react-datepicker";
 import TimePicker from 'react-time-picker';
+import Form from "react-validation/build/form";
+import CheckButton from "react-validation/build/button";
 import "react-datepicker/dist/react-datepicker.css";
 
 let userDetails = JSON.parse(localStorage.getItem("user"));
@@ -22,14 +24,20 @@ const AddExam = () => {
   const [startDate, setStartDate] = useState(null);
   const [startTime, setStartTime] = useState('10:00');
   const [EndTime, setEndTime] = useState('10:00');
-
+  const [successful, setSuccessful] = useState(false);
+  const { message } = useSelector(state => state.message);
+  const form = useRef();
+  const checkBtn = useRef();
   const dispatch = useDispatch();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
     setExam({ ...exam, [name]: value });
   };
-  const saveExam = () => {
+  const saveExam = (e) => {
+    e.preventDefault();
+    setSuccessful(false);
+    form.current.validateAll();
     const { userId,ename,exam_time} = exam;
     var day = startDate.getDate();
     var month = startDate.getMonth()+1;
@@ -37,6 +45,7 @@ const AddExam = () => {
     const start_date = day+'-'+month+'-'+year;
     const start_time = startTime;
     const end_time = EndTime;
+    if (checkBtn.current.context._errors.length === 0) {
     dispatch(createExam(userId,ename,start_date,start_time,end_time,exam_time))
       .then(data => {
         setExam({
@@ -48,11 +57,11 @@ const AddExam = () => {
           exam_time : data.exam_time
         });
         setSubmitted(true);
-        console.log(data);
       })
-      .catch(e => {
-        console.log(e);
+      .catch(err => {
+        console.log(err);
       });
+    }
   };
 
   const newExam = () => {
@@ -66,12 +75,14 @@ const AddExam = () => {
         <div>
           <h4>You submitted successfully!</h4>
           <button className="btn btn-success" onClick={newExam}>
-            Add
+            Add Another Exam
           </button>
         </div>
       ) : (
         <div>
-
+          <Form onSubmit={saveExam} ref={form}>
+          {!successful && (
+            <div>
           <div className="form-group">
             <label htmlFor="ename">Exam Name</label>
             <input
@@ -129,10 +140,21 @@ const AddExam = () => {
               locale="sv-sv"
             />
           </div>
-          
-          <button onClick={saveExam} className="btn btn-success">
-            Submit
-          </button>
+          <div className="form-group">
+            <button className="btn btn-primary btn-block">Submit</button>
+          </div>
+          </div>
+          )}
+
+          {message && (
+            <div className="form-group">
+              <div className={ successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+                {message}
+              </div>
+            </div>
+          )}
+          <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          </Form>
         </div>
       )}
     </div>
