@@ -57,6 +57,23 @@ const User = (props) => {
 
 
   return (
+    <div style={{
+      marginTop:"-20px"
+    }}>
+    <div className="filter" style={{ 
+    zIndex:-99999,
+    backgroundImage: `url("/background.jpg")`,
+    width : "100%",
+    marginLeft:"-120px",
+    height : "95%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position:"absolute",
+    // -webkit-filter: blur(10px);
+    // filter: blur(10px);
+    }}>
+    </div>
     <div>
       {currentUser ? (
         <div className="edit-form">
@@ -107,6 +124,7 @@ const User = (props) => {
           <p>Please click on a User...</p>
         </div>
       )}
+    </div>
     </div>
   );
 };

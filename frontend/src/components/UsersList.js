@@ -37,6 +37,23 @@ const UsersList = () => {
   };
 
   return (
+    <div style={{
+      marginTop:"-20px"
+    }}>
+    <div className="filter" style={{ 
+    zIndex:-99999,
+    backgroundImage: `url("/background.jpg")`,
+    width : "100%",
+    marginLeft:"-120px",
+    height : "95%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position:"absolute",
+    // -webkit-filter: blur(10px);
+    // filter: blur(10px);
+    }}>
+    </div>
     <div className="list row">
       <div className="col-md-8">
         <div className="input-group mb-3">
@@ -77,7 +94,7 @@ const UsersList = () => {
         </ul>
 
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 text-white">
         {currentUser ? (
           <div>
             <h4>User</h4>
@@ -110,6 +127,7 @@ const UsersList = () => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };
