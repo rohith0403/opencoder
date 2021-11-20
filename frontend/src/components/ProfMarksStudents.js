@@ -37,6 +37,23 @@ const ProfMarksStudents = (props) => {
   };
 
   return (
+    <div style={{
+      marginTop:"-20px"
+    }}>
+    <div className="filter" style={{ 
+    zIndex:-99999,
+    backgroundImage: `url("/background.jpg")`,
+    width : "100%",
+    marginLeft:"-120px",
+    height : "95%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position:"absolute",
+    // -webkit-filter: blur(10px);
+    // filter: blur(10px);
+    }}>
+    </div>
     <div className="list row">
       <div className="col-md-8">
         <div className="input-group mb-3">
@@ -59,7 +76,7 @@ const ProfMarksStudents = (props) => {
         </div>
       </div>
       <div className="col-md-6">
-        <h4>Marks List</h4>
+        <h4>Students List</h4>
 
         <ul className="list-group">
           {marks &&
@@ -99,6 +116,7 @@ const ProfMarksStudents = (props) => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };

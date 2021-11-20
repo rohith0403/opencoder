@@ -70,7 +70,24 @@ const AddExam = () => {
   };
 
   return (
-    <div className="submit-form">
+    <div style={{
+      marginTop:"-32px"
+    }}>
+    <div className="filter" style={{ 
+    zIndex:-99999,
+    backgroundImage: `url("/background.jpg")`,
+    width : "100%",
+    marginLeft:"-120px",
+    height : "95%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position:"absolute",
+    // -webkit-filter: blur(10px);
+    // filter: blur(10px);
+    }}>
+    </div>
+    <div className="submit-form text-white">
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
@@ -157,6 +174,7 @@ const AddExam = () => {
           </Form>
         </div>
       )}
+    </div>
     </div>
   );
 };

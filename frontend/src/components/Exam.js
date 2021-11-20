@@ -80,9 +80,26 @@ const Exam = (props) => {
   };
 
   return (
+    <div style={{
+      marginTop:"-20px"
+    }}>
+    <div className="filter" style={{ 
+    zIndex:-99999,
+    backgroundImage: `url("/background.jpg")`,
+    width : "100%",
+    marginLeft:"-120px",
+    height : "95%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position:"absolute",
+    // -webkit-filter: blur(10px);
+    // filter: blur(10px);
+    }}>
+    </div>
     <div>
       {currentExam ? (
-        <div className="edit-form">
+        <div className="edit-form text-white">
           <h4>Exam</h4>
           <form>
 
@@ -98,7 +115,7 @@ const Exam = (props) => {
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group text-white">
                 <label htmlFor="exam_time">Exam Time in minutes</label>
                 <input
                     type="Number"
@@ -110,7 +127,7 @@ const Exam = (props) => {
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group text-white">
             <label htmlFor="start_date">Date</label>
             <DatePicker 
               selected={startDate}
@@ -151,9 +168,10 @@ const Exam = (props) => {
       ) : (
         <div>
           <br />
-          <p>Please click on a Exam...</p>
+          <p className = "text-white">Please click on a Exam...</p>
         </div>
       )}
+    </div>
     </div>
   );
 };

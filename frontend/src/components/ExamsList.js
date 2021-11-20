@@ -95,10 +95,10 @@ const ExamsList = () => {
         </ul>
 
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 text-white">
         {currentExam ? (
           <div>
-            <h4 className = "text-white">Exam</h4>
+            <h4>Exam</h4>
             <div>
               <label>
                 <strong>Exam Name:</strong>
