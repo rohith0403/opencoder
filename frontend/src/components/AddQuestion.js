@@ -82,6 +82,7 @@ const AddQuestion = () => {
   };
 
   return (
+    <div>
     <div style={{margin: "auto"}}>
       {submitted ? (
         <div>
@@ -274,6 +275,7 @@ const AddQuestion = () => {
           </button>
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -38,6 +38,23 @@ const ProfMarks = () => {
   };
 
   return (
+    <div style={{
+      marginTop:"-16px"
+    }}>
+    <div className="filter" style={{ 
+    zIndex:-99999,
+    backgroundImage: `url("/background.jpg")`,
+    width : "100%",
+    marginLeft:"-120px",
+    height : "95%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position:"absolute",
+    // -webkit-filter: blur(10px);
+    // filter: blur(10px);
+    }}>
+    </div>
     <div className="list row">
       <div className="col-md-8">
         <div className="input-group mb-3">
@@ -107,6 +124,7 @@ const ProfMarks = () => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };
