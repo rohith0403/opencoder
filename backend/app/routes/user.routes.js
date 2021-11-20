@@ -3,7 +3,7 @@ const controller = require("../controllers/user.controller");
 const question = require("../controllers/question.controller"); 
 const exam = require("../controllers/exam.controller");
 const marks = require("../controllers/marks.controller");
-const { verifySignUp } = require("../middlewares");
+const { verifySignUp, verifyExam } = require("../middlewares");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -15,7 +15,8 @@ module.exports = function(app) {
   });
 
   app.get("/api/test/all", controller.allAccess);
-  
+
+// user
   app.post(
     "/api/test/users",
     [authJwt.verifyToken, authJwt.isAdmin,
@@ -43,6 +44,8 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.delete);
 
+
+// question
   app.post(
     "/api/test/questions",
     [authJwt.verifyToken, authJwt.isProfessor],
@@ -79,9 +82,12 @@ module.exports = function(app) {
     question.delete);
 
 
+
+// exam
   app.post(
     "/api/test/exams",
-    [authJwt.verifyToken, authJwt.isProfessor],
+    [authJwt.verifyToken, authJwt.isProfessor,
+      verifyExam.checkDuplicateExam],
     exam.create);
 
   app.get(
@@ -109,6 +115,8 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isStudent ],
     exam.findAllForStudents);
 
+
+// marks
   app.post(
     "/api/test/marks",
     [authJwt.verifyToken],

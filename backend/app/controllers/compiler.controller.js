@@ -270,7 +270,6 @@ const javascriptExecute = (data, input,file) => {
           // SUCCESSFULL COMPILATION EXECUTING
           exec("node test < " + inputfile , (err, stdout, stderr) => {
             if (err) {
-              console.log("ERROR " + err);
               resolve({
                 err: true,
                 output: `${err}`,
@@ -278,7 +277,6 @@ const javascriptExecute = (data, input,file) => {
               });
             }
 
-            console.log("OUTPUT ", stdout);
             resolve({
               err: false,
               output: stdout,
@@ -287,7 +285,6 @@ const javascriptExecute = (data, input,file) => {
         });
       })
       .catch(() => {
-        console.log("ERROR SAVE FILE" + saveFileRes);
         const err = {
           err: true,
           output: "Internal Server Error!",
