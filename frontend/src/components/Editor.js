@@ -25,6 +25,8 @@ function CodeArea({onCodeChangeHandler}) {
     // console.log("Editor Mounted");
   };
 
+  
+
   $(document).ready(function() {
     const bclick = document.getElementById('editor');
     bclick.addEventListener('keydown', function(event) {
@@ -64,6 +66,7 @@ function CodeArea({onCodeChangeHandler}) {
             value={code}
             options={options}
             editorDidMount={editorDidMount}
+            onChange={newCode => handleCodeChange(newCode)}
           />
         </div>
       </div>
