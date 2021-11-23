@@ -57,9 +57,6 @@ function CodeArea({onCodeChangeHandler}) {
       <div className="codearea">
         <div className="codewritearea" id="editor">
           <MonacoEditor       
-            onCut={handleCopy}
-            onCopy={handleCopy}
-            onPaste={handleCopy}
             width="700"
             height="80vh"
             left= "50%"
