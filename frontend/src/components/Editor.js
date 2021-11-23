@@ -25,13 +25,6 @@ function CodeArea({onCodeChangeHandler}) {
     // console.log("Editor Mounted");
   };
 
-  const handleCopy = (e) => {
-    console.log("No copy");
-    e.preventDefault();
-    e.nativeEvent.stopImmediatePropagation();
-    alert('Don\'t copy it!');
-  };
-
   $(document).ready(function() {
     const bclick = document.getElementById('editor');
     bclick.addEventListener('keydown', function(event) {
@@ -51,6 +44,11 @@ function CodeArea({onCodeChangeHandler}) {
         event.preventDefault();
         alert("No cut!")
       }
+      else if (ctrlDown && (event.key === 'r' || event.key === 'R')) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        alert("No Refresh!")
+      }
     },false);
   });
   
@@ -68,7 +66,6 @@ function CodeArea({onCodeChangeHandler}) {
             theme="vs-dark"
             value={code}
             options={options}
-            onChange={newCode => handleCodeChange(newCode)}
             editorDidMount={editorDidMount}
           />
         </div>

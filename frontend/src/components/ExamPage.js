@@ -71,7 +71,6 @@ const ExamPage = (props) => {
 
   const onSubmitSingleTestCase = e =>  {
     e.preventDefault();
-    alert("Submit Code");
     return new Promise((resolve, reject)=>{
       codestate.questionname = currentQuestion.qname;
       axios
@@ -192,6 +191,7 @@ const ExamPage = (props) => {
 
   const submitall = () => {
     getMarks()
+    alert("Submit Code");
     let localPassedCases=0;
     setrunStatus("Running");
     setpassedCases(localPassedCases);
