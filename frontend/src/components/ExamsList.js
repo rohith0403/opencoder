@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  findExamsByEname,
-  retrieveProfExams,
-} from "../actions/exam";
+import { findExamsByEname, retrieveProfExams } from "../actions/exam";
 import { Link } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
 let userDetails = JSON.parse(localStorage.getItem("user"));
@@ -18,7 +15,7 @@ const ExamsList = () => {
 
   useEffect(() => {
     dispatch(retrieveProfExams(userDetails.id));
-  }, []);
+  }, [dispatch]);
 
   const onChangesearchEName = e => {
     const searchEname = e.target.value;
@@ -41,6 +38,23 @@ const ExamsList = () => {
   };
 
   return (
+    <div style={{
+      marginTop:"-16px"
+    }}>
+    <div className="filter" style={{ 
+    zIndex:-99999,
+    backgroundImage: `url("/background.jpg")`,
+    width : "100%",
+    marginLeft:"-120px",
+    height : "95%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position:"absolute",
+    // -webkit-filter: blur(10px);
+    // filter: blur(10px);
+    }}>
+    </div>
     <div className="list row">
       <div className="col-md-8">
         <div className="input-group mb-3">
@@ -81,7 +95,7 @@ const ExamsList = () => {
         </ul>
 
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 text-white">
         {currentExam ? (
           <div>
             <h4>Exam</h4>
@@ -90,6 +104,30 @@ const ExamsList = () => {
                 <strong>Exam Name:</strong>
               </label>{" "}
               {currentExam.ename}
+            </div>
+            <div>
+              <label>
+                <strong>Exam Date:</strong>
+              </label>{" "}
+              {currentExam.start_date}
+            </div>
+            <div>
+              <label>
+                <strong>Start Time:</strong>
+              </label>{" "}
+              {currentExam.start_time}
+            </div>
+            <div>
+              <label>
+                <strong>End Time:</strong>
+              </label>{" "}
+              {currentExam.end_time}
+            </div>
+            <div>
+              <label>
+                <strong>Exam Time in minutes:</strong>
+              </label>{" "}
+              {currentExam.exam_time}
             </div>
             <Link
               to={"/exams/" + currentExam._id}
@@ -104,10 +142,11 @@ const ExamsList = () => {
         ) : (
           <div>
             <br />
-            <p>Please click on a User...</p>
+            <p className = "text-white">Please click on a Exam...</p>
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };

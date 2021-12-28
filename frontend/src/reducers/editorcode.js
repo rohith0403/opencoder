@@ -57,6 +57,8 @@ export default (state, action) => {
           code: code.javascript,
         };
       }
+      else
+        break;
 
     default:
       return state;

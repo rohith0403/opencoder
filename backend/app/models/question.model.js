@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Question = mongoose.model(
   "Question",
   new mongoose.Schema({
@@ -8,9 +7,24 @@ const Question = mongoose.model(
         ref: 'User',
         required: true
       },
-    examId: String,
+    examId:
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Exam',
+      },
+    ename: String,
     qname: String,
-    description: String
+    description: String,
+    testcase1: [String],
+    testcase2: [String],
+    testcase3: [String],
+    testcase4: [String],
+    testcase5: [String],
+    output1: String,
+    output2: String,
+    output3: String,
+    output4: String,
+    output5: String
   })
 );
 

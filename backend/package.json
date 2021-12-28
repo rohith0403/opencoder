@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "fs": "*",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.7"
+    "mongoose": "^5.13.7",
+    "react-beforeunload": "^2.5.2"
   }
 }

@@ -5,9 +5,9 @@ import { code } from "../components/defaultCode";
 // Initial State
 const initialState = {
   code: code.cpp,
-  result: "Run and Submit code to see result",
-  lang: "python",
-  input: "Enter your input"
+  result: "Run code to see result",
+  lang: "cpp",
+  input: "Enter input"
 };
 
 var toStore;
@@ -43,13 +43,12 @@ export const GlobalProvider = ({ children }) => {
   }
 
   function storePreviousInput() {
-    console.log(toStore, "this is stored");
     localStorage.setItem("lastInput", toStore ? toStore : "");
   }
 
   function loadPreviousInput() {
     var lastInput =
-      localStorage.getItem("lastInput") != ""
+      localStorage.getItem("lastInput") !== ""
         ? localStorage.getItem("lastInput")
         : "";
 
@@ -68,7 +67,6 @@ export const GlobalProvider = ({ children }) => {
 
   function download() {
     var element = document.createElement("a");
-    console.log(state.code);
     element.setAttribute(
       "href",
       "data:text/plain;charset=utf-8," + encodeURIComponent(state.code)

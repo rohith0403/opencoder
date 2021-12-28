@@ -2,6 +2,8 @@ const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 const question = require("../controllers/question.controller"); 
 const exam = require("../controllers/exam.controller");
+const marks = require("../controllers/marks.controller");
+const { verifySignUp, verifyExam } = require("../middlewares");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -13,11 +15,13 @@ module.exports = function(app) {
   });
 
   app.get("/api/test/all", controller.allAccess);
-  
-// admin
+
+// user
   app.post(
     "/api/test/users",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin,
+      verifySignUp.checkDuplicateUsernameOrEmail
+    ],
     controller.create);
   
   app.get(
@@ -27,23 +31,21 @@ module.exports = function(app) {
   
   app.get(
     "/api/test/users/:id",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.findOne);
   
   app.put(
     "/api/test/users/:id",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.update);
 
   app.delete(
     "/api/test/users/:id",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.delete);
-  
 
 
-
-// professor
+// question
   app.post(
     "/api/test/questions",
     [authJwt.verifyToken, authJwt.isProfessor],
@@ -53,7 +55,17 @@ module.exports = function(app) {
     "/api/test/questions",
     [authJwt.verifyToken, authJwt.isProfessor],
     question.findAll);
+
+  app.get(
+    "/api/test/enamequestions",
+    [authJwt.verifyToken, authJwt.isStudent],
+    question.findAllByEname);
   
+  app.get(
+    "/api/test/questions/:id",
+    [authJwt.verifyToken, authJwt.isProfessor],
+    question.findOne);
+
   app.get(
     "/api/test/questions/:id",
     [authJwt.verifyToken, authJwt.isProfessor],
@@ -70,11 +82,14 @@ module.exports = function(app) {
     question.delete);
 
 
+
+// exam
   app.post(
     "/api/test/exams",
-    [authJwt.verifyToken, authJwt.isProfessor],
+    [authJwt.verifyToken, authJwt.isProfessor,
+      verifyExam.checkDuplicateExam],
     exam.create);
-  
+
   app.get(
     "/api/test/exams",
     [authJwt.verifyToken, authJwt.isProfessor],
@@ -94,5 +109,47 @@ module.exports = function(app) {
     "/api/test/exams/:id",
     [authJwt.verifyToken, authJwt.isProfessor],
     exam.delete);
+
+  app.get(
+    "/api/test/allexams",
+    [authJwt.verifyToken, authJwt.isStudent ],
+    exam.findAllForStudents);
+
+
+// marks
+  app.post(
+    "/api/test/marks",
+    [authJwt.verifyToken],
+    marks.create);
+
+  app.get(
+    "/api/test/marks",
+    [authJwt.verifyToken],
+    marks.findAll);
+  
+  app.get(
+    "/api/test/profmarks",
+    [authJwt.verifyToken],
+    marks.findAllDistinctStudents);
+  
+  app.get(
+    "/api/test/indivmarks",
+    [authJwt.verifyToken],
+    marks.findAllByusername);
+
+  app.get(
+    "/api/test/marks/:id",
+    [authJwt.verifyToken],
+    marks.findOne);
+  
+  app.put(
+    "/api/test/marks/:id",
+    [authJwt.verifyToken],
+    marks.update);
+
+  app.delete(
+    "/api/test/marks/:id",
+    [authJwt.verifyToken],
+    marks.delete);
 
 };

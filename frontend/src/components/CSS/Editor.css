@@ -1,0 +1,17 @@
+.container {
+  display: table;
+  height: 95vh;
+  width: 95vw;
+}
+.question, .codewritearea {
+  padding: 25px;
+  display: table-cell;
+  width: 50%;
+}
+.question {
+  text-align: left;
+  position: relative;
+}
+.codewritearea {
+  border-left: 2px solid navy;
+}

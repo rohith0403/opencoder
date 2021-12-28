@@ -4,28 +4,43 @@ import {
     RETRIEVE_EXAMS,
     UPDATE_EXAM,
     DELETE_EXAM,
+    SET_MESSAGE
   } from "./types";
   
   import ExamDataService from "../services/exam.service";
   
-  export const createExam = (userId,ename) => async (dispatch) => {
+  export const createExam = (userId,ename,start_date,start_time,end_time,exam_time) => async (dispatch) => {
     try {
       const data = {
         userId:userId,
         ename:ename,
+        start_date:start_date,
+        start_time:start_time,
+        end_time:end_time,
+        exam_time:exam_time
       }
-      console.log(data);
       const res = await ExamDataService.createExam(data);
       dispatch({
         type: CREATE_EXAM,
         payload: res.data,
-      });
-  
+      });  
       return Promise.resolve(res.data);
-    } catch (err) {
-      return Promise.reject(err);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+        dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+      return Promise.reject();
     }
   };
+
   export const getExam = (id) => async (dispatch) => {
     try {
       const res = await ExamDataService.getExam(id);
@@ -37,6 +52,7 @@ import {
       console.log(err);
     }
   };
+
   export const retrieveExams = () => async (dispatch) => {
     try {
       const res = await ExamDataService.getAllExams();
@@ -63,8 +79,28 @@ import {
     }
   };
   
-  export const updateExam = (id, data) => async (dispatch) => {
+  export const retrieveExamsByStudents = () => async (dispatch) => {
     try {
+      const res = await ExamDataService.getAllExamsByStudents();
+
+      dispatch({
+        type: RETRIEVE_EXAMS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  export const updateExam = (id,ename,start_date,start_time,end_time,exam_time) => async (dispatch) => {
+    try {
+      const data = {
+        ename:ename,
+        start_date:start_date,
+        start_time:start_time,
+        end_time:end_time,
+        exam_time:exam_time
+      }
       const res = await ExamDataService.updateExam(id, data);
   
       dispatch({
@@ -94,6 +130,19 @@ import {
   export const findExamsByEname = (ename) => async (dispatch) => {
     try {
       const res = await ExamDataService.findByExamname(ename);
+  
+      dispatch({
+        type: RETRIEVE_EXAMS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  export const findExamsByEnameByStudents = (ename) => async (dispatch) => {
+    try {
+      const res = await ExamDataService.findByExamnameByStudents(ename);
   
       dispatch({
         type: RETRIEVE_EXAMS,

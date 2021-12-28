@@ -30,3 +30,9 @@ export const GET_EXAM = "GET_EXAM";
 export const RETRIEVE_EXAMS = "RETRIEVE_EXAMS";
 export const UPDATE_EXAM = "UPDATE_EXAM";
 export const DELETE_EXAM = "DELETE_EXAM";
+
+export const CREATE_MARKS = "CREATE_MARKS";
+export const GET_MARKS = "GET_MARKS";
+export const RETRIEVE_MARKS = "RETRIEVE_MARKS";
+export const UPDATE_MARKS = "UPDATE_MARKS";
+export const DELETE_MARKS = "DELETE_MARKS";

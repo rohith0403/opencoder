@@ -9,10 +9,18 @@ import {
 
   export const displayOutput = (id, output) => async(dispatch) => {
     try{
-        dispatch({
-            type: "DISPLAY_OUTPUT",
-            payload: output
-          });
+
+          return new Promise( (resolve, reject) => {
+            dispatch({
+                type: DISPLAY_OUTPUT,
+                payload: output
+              });
+            if ( successful ) {
+                resolve(); // we're done so call resolve.
+            } else {
+                reject(); // failed.
+            }
+        });
     }
     catch(err){
         return Promise.reject(err);
@@ -22,7 +30,7 @@ import {
 export const codeChange = (id, input) => async(dispatch) => {
     try{
         dispatch({
-            type: "DISPLAY_OUTPUT",
+            type: DISPLAY_OUTPUT,
             payload: output
           });
     }
@@ -33,12 +41,9 @@ export const codeChange = (id, input) => async(dispatch) => {
 
 export const previousInput = (id) => async(dispatch) => {
     var lastInput = "";
-    //   localStorage.getItem("lastInput") != ""
-    //     ? localStorage.getItem("lastInput")
-    //     : "";
     
     dispatch({
-        type: "PREVIOUS_INPUT",
+        type: PREVIOUS_INPUT,
         payload: lastInput
     });
 }
@@ -47,7 +52,7 @@ export const inputChange = (id, input_data) => async(dispatch) => {
     try{
         toStore = input_data;
         dispatch({
-          type: "INPUT_CHANGE",
+          type: INPUT_CHANGE,
           payload: input_data
         });
     }
@@ -59,7 +64,7 @@ export const inputChange = (id, input_data) => async(dispatch) => {
 export const langChange = (id, input) => async(dispatch) => {
     try{
         dispatch({
-            type: "LANG_CHANGE",
+            type: LANG_CHANGE,
             payload: input
           });
     }

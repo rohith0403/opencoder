@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateExam, deleteExam } from "../actions/exam";
 import ExamDataService from "../services/exam.service";
+import { Button } from 'react-bootstrap'
+import DatePicker from "react-datepicker";
+import TimePicker from 'react-time-picker';
+import "react-datepicker/dist/react-datepicker.css";
 
 const Exam = (props) => {
   const initialExamState = {
     id: null,
     userId:"",
     ename:"",
+    exam_time:"",
     submitted: false
   };
   const [currentExam, setcurrentExam] = useState(initialExamState);
   const [message, setMessage] = useState("");
   const exams = useSelector(state => state.exams);
   const dispatch = useDispatch();
+  const [startDate, setStartDate] = useState(null);
+  const [startTime, setStartTime] = useState('10:00');
+  const [EndTime, setEndTime] = useState('10:00');
 
-  const getExam = id => {
+  const getExam = useCallback((id) => {
     if (exams.length !== 0){
       if(exams.filter( x  => x._id=== id)) {
-        // TODO: 505 code
       }
       setcurrentExam(exams.filter( x  => x._id=== id)[0]);
     }
@@ -32,10 +39,10 @@ const Exam = (props) => {
         console.log(e);
       });
     }
-  };
+  },[exams]);
   useEffect(() => {
     getExam(props.match.params.id);
-  }, [props.match.params.id]);
+  }, [props.match.params.id,getExam]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -43,7 +50,15 @@ const Exam = (props) => {
   };
 
   const updateContent = () => {
-    dispatch(updateExam(currentExam._id, currentExam))
+    const ename = currentExam.ename;
+    const exam_time = currentExam.exam_time;
+    var day = startDate.getDate();
+    var month = startDate.getMonth()+1;
+    var year = startDate.getFullYear();
+    const start_date = day+'-'+month+'-'+year;
+    const start_time = startTime;
+    const end_time = EndTime;
+    dispatch(updateExam(currentExam._id,ename,start_date,start_time,end_time,exam_time))
       .then(response => {
         console.log(response);
 
@@ -55,7 +70,6 @@ const Exam = (props) => {
   };
 
   const removeExam = () => {
-      console.log(currentExam._id);
     dispatch(deleteExam(currentExam._id))
       .then(() => {
         props.history.push("/exams");
@@ -66,9 +80,26 @@ const Exam = (props) => {
   };
 
   return (
+    <div style={{
+      marginTop:"-20px"
+    }}>
+    <div className="filter" style={{ 
+    zIndex:-99999,
+    backgroundImage: `url("/background.jpg")`,
+    width : "100%",
+    marginLeft:"-120px",
+    height : "95%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position:"absolute",
+    // -webkit-filter: blur(10px);
+    // filter: blur(10px);
+    }}>
+    </div>
     <div>
       {currentExam ? (
-        <div className="edit-form">
+        <div className="edit-form text-white">
           <h4>Exam</h4>
           <form>
 
@@ -84,27 +115,63 @@ const Exam = (props) => {
                 />
             </div>
 
+            <div className="form-group text-white">
+                <label htmlFor="exam_time">Exam Time in minutes</label>
+                <input
+                    type="Number"
+                    className="form-control"
+                    id="exam_time"
+                    value={currentExam.exam_time}
+                    onChange={handleInputChange}
+                    name="exam_time"
+                />
+            </div>
+
+            <div className="form-group text-white">
+            <label htmlFor="start_date">Date</label>
+            <DatePicker 
+              selected={startDate}
+              required
+              minDate={new Date()}
+              placeholderText="Please select a date"
+              onChange={(date) => setStartDate(date)}
+              format='yyyy-MM-dd'
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="start_time">Start Time</label>
+            <TimePicker
+              selected={startTime}
+              onChange={(time) =>setStartTime(time)}
+              showTimeSelect
+              locale="sv-sv"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="end_time">End Time</label>
+            <TimePicker
+              selected={EndTime}
+              onChange={(time) =>setEndTime(time)}
+              showTimeSelect
+              locale="sv-sv"
+            />
+          </div>
+
           </form>
 
-          <button className="badge badge-danger mr-2" onClick={removeExam}>
-            Delete
-          </button>
-
-          <button
-            type="submit"
-            className="badge badge-success"
-            onClick={updateContent}
-          >
-            Update
-          </button>
+          <Button variant="danger" onClick={removeExam} >Delete</Button> {' '}
+          <Button variant="warning" onClick={updateContent}>Update</Button>{' '}
           <p>{message}</p>
         </div>
       ) : (
         <div>
           <br />
-          <p>Please click on a Exam...</p>
+          <p className = "text-white">Please click on a Exam...</p>
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -1,11 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from 'react-router-dom';
-
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
 import { login } from "../actions/auth";
 
 const required = (value) => {
@@ -67,13 +65,30 @@ const Login = (props) => {
   }
 
   return (
+    <div style={{
+      marginTop:"-64px"
+    }}>
+      <div className="filter" style={{ 
+      zIndex:-99999,
+      backgroundImage: `url("/background.jpg")`,
+      width : "100%",
+      marginLeft:"-120px",
+      height : "95%",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      position:"absolute",
+      // -webkit-filter: blur(10px);
+      // filter: blur(10px);
+      }}>
+      </div>
     <div className="col-md-12">
       <div className="card card-container">
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
           className="profile-img-card"
-        />
+          />
 
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
@@ -85,7 +100,7 @@ const Login = (props) => {
               value={username}
               onChange={onChangeUsername}
               validations={[required]}
-            />
+              />
           </div>
 
           <div className="form-group">
@@ -97,14 +112,14 @@ const Login = (props) => {
               value={password}
               onChange={onChangePassword}
               validations={[required]}
-            />
+              />
           </div>
 
           <div className="form-group">
             <button className="btn btn-primary btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
-              )}
+                )}
               <span>Login</span>
             </button>
           </div>
@@ -119,6 +134,7 @@ const Login = (props) => {
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
+    </div>
     </div>
   );
 };

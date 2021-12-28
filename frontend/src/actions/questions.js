@@ -8,15 +8,24 @@ import {
   
   import QuestionDataService from "../services/question.service";
   
-  export const createQuestion = (userId,examId,qname,description) => async (dispatch) => {
+  export const createQuestion = (userId,ename,qname,description,t1,t2,t3,t4,t5,o1,o2,o3,o4,o5) => async (dispatch) => {
     try {
       const data = {
         userId:userId,
-        examId:examId,
+        ename:ename,
         qname:qname,
         description:description,
+        testcase1:t1,
+        testcase2:t2,
+        testcase3:t3,
+        testcase4:t4,
+        testcase5:t5,
+        output1:o1,
+        output2:o2,
+        output3:o3,
+        output4:o4,
+        output5:o5
       }
-      console.log(data);
       const res = await QuestionDataService.createQuestion(data);
       dispatch({
         type: CREATE_QUESTION,
@@ -42,7 +51,7 @@ import {
   export const retrieveQuestions = () => async (dispatch) => {
     try {
       const res = await QuestionDataService.getAllQuestions();
-
+      
       dispatch({
         type: RETRIEVE_QUESTIONS,
         payload: res.data,
@@ -65,6 +74,19 @@ import {
     }
   };
   
+  export const retrieveQuestionsByEname = (ename) => async (dispatch) => {
+    try {
+      const res = await QuestionDataService.retrieveQuestionsByEname(ename);
+
+      dispatch({
+        type: RETRIEVE_QUESTIONS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   export const updateQuestion = (id, data) => async (dispatch) => {
     try {
       const res = await QuestionDataService.updateQuestion(id, data);

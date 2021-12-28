@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
-// import "../CSS/OutputArea.css";
+import "./CSS/Output.css";
 
 function OutputArea() {
   const { result } = useContext(GlobalContext);
   return (
     <div className="outputarea">
-      {console.log("outputara " + result)}
-      <textarea className="textarea" value={result}></textarea>
+      <textarea className="textarea"  readOnly = {true} value={result}></textarea>
     </div>
   );
 }

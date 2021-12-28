@@ -18,13 +18,17 @@ import QuestionsList from "./components/QuestionsList";
 import AddExam from "./components/AddExam";
 import ExamsList from "./components/ExamsList";
 import Exam from "./components/Exam";
+import Marks from "./components/Marks";
+import ProfMarksExams from "./components/ProfMarksExams";
+import ProfMarksStudents from "./components/ProfMarksStudents";
+import IndividualMarks from "./components/IndividualMarks";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { GlobalProvider } from "./context/GlobalState";
-import  Editor from "./components/Editor";
 import { history } from "./helpers/history";
-
-// import AuthVerify from "./common/AuthVerify";
+import Homepage from "./components/HomePage";
+import Exampage from "./components/ExamPage";
+import ProfileEdit from "./components/ProfileEdit";
 import EventBus from "./common/EventBus";
 
 const App = () => {
@@ -35,7 +39,7 @@ const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   require('dotenv').config();
-  console.log(process.env.REACT_APP_API_KEY)
+  // console.log(process.env.REACT_APP_API_KEY)
   useEffect(() => {
     history.listen((location) => {
       dispatch(clearMessage()); // clear message when changing location
@@ -76,9 +80,9 @@ const App = () => {
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
+              {/* <Link to={"/home"} className="nav-link">
                 Home
-              </Link>
+              </Link> */}
             </li>
 
             {showModeratorBoard && (
@@ -109,15 +113,20 @@ const App = () => {
                 </Link>
               </li>
             )}
-            {/* remove this */}
-            {showStudentBoard && (
+            {showModeratorBoard && (
               <li className="nav-item">
-                <Link to={"/editor"} className="nav-link">
-                  Editor
+                <Link to={"/profmarks"} className="nav-link">
+                  Marks
                 </Link>
               </li>
             )}
-
+            {showStudentBoard && (
+              <li className="nav-item">
+                <Link to={"/allexams"} className="nav-link">
+                  Exam
+                </Link>
+              </li>
+            )}
             {showAdminBoard && (
               <li className="nav-item">
                 <Link to={"/adduser"} className="nav-link">
@@ -156,18 +165,18 @@ const App = () => {
                 </Link>
               </li>
 
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to={"/register"} className="nav-link">
                   Sign Up
                 </Link>
-              </li>
+              </li> */}
             </div>
           )}
         </nav>
 
         <div className="container mt-3">
           <Switch>
-            <Route exact path={["/", "/home"]} component={Home} />
+            {/* <Route exact path={["/", "/home"]} component={Home} /> */}
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
@@ -180,7 +189,14 @@ const App = () => {
             <Route path="/adduser" component={AddUser} />
             <Route path="/users/:id" component={User} />
             <Route path="/users" component={UsersList} />
-            <Route path="/editor" component={Editor} />
+            <Route path="/allexams" component={Homepage} />
+            <Route path="/enamequestions" component={Exampage} />
+            <Route path="/profileedit/:id" component={ProfileEdit} />
+            <Route path="/marks" component={Marks} />
+            <Route path="/profmarks" component={ProfMarksExams} />
+            <Route path="/profmarksstudents" component={ProfMarksStudents} />
+            <Route path="/indivmarks" component={IndividualMarks} />
+
           </Switch>
         </div>
 

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  findQuestionsByQname,
-  retrieveProfQuestions,
-} from "../actions/questions";
+import { findQuestionsByQname, retrieveProfQuestions } from "../actions/questions";
 import { Link } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
 let userDetails = JSON.parse(localStorage.getItem("user"));
@@ -18,7 +15,7 @@ const QuestionsList = () => {
 
   useEffect(() => {
     dispatch(retrieveProfQuestions(userDetails.id));
-  }, []);
+  }, [dispatch]);
 
   const onChangesearchQName = e => {
     const searchQname = e.target.value;
@@ -40,7 +37,24 @@ const QuestionsList = () => {
     dispatch(findQuestionsByQname(searchQname));
   };
 
-  return (
+  return (    
+    <div style={{
+      marginTop:"-16px"
+    }}>
+    <div className="filter" style={{ 
+    zIndex:-99999,
+    backgroundImage: `url("/background.jpg")`,
+    width : "100%",
+    marginLeft:"-120px",
+    height : "95%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position:"absolute",
+    // -webkit-filter: blur(10px);
+    // filter: blur(10px);
+    }}>
+    </div>
     <div className="list row">
       <div className="col-md-8">
         <div className="input-group mb-3">
@@ -53,7 +67,7 @@ const QuestionsList = () => {
           />
           <div className="input-group-append">
             <button
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-secondary text-white"
               type="button"
               onClick={findByQName}
             >
@@ -81,7 +95,7 @@ const QuestionsList = () => {
         </ul>
 
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 text-white">
         {currentQuestion ? (
           <div>
             <h4>Question</h4>
@@ -89,19 +103,13 @@ const QuestionsList = () => {
               <label>
                 <strong>Exam:</strong>
               </label>{" "}
-              {currentQuestion.examId}
+              {currentQuestion.ename}
             </div>
             <div>
               <label>
                 <strong>Question Name:</strong>
               </label>{" "}
               {currentQuestion.qname}
-            </div>
-            <div>
-              <label>
-                <strong>Question:</strong>
-              </label>{" "}
-              {currentQuestion.description}
             </div>
             <Link
               to={"/questions/" + currentQuestion._id}
@@ -116,10 +124,11 @@ const QuestionsList = () => {
         ) : (
           <div>
             <br />
-            <p>Please click on a User...</p>
+            <p className = "text-white">Please click on a User...</p>
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };

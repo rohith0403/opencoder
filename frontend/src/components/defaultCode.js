@@ -4,7 +4,7 @@ int main() {
     return 0;
 }
 `;
-const cpp = `#include<bits/stdc++.h> \nusing namespace std;\n\nint main() {\n\t//your Code will come here\n\treturn 0;\n}
+const cpp = `#include<bits/stdc++.h> \nusing namespace std;\n\nint main() {\n\t// Enter you code here \n\treturn 0;\n}
 `;
 
 const java = `class test {
@@ -14,7 +14,7 @@ const java = `class test {
 }
 `;
 
-const python = "# your code will com";
+const python = "# Enter your code here";
 
 const javascript = "// Write your code here ";
 
